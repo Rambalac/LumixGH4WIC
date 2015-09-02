@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9DA58DA9-306F-4CAB-87B1-CDE34E34D883}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>com.azi</RootNamespace>
+    <AssemblyName>General</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Decoder\IRawDecoder.cs" />
+    <Compile Include="Filters\Converters\UshortToVector.cs" />
+    <Compile Include="Filters\IIndependentComponentFilter.cs" />
+    <Compile Include="Filters\VectorToVectorFilter.cs" />
+    <Compile Include="Filters\VectorMap\ColorMatrix.cs" />
+    <Compile Include="Filters\VectorMap\GammaFilter.cs" />
+    <Compile Include="Filters\VectorMap\LightFilter.cs" />
+    <Compile Include="Filters\VectorMap\SaturationFilter.cs" />
+    <Compile Include="Filters\VectorMap\WhiteBalanceFilter.cs" />
+    <Compile Include="Filters\Converters\RGBCompressorFilter.cs" />
+    <Compile Include="Filters\ColorToColorFilter.cs" />
+    <Compile Include="Filters\FiltersPipeline.cs" />
+    <Compile Include="Filters\IAutoAdjustableFilter.cs" />
+    <Compile Include="Filters\IColorToColorFilter.cs" />
+    <Compile Include="Filters\IFilter.cs" />
+    <Compile Include="Filters\Converters\Demosaic\AverageBGGRDemosaic.cs" />
+    <Compile Include="Filters\Converters\Demosaic\IDemosaic.cs" />
+    <Compile Include="Filters\Converters\IRawToColorMap16Filter.cs" />
+    <Compile Include="Image\ArraysReuseManager.cs" />
+    <Compile Include="Image\ColorPixel.cs" />
+    <Compile Include="Image\ImageProcessor.cs" />
+    <Compile Include="Image\Vector3Extensions.cs" />
+    <Compile Include="Image\UshortColorMap.cs" />
+    <Compile Include="Image\Histogram.cs" />
+    <Compile Include="Image\IColorMap.cs" />
+    <Compile Include="Image\ImageFile.cs" />
+    <Compile Include="Image\RawImageFile.cs" />
+    <Compile Include="Image\RawMap.cs" />
+    <Compile Include="Image\RawPixel.cs" />
+    <Compile Include="Image\Rgb8Map.cs" />
+    <Compile Include="Image\VectorMap.cs" />
+    <Compile Include="Image\VectorPixel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tiff\Exif.cs" />
+    <Compile Include="Tiff\Fraction.cs" />
+    <Compile Include="Tiff\IfdBlock.cs" />
+    <Compile Include="Tiff\IfdTag.cs" />
+    <Compile Include="Tiff\IfdType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Filters\RawToColorMap16\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

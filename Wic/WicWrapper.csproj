@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{37A53F1F-0A98-43E8-8282-3BE4C859C190}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <AssemblyName>WIC</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <WarningLevel>1</WarningLevel>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="stdole" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WIC\DXGI_FORMAT.cs" />
+    <Compile Include="WIC\IEnumSTATSTG.cs" />
+    <Compile Include="WIC\IEnumString.cs" />
+    <Compile Include="WIC\IEnumUnknown.cs" />
+    <Compile Include="WIC\IErrorLog.cs" />
+    <Compile Include="WIC\IPersist.cs" />
+    <Compile Include="WIC\IPersistStream.cs" />
+    <Compile Include="WIC\IPropertyBag2.cs" />
+    <Compile Include="WIC\IRecordInfo.cs" />
+    <Compile Include="WIC\ISequentialStream.cs" />
+    <Compile Include="WIC\IStorage.cs" />
+    <Compile Include="WIC\ITypeComp.cs" />
+    <Compile Include="WIC\ITypeInfo.cs" />
+    <Compile Include="WIC\ITypeLib.cs" />
+    <Compile Include="WIC\IWICBitmap.cs" />
+    <Compile Include="WIC\IWICBitmapClipper.cs" />
+    <Compile Include="WIC\IWICBitmapCodecInfo.cs" />
+    <Compile Include="WIC\IWICBitmapCodecProgressNotification.cs" />
+    <Compile Include="WIC\IWICBitmapDecoder.cs" />
+    <Compile Include="WIC\IWICBitmapDecoderInfo.cs" />
+    <Compile Include="WIC\IWICBitmapEncoder.cs" />
+    <Compile Include="WIC\IWICBitmapEncoderInfo.cs" />
+    <Compile Include="WIC\IWICBitmapFlipRotator.cs" />
+    <Compile Include="WIC\IWICBitmapFrameDecode.cs" />
+    <Compile Include="WIC\IWICBitmapFrameEncode.cs" />
+    <Compile Include="WIC\IWICBitmapLock.cs" />
+    <Compile Include="WIC\IWICBitmapScaler.cs" />
+    <Compile Include="WIC\IWICBitmapSource.cs" />
+    <Compile Include="WIC\IWICBitmapSourceTransform.cs" />
+    <Compile Include="WIC\IWICColorContext.cs" />
+    <Compile Include="WIC\IWICColorTransform.cs" />
+    <Compile Include="WIC\IWICComponentFactory.cs" />
+    <Compile Include="WIC\IWICComponentInfo.cs" />
+    <Compile Include="WIC\IWICDdsDecoder.cs" />
+    <Compile Include="WIC\IWICDdsEncoder.cs" />
+    <Compile Include="WIC\IWICDdsFrameDecode.cs" />
+    <Compile Include="WIC\IWICDevelopRaw.cs" />
+    <Compile Include="WIC\IWICDevelopRawNotificationCallback.cs" />
+    <Compile Include="WIC\IWICEnumMetadataItem.cs" />
+    <Compile Include="WIC\IWICFastMetadataEncoder.cs" />
+    <Compile Include="WIC\IWICFormatConverter.cs" />
+    <Compile Include="WIC\IWICFormatConverterInfo.cs" />
+    <Compile Include="WIC\IWICImageEncoder.cs" />
+    <Compile Include="WIC\IWICImagingFactory.cs" />
+    <Compile Include="WIC\IWICImagingFactory2.cs" />
+    <Compile Include="WIC\IWICMetadataBlockReader.cs" />
+    <Compile Include="WIC\IWICMetadataBlockWriter.cs" />
+    <Compile Include="WIC\IWICMetadataHandlerInfo.cs" />
+    <Compile Include="WIC\IWICMetadataQueryReader.cs" />
+    <Compile Include="WIC\IWICMetadataQueryWriter.cs" />
+    <Compile Include="WIC\IWICMetadataReader.cs" />
+    <Compile Include="WIC\IWICMetadataReaderInfo.cs" />
+    <Compile Include="WIC\IWICMetadataWriter.cs" />
+    <Compile Include="WIC\IWICMetadataWriterInfo.cs" />
+    <Compile Include="WIC\IWICPalette.cs" />
+    <Compile Include="WIC\IWICPersistStream.cs" />
+    <Compile Include="WIC\IWICPixelFormatInfo.cs" />
+    <Compile Include="WIC\IWICPixelFormatInfo2.cs" />
+    <Compile Include="WIC\IWICPlanarBitmapFrameEncode.cs" />
+    <Compile Include="WIC\IWICPlanarBitmapSourceTransform.cs" />
+    <Compile Include="WIC\IWICPlanarFormatConverter.cs" />
+    <Compile Include="WIC\IWICProgressCallback.cs" />
+    <Compile Include="WIC\IWICProgressiveLevelControl.cs" />
+    <Compile Include="WIC\IWICStream.cs" />
+    <Compile Include="WIC\IWICStreamProvider.cs" />
+    <Compile Include="WIC\tagARRAYDESC.cs" />
+    <Compile Include="WIC\tagBLOB.cs" />
+    <Compile Include="WIC\tagBSTRBLOB.cs" />
+    <Compile Include="WIC\tagCABOOL.cs" />
+    <Compile Include="WIC\tagCABSTR.cs" />
+    <Compile Include="WIC\tagCABSTRBLOB.cs" />
+    <Compile Include="WIC\tagCAC.cs" />
+    <Compile Include="WIC\tagCACLIPDATA.cs" />
+    <Compile Include="WIC\tagCACLSID.cs" />
+    <Compile Include="WIC\tagCACY.cs" />
+    <Compile Include="WIC\tagCADATE.cs" />
+    <Compile Include="WIC\tagCADBL.cs" />
+    <Compile Include="WIC\tagCAFILETIME.cs" />
+    <Compile Include="WIC\tagCAFLT.cs" />
+    <Compile Include="WIC\tagCAH.cs" />
+    <Compile Include="WIC\tagCAI.cs" />
+    <Compile Include="WIC\tagCAL.cs" />
+    <Compile Include="WIC\tagCALLCONV.cs" />
+    <Compile Include="WIC\tagCALPSTR.cs" />
+    <Compile Include="WIC\tagCALPWSTR.cs" />
+    <Compile Include="WIC\tagCAPROPVARIANT.cs" />
+    <Compile Include="WIC\tagCASCODE.cs" />
+    <Compile Include="WIC\tagCAUB.cs" />
+    <Compile Include="WIC\tagCAUH.cs" />
+    <Compile Include="WIC\tagCAUI.cs" />
+    <Compile Include="WIC\tagCAUL.cs" />
+    <Compile Include="WIC\tagCLIPDATA.cs" />
+    <Compile Include="WIC\tagDESCKIND.cs" />
+    <Compile Include="WIC\tagELEMDESC.cs" />
+    <Compile Include="WIC\tagFUNCDESC.cs" />
+    <Compile Include="WIC\tagFUNCKIND.cs" />
+    <Compile Include="WIC\tagIDLDESC.cs" />
+    <Compile Include="WIC\tagINVOKEKIND.cs" />
+    <Compile Include="WIC\tagLOGPALETTE.cs" />
+    <Compile Include="WIC\tagPALETTEENTRY.cs" />
+    <Compile Include="WIC\tagPARAMDESC.cs" />
+    <Compile Include="WIC\tagPARAMDESCEX.cs" />
+    <Compile Include="WIC\tagPROPBAG2.cs" />
+    <Compile Include="WIC\tagRemSNB.cs" />
+    <Compile Include="WIC\tagSAFEARRAYBOUND.cs" />
+    <Compile Include="WIC\tagSTATSTG.cs" />
+    <Compile Include="WIC\tagSYSKIND.cs" />
+    <Compile Include="WIC\tagTLIBATTR.cs" />
+    <Compile Include="WIC\tagTYPEATTR.cs" />
+    <Compile Include="WIC\tagTYPEDESC.cs" />
+    <Compile Include="WIC\tagTYPEKIND.cs" />
+    <Compile Include="WIC\tagVARDESC.cs" />
+    <Compile Include="WIC\tagVARKIND.cs" />
+    <Compile Include="WIC\tagVersionedStream.cs" />
+    <Compile Include="WIC\tag_inner_PROPVARIANT.cs" />
+    <Compile Include="WIC\WIC8BIMIptcDigestProperties.cs" />
+    <Compile Include="WIC\WIC8BIMIptcProperties.cs" />
+    <Compile Include="WIC\WIC8BIMResolutionInfoProperties.cs" />
+    <Compile Include="WIC\WICBitmapAlphaChannelOption.cs" />
+    <Compile Include="WIC\WICBitmapCreateCacheOption.cs" />
+    <Compile Include="WIC\WICBitmapDecoderCapabilities.cs" />
+    <Compile Include="WIC\WICBitmapDitherType.cs" />
+    <Compile Include="WIC\WICBitmapEncoderCacheOption.cs" />
+    <Compile Include="WIC\WICBitmapInterpolationMode.cs" />
+    <Compile Include="WIC\WICBitmapLockFlags.cs" />
+    <Compile Include="WIC\WICBitmapPaletteType.cs" />
+    <Compile Include="WIC\WICBitmapPattern.cs" />
+    <Compile Include="WIC\WICBitmapPlane.cs" />
+    <Compile Include="WIC\WICBitmapPlaneDescription.cs" />
+    <Compile Include="WIC\WICBitmapTransformOptions.cs" />
+    <Compile Include="WIC\WICColorContextType.cs" />
+    <Compile Include="WIC\WICComponentEnumerateOptions.cs" />
+    <Compile Include="WIC\WICComponentSigning.cs" />
+    <Compile Include="WIC\WICComponentType.cs" />
+    <Compile Include="WIC\WICDdsAlphaMode.cs" />
+    <Compile Include="WIC\WICDdsDimension.cs" />
+    <Compile Include="WIC\WICDdsFormatInfo.cs" />
+    <Compile Include="WIC\WICDdsParameters.cs" />
+    <Compile Include="WIC\WICDecodeOptions.cs" />
+    <Compile Include="WIC\WICGifApplicationExtensionProperties.cs" />
+    <Compile Include="WIC\WICGifCommentExtensionProperties.cs" />
+    <Compile Include="WIC\WICGifGraphicControlExtensionProperties.cs" />
+    <Compile Include="WIC\WICGifImageDescriptorProperties.cs" />
+    <Compile Include="WIC\WICGifLogicalScreenDescriptorProperties.cs" />
+    <Compile Include="WIC\WICImageParameters.cs" />
+    <Compile Include="WIC\WICJpegChrominanceProperties.cs" />
+    <Compile Include="WIC\WICJpegCommentProperties.cs" />
+    <Compile Include="WIC\WICJpegLuminanceProperties.cs" />
+    <Compile Include="WIC\WICJpegYCrCbSubsamplingOption.cs" />
+    <Compile Include="WIC\WICMetadataCreationOptions.cs" />
+    <Compile Include="WIC\WICMetadataHeader.cs" />
+    <Compile Include="WIC\WICMetadataPattern.cs" />
+    <Compile Include="WIC\WICNamedWhitePoint.cs" />
+    <Compile Include="WIC\WICPersistOptions.cs" />
+    <Compile Include="WIC\WICPixelFormatGUID.cs" />
+    <Compile Include="WIC\WICPixelFormatNumericRepresentation.cs" />
+    <Compile Include="WIC\WICPlanarOptions.cs" />
+    <Compile Include="WIC\WICPngBkgdProperties.cs" />
+    <Compile Include="WIC\WICPngChrmProperties.cs" />
+    <Compile Include="WIC\WICPngFilterOption.cs" />
+    <Compile Include="WIC\WICPngGamaProperties.cs" />
+    <Compile Include="WIC\WICPngHistProperties.cs" />
+    <Compile Include="WIC\WICPngIccpProperties.cs" />
+    <Compile Include="WIC\WICPngItxtProperties.cs" />
+    <Compile Include="WIC\WICPngSrgbProperties.cs" />
+    <Compile Include="WIC\WICPngTimeProperties.cs" />
+    <Compile Include="WIC\WICProgressNotification.cs" />
+    <Compile Include="WIC\WICProgressOperation.cs" />
+    <Compile Include="WIC\WICRawCapabilities.cs" />
+    <Compile Include="WIC\WICRawCapabilitiesInfo.cs" />
+    <Compile Include="WIC\WICRawParameterSet.cs" />
+    <Compile Include="WIC\WICRawRenderMode.cs" />
+    <Compile Include="WIC\WICRawRotationCapabilities.cs" />
+    <Compile Include="WIC\WICRawToneCurve.cs" />
+    <Compile Include="WIC\WICRawToneCurvePoint.cs" />
+    <Compile Include="WIC\WICRect.cs" />
+    <Compile Include="WIC\WICSectionAccessLevel.cs" />
+    <Compile Include="WIC\WICTiffCompressionOption.cs" />
+    <Compile Include="WIC\_BYTE_SIZEDARR.cs" />
+    <Compile Include="WIC\_FILETIME.cs" />
+    <Compile Include="WIC\_FLAGGED_WORD_BLOB.cs" />
+    <Compile Include="WIC\_HYPER_SIZEDARR.cs" />
+    <Compile Include="WIC\_LARGE_INTEGER.cs" />
+    <Compile Include="WIC\_LONG_SIZEDARR.cs" />
+    <Compile Include="WIC\_RemotableHandle.cs" />
+    <Compile Include="WIC\_SHORT_SIZEDARR.cs" />
+    <Compile Include="WIC\_ULARGE_INTEGER.cs" />
+    <Compile Include="WIC\_userBITMAP.cs" />
+    <Compile Include="WIC\_userCLIPFORMAT.cs" />
+    <Compile Include="WIC\_userHBITMAP.cs" />
+    <Compile Include="WIC\_userHPALETTE.cs" />
+    <Compile Include="WIC\_wireBRECORD.cs" />
+    <Compile Include="WIC\_wireSAFEARRAY.cs" />
+    <Compile Include="WIC\_wireSAFEARRAY_UNION.cs" />
+    <Compile Include="WIC\_wireSAFEARR_BRECORD.cs" />
+    <Compile Include="WIC\_wireSAFEARR_BSTR.cs" />
+    <Compile Include="WIC\_wireSAFEARR_DISPATCH.cs" />
+    <Compile Include="WIC\_wireSAFEARR_HAVEIID.cs" />
+    <Compile Include="WIC\_wireSAFEARR_UNKNOWN.cs" />
+    <Compile Include="WIC\_wireSAFEARR_VARIANT.cs" />
+    <Compile Include="WIC\_wireVARIANT.cs" />
+    <Compile Include="WIC\__MIDL_IOleAutomationTypes_0001.cs" />
+    <Compile Include="WIC\__MIDL_IOleAutomationTypes_0004.cs" />
+    <Compile Include="WIC\__MIDL_IOleAutomationTypes_0005.cs" />
+    <Compile Include="WIC\__MIDL_IOleAutomationTypes_0006.cs" />
+    <Compile Include="WIC\__MIDL_IWinTypes_0001.cs" />
+    <Compile Include="WIC\__MIDL_IWinTypes_0007.cs" />
+    <Compile Include="WIC\__MIDL_IWinTypes_0008.cs" />
+    <Compile Include="WIC\__MIDL_IWinTypes_0009.cs" />
+    <Compile Include="WIC\__MIDL___MIDL_itf_wic_0001_0002_0001.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
