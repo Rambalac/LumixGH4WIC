@@ -247,5 +247,8 @@
     <Compile Include="WIC\__MIDL_IWinTypes_0009.cs" />
     <Compile Include="WIC\__MIDL___MIDL_itf_wic_0001_0002_0001.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="PanasonicRW2.reg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PanasonicRW2.Tests", "Panas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WicWrapper", "Wic\WicWrapper.csproj", "{37A53F1F-0A98-43E8-8282-3BE4C859C190}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LumixGH4WICSetup", "LumixGH4WICSetup\LumixGH4WICSetup.vdproj", "{82417498-FAC7-4472-9A19-2FAEF67023BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{37A53F1F-0A98-43E8-8282-3BE4C859C190}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37A53F1F-0A98-43E8-8282-3BE4C859C190}.Release|x86.ActiveCfg = Release|Any CPU
 		{37A53F1F-0A98-43E8-8282-3BE4C859C190}.Release|x86.Build.0 = Release|Any CPU
+		{82417498-FAC7-4472-9A19-2FAEF67023BA}.Debug|Any CPU.ActiveCfg = Debug
+		{82417498-FAC7-4472-9A19-2FAEF67023BA}.Debug|x86.ActiveCfg = Debug
+		{82417498-FAC7-4472-9A19-2FAEF67023BA}.Release|Any CPU.ActiveCfg = Release
+		{82417498-FAC7-4472-9A19-2FAEF67023BA}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
