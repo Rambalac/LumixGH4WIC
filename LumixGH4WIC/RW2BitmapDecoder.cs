@@ -11,21 +11,9 @@ using IStream = System.Runtime.InteropServices.ComTypes.IStream;
 
 namespace LumixGH4WIC
 {
-    [Guid("CACAF262-9370-4615-A13B-9F5539DA4C0A")]
-    [ComImport]
-    class WICImagingFactory1 { }
-
-    [Guid("7B816B45-1996-4476-B132-DE9E247C8AF0")]
-    [ComImport]
-    class WICImagingFactory2 { }
-
-    [Guid("EC5EC8A9-C395-4314-9C77-54D7A935FF70")]
-    [ComImport]
-    class WICImagingFactory3 { }
-
     [ComVisible(true)]
     [Guid("DD48659C-F21F-4C15-AE70-6879ED43B84C")]
-    public class RW2BitmapDecoder : IWICBitmapDecoder, IWICMetadataBlockReader
+    public class RW2BitmapDecoder : IWICBitmapDecoder, IWICMetadataBlockReader, IDisposable
     {
         internal static IWICImagingFactory ImagingFactory;
         internal static IWICImagingFactory GetImagingFactory()
@@ -49,11 +37,6 @@ namespace LumixGH4WIC
             return ImagingFactory;
         }
 
-        [DllImport("shell32.dll")]
-        static extern void SHChangeNotify(HChangeNotifyEventID wEventId,
-                                      HChangeNotifyFlags uFlags,
-                                      IntPtr dwItem1,
-                                      IntPtr dwItem2);
         PanasonicExif _exif;
         WICReadOnlyStreamWrapper stream;
 
@@ -70,7 +53,7 @@ namespace LumixGH4WIC
         [ComRegisterFunction]
         public static void OnRegistry(Type type)
         {
-            SHChangeNotify(HChangeNotifyEventID.SHCNE_ASSOCCHANGED, HChangeNotifyFlags.SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
+            NativeMethods.SHChangeNotify(HChangeNotifyEventID.SHCNE_ASSOCCHANGED, HChangeNotifyFlags.SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
 
             Log.Trace("GH4 RW2 WIC Decoder registered. " + type);
         }
@@ -215,32 +198,35 @@ namespace LumixGH4WIC
 
         }
 
-        void IWICMetadataBlockReader.GetContainerFormat(out Guid pguidContainerFormat)
-        {
-            Log.Trace("IWICMetadataBlockReader.GetContainerFormat called");
-            GetContainerFormat(out pguidContainerFormat);
-            Log.Trace("IWICMetadataBlockReader.GetContainerFormat finished");
-        }
-
-        void IWICMetadataBlockReader.GetCount(out uint pcCount)
+        public void GetCount(out uint pcCount)
         {
             Log.Trace("IWICMetadataBlockReader.GetCount called");
             pcCount = (uint)Exif.RawIfd.Count;
             Log.Trace("IWICMetadataBlockReader.GetCount finished");
         }
 
-        void IWICMetadataBlockReader.GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
+        public void GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
         {
             Log.Trace("IWICMetadataBlockReader.GetReaderByIndex called");
             throw new NotImplementedException();
-            Log.Trace("IWICMetadataBlockReader.GetReaderByIndex finished");
+            //Log.Trace("IWICMetadataBlockReader.GetReaderByIndex finished");
         }
 
-        void IWICMetadataBlockReader.GetEnumerator(out IEnumUnknown ppIEnumMetadata)
+        public void GetEnumerator(out IEnumUnknown ppIEnumMetadata)
         {
             Log.Trace("IWICMetadataBlockReader.GetEnumerator called");
             ppIEnumMetadata = new MetadataEnumerator(Exif);
             Log.Trace("IWICMetadataBlockReader.GetEnumerator finished");
+        }
+
+        protected virtual void Dispose(bool notnative)
+        {
+            stream.Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(false);
         }
     }
 }

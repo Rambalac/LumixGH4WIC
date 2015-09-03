@@ -6,8 +6,6 @@ namespace com.azi.Filters
 {
     public abstract class ColorToColorFilter<TA, TB> : IColorToColorFilter<TA, TB>
     {
-        public abstract event Action<IFilter> Changed;
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract void ProcessColor(TA[] input, int inputOffset, TB[] output, int outputOffset);
 

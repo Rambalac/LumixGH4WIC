@@ -41,15 +41,12 @@ namespace com.azi.Filters.VectorMapFilters
         private Vector3 _minIn = Vector3.Zero;
         private Vector3 _minOut = Vector3.Zero;
 
-        public override event Action<IFilter> Changed;
-
         public Vector3 Contrast
         {
             get { return _contrast; }
             set
             {
                 _contrast = value;
-                Changed?.Invoke(this);
             }
         }
 
@@ -101,7 +98,6 @@ namespace com.azi.Filters.VectorMapFilters
         private void Recalculate()
         {
             _inoutLen = (_maxOut - _minOut) / (_maxIn - _minIn);
-            Changed?.Invoke(this);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

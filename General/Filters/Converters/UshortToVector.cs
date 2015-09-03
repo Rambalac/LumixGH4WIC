@@ -10,8 +10,6 @@ namespace com.azi.Filters.Converters
 {
     public class UshortToVector : IFilter
     {
-        public event Action<IFilter> Changed;
-
         public VectorMap Process(UshortColorMap map)
         {
             var result = new VectorMap(map.Width, map.Height);

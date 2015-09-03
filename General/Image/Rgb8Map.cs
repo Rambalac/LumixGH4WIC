@@ -85,9 +85,14 @@ namespace com.azi.Image
             return result;
         }
 
-        public void Dispose()
+        protected virtual void Dispose(Boolean notnative)
         {
             ArraysReuseManager.Release(Rgb);
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -5,8 +5,6 @@ namespace com.azi.Filters.Converters
 {
     public class VectorRGBCompressorFilter : VectorToColorFilter<byte>, IIndependentComponentFilter
     {
-        public override event Action<IFilter> Changed;
-
         public override void ProcessVector(ref Vector3 input, ref byte outR, ref byte outG, ref byte outB)
         {
             var v = Vector3.Clamp(input, Vector3.Zero, Vector3.One);
@@ -17,8 +15,6 @@ namespace com.azi.Filters.Converters
     }
     public class VectorBGRCompressorFilter : VectorToColorFilter<byte>, IIndependentComponentFilter
     {
-        public override event Action<IFilter> Changed;
-
         public override void ProcessVector(ref Vector3 input, ref byte outR, ref byte outG, ref byte outB)
         {
             var v = Vector3.Clamp(input, Vector3.Zero, Vector3.One);

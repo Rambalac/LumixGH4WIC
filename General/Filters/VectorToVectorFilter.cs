@@ -7,8 +7,6 @@ namespace com.azi.Filters
 {
     public abstract class VectorToVectorFilter : IFilter
     {
-        public abstract event Action<IFilter> Changed;
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract void ProcessVector(ref Vector3 input, ref Vector3 output);
 
@@ -41,8 +39,6 @@ namespace com.azi.Filters
 
     public abstract class VectorToColorFilter<T> : IFilter
     {
-        public abstract event Action<IFilter> Changed;
-
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public abstract void ProcessVector(ref Vector3 input, ref T outR, ref T outG, ref T outB);
 

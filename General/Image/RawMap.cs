@@ -22,7 +22,7 @@ namespace com.azi.Image
             _width = w;
             _height = h;
             MaxBits = maxBits;
-            Raw = ArraysReuseManager.ReuseOrGetNew<ushort>(h*w);
+            Raw = ArraysReuseManager.ReuseOrGetNew<ushort>(h * w);
         }
 
         public int MaxValue
@@ -52,12 +52,17 @@ namespace com.azi.Image
 
         public RawPixel GetRow(int y)
         {
-            return new RawPixel(this, 0, y, (y + 1)*Width);
+            return new RawPixel(this, 0, y, (y + 1) * Width);
         }
 
-        public void Dispose()
+        protected virtual void Dispose(Boolean notnative)
         {
             ArraysReuseManager.Release(Raw);
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -14,9 +14,14 @@ namespace com.azi.Image
         private readonly int _height;
         private readonly int _width;
 
-        public void Dispose()
+        protected virtual void Dispose(Boolean notnative)
         {
             ArraysReuseManager.Release(Rgb);
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public VectorMap(int w, int h)

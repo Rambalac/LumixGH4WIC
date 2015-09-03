@@ -45,11 +45,8 @@ namespace com.azi.Filters.VectorMapFilters
                 _whiteColor = value;
                 _whiteColor1 = Vector3.One / _whiteColor;
                 isAdjusted = true;
-                Changed?.Invoke(this);
             }
         }
-
-        public override event Action<IFilter> Changed;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void ProcessVector(ref Vector3 input, ref Vector3 output)

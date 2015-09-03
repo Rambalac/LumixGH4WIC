@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapFrameDecode.cs" />
-    <Compile Include="HChangeNotifyEventID.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="MetadataEnumerator.cs" />
     <Compile Include="StreamComWrapper.cs" />

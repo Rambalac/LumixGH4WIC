@@ -10,7 +10,7 @@ namespace LumixGH4WIC
     public class StreamComWrapper : IStream
     {
         Stream stream;
-        internal StreamComWrapper(Stream stream)
+        public StreamComWrapper(Stream stream)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -18,7 +18,7 @@ namespace LumixGH4WIC
         }
 
         [SecurityCritical]
-        void IStream.Read(Byte[] buffer, Int32 bufferSize, IntPtr bytesReadPtr)
+        public void Read(Byte[] buffer, Int32 bufferSize, IntPtr bytesReadPtr)
         {
             int red = stream.Read(buffer, 0, bufferSize);
             if (bytesReadPtr != IntPtr.Zero)
@@ -28,7 +28,7 @@ namespace LumixGH4WIC
         }
 
         [SecurityCritical]
-        void IStream.Seek(Int64 offset, Int32 origin, IntPtr newPositionPtr)
+        public void Seek(Int64 offset, Int32 origin, IntPtr newPositionPtr)
         {
             long position = stream.Seek(offset,(SeekOrigin)origin);
 
@@ -38,12 +38,12 @@ namespace LumixGH4WIC
             }
         }
 
-        void IStream.SetSize(Int64 libNewSize)
+        public void SetSize(Int64 libNewSize)
         {
             stream.SetLength(libNewSize);
         }
 
-        void IStream.Stat(out System.Runtime.InteropServices.ComTypes.STATSTG streamStats, int grfStatFlag)
+        public void Stat(out System.Runtime.InteropServices.ComTypes.STATSTG streamStats, int grfStatFlag)
         {
             streamStats = new System.Runtime.InteropServices.ComTypes.STATSTG();
             streamStats.type = 2;
@@ -62,40 +62,40 @@ namespace LumixGH4WIC
         }
 
         [SecurityCritical]
-        void IStream.Write(Byte[] buffer, Int32 bufferSize, IntPtr bytesWrittenPtr)
+        public void Write(Byte[] buffer, Int32 bufferSize, IntPtr bytesWrittenPtr)
         {
             stream.Write(buffer, 0, bufferSize);
             if (bytesWrittenPtr != IntPtr.Zero)
                 Marshal.WriteInt32(bytesWrittenPtr, bufferSize);
         }
 
-        void IStream.Clone(out IStream streamCopy)
+        public void Clone(out IStream streamCopy)
         {
             streamCopy = null;
             throw new NotSupportedException();
         }
 
-        void IStream.CopyTo(IStream targetStream, Int64 bufferSize, IntPtr buffer, IntPtr bytesWrittenPtr)
+        public void CopyTo(IStream targetStream, Int64 bufferSize, IntPtr buffer, IntPtr bytesWrittenPtr)
         {
             throw new NotSupportedException();
         }
 
-        void IStream.Commit(Int32 flags)
+        public void Commit(Int32 flags)
         {
             throw new NotSupportedException();
         }
 
-        void IStream.LockRegion(Int64 offset, Int64 byteCount, Int32 lockType)
+        public void LockRegion(Int64 offset, Int64 byteCount, Int32 lockType)
         {
             throw new NotSupportedException();
         }
 
-        void IStream.Revert()
+        public void Revert()
         {
             throw new NotSupportedException();
         }
 
-        void IStream.UnlockRegion(Int64 offset, Int64 byteCount, Int32 lockType)
+        public void UnlockRegion(Int64 offset, Int64 byteCount, Int32 lockType)
         {
             throw new NotSupportedException();
         }

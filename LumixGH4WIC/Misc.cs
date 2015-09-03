@@ -1,7 +1,30 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace LumixGH4WIC
 {
+    [Guid("CACAF262-9370-4615-A13B-9F5539DA4C0A")]
+    [ComImport]
+    class WICImagingFactory1 { }
+
+    [Guid("7B816B45-1996-4476-B132-DE9E247C8AF0")]
+    [ComImport]
+    class WICImagingFactory2 { }
+
+    [Guid("EC5EC8A9-C395-4314-9C77-54D7A935FF70")]
+    [ComImport]
+    class WICImagingFactory3 { }
+
+    internal class NativeMethods
+    {
+        [DllImport("shell32.dll")]
+        public static extern void SHChangeNotify(HChangeNotifyEventID wEventId,
+                              HChangeNotifyFlags uFlags,
+                              IntPtr dwItem1,
+                              IntPtr dwItem2);
+
+    }
+
     /// <summary>
     /// Flags that indicate the meaning of the <i>dwItem1</i> and <i>dwItem2</i> parameters. 
     /// The uFlags parameter must be one of the following values.
@@ -72,7 +95,7 @@ namespace LumixGH4WIC
     /// <i>dwItem2</i> is not used and should be <see langword="null"/>.</para>
     /// </remarks>
     [Flags]
-    enum HChangeNotifyEventID
+    public enum HChangeNotifyEventID
     {
         /// <summary>
         /// All events have occurred. 

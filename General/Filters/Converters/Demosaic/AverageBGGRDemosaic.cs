@@ -6,7 +6,6 @@ namespace com.azi.Filters.Converters.Demosaic
 {
     public class AverageBGGRDemosaic : IBGGRDemosaic
     {
-        public event Action<IFilter> Changed;
 
         // B G B G
         // G R G R

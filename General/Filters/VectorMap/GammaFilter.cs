@@ -25,11 +25,8 @@ namespace com.azi.Filters.VectorMapFilters
             {
                 _gamma = value;
                 _gamma1 = Vector3.Divide(Vector3.One, _gamma);
-                Changed?.Invoke(this);
             }
         }
-
-        public override event Action<IFilter> Changed;
 
         public override void ProcessVector(ref Vector3 input, ref Vector3 output)
         {

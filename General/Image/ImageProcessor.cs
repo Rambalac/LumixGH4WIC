@@ -64,7 +64,6 @@ namespace com.azi.Image
                     Filter = f,
                     AutoAdjuster = adjuster
                 };
-                f.Changed += OnFilterChange;
                 return stage;
             }).ToList();
         }

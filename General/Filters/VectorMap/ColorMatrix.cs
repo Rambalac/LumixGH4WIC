@@ -5,8 +5,6 @@ namespace com.azi.Filters.VectorMapFilters
 {
     public class ColorMatrixFilter : VectorToVectorFilter
     {
-        public override event Action<IFilter> Changed;
-
         private Matrix4x4 _matrix = Matrix4x4.Identity;
 
         public Matrix4x4 Matrix
@@ -15,7 +13,6 @@ namespace com.azi.Filters.VectorMapFilters
             set
             {
                 _matrix = value;
-                Changed?.Invoke(this);
             }
         }
 
