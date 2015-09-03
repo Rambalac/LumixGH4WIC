@@ -52,12 +52,12 @@ namespace LumixGH4WIC
 
         public void CopyPixels(ref WICRect prc, uint cbStride, uint cbBufferSize, IntPtr pbBuffer)
         {
-            Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
+            //Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
 
             try
             {
                 if (rgbmap == null) BuildRGB();
-                Log.Trace($"CopyPixels rgbmap {rgbmap.Width}, {rgbmap.Height}");
+                //Log.Trace($"CopyPixels rgbmap {rgbmap.Width}, {rgbmap.Height}");
                 for (int y = prc.Y; y < prc.Y + prc.Height; y++)
                     Marshal.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, new IntPtr(pbBuffer.ToInt64() + cbStride * (y - prc.Y)), prc.Width * 3);
                 //Log.Trace("CopyPixels finished");

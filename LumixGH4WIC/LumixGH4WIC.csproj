@@ -49,6 +49,7 @@
     <Compile Include="BitmapFrameDecode.cs" />
     <Compile Include="HChangeNotifyEventID.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="MetadataEnumerator.cs" />
     <Compile Include="StreamComWrapper.cs" />
     <Compile Include="RW2BitmapDecoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,14 +59,17 @@
     <ProjectReference Include="..\General\General.csproj">
       <Project>{9da58da9-306f-4cab-87b1-cde34e34d883}</Project>
       <Name>General</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\PanasonicRW2\PanasonicRW2.csproj">
       <Project>{c833c2d7-2f6a-44ce-8290-1423066559cb}</Project>
       <Name>PanasonicRW2</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Wic\WicWrapper.csproj">
       <Project>{37a53f1f-0a98-43e8-8282-3be4c859c190}</Project>
       <Name>WicWrapper</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

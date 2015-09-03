@@ -11,89 +11,6 @@ using IStream = System.Runtime.InteropServices.ComTypes.IStream;
 
 namespace LumixGH4WIC
 {
-    [ComVisible(true)]
-    class MetadataEnumerator : IEnumUnknown, IWICMetadataQueryReader, IWICMetadataReader
-    {
-        private PanasonicExif exif;
-        private List<IfdBlock>.Enumerator enumerator;
-
-        public MetadataEnumerator(PanasonicExif exif)
-        {
-            this.exif = exif;
-            enumerator = exif.RawIfd.GetEnumerator();
-        }
-
-        public void Clone(out IEnumUnknown ppenum)
-        {
-            ppenum = new MetadataEnumerator(exif);
-        }
-
-        public void RemoteNext(uint celt, out object rgelt, out uint pceltFetched)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Reset()
-        {
-            enumerator = exif.RawIfd.GetEnumerator();
-        }
-
-        public void Skip(uint celt)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetContainerFormat(out Guid pguidContainerFormat)
-        {
-            pguidContainerFormat = typeof(RW2BitmapDecoder).GUID;
-        }
-
-        public void GetLocation(uint cchMaxLength, ref ushort wzNamespace, out uint pcchActualLength)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetMetadataByName(string wzName, ref tag_inner_PROPVARIANT pvarValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetEnumerator(out IEnumString ppIEnumString)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetMetadataFormat(out Guid pguidMetadataFormat)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetMetadataHandlerInfo(out IWICMetadataHandlerInfo ppIHandler)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetCount(out uint pcCount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetValueByIndex(uint nIndex, ref tag_inner_PROPVARIANT pvarSchema, ref tag_inner_PROPVARIANT pvarId, ref tag_inner_PROPVARIANT pvarValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetValue(ref tag_inner_PROPVARIANT pvarSchema, ref tag_inner_PROPVARIANT pvarId, ref tag_inner_PROPVARIANT pvarValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetEnumerator(out IWICEnumMetadataItem ppIEnumMetadata)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     [Guid("CACAF262-9370-4615-A13B-9F5539DA4C0A")]
     [ComImport]
     class WICImagingFactory1 { }
@@ -108,7 +25,7 @@ namespace LumixGH4WIC
 
     [ComVisible(true)]
     [Guid("DD48659C-F21F-4C15-AE70-6879ED43B84C")]
-    public class RW2BitmapDecoder : IWICBitmapDecoder
+    public class RW2BitmapDecoder : IWICBitmapDecoder, IWICMetadataBlockReader
     {
         internal static IWICImagingFactory ImagingFactory;
         internal static IWICImagingFactory GetImagingFactory()
@@ -137,7 +54,6 @@ namespace LumixGH4WIC
                                       HChangeNotifyFlags uFlags,
                                       IntPtr dwItem1,
                                       IntPtr dwItem2);
-
         PanasonicExif _exif;
         WICReadOnlyStreamWrapper stream;
 
@@ -181,10 +97,15 @@ namespace LumixGH4WIC
 
         public void GetContainerFormat(out Guid pguidContainerFormat)
         {
-            Log.Trace("GetContainerFormat called");
-
-            pguidContainerFormat = new Guid("C98A5FE7-AD83-4CCA-9603-0512A8BDA6B7");
-            Log.Trace("GetContainerFormat finished");
+            Log.Trace("Main GetContainerFormat called");
+            try {
+                pguidContainerFormat = GetType().GUID;
+                Log.Trace("Main GetContainerFormat finished");
+            }catch(Exception e)
+            {
+                Log.Error("Main GetContainerFormat failed: " + e);
+                throw;
+            }
         }
 
         public void GetDecoderInfo(out IWICBitmapDecoderInfo ppIDecoderInfo)
@@ -294,5 +215,32 @@ namespace LumixGH4WIC
 
         }
 
+        void IWICMetadataBlockReader.GetContainerFormat(out Guid pguidContainerFormat)
+        {
+            Log.Trace("IWICMetadataBlockReader.GetContainerFormat called");
+            GetContainerFormat(out pguidContainerFormat);
+            Log.Trace("IWICMetadataBlockReader.GetContainerFormat finished");
+        }
+
+        void IWICMetadataBlockReader.GetCount(out uint pcCount)
+        {
+            Log.Trace("IWICMetadataBlockReader.GetCount called");
+            pcCount = (uint)Exif.RawIfd.Count;
+            Log.Trace("IWICMetadataBlockReader.GetCount finished");
+        }
+
+        void IWICMetadataBlockReader.GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
+        {
+            Log.Trace("IWICMetadataBlockReader.GetReaderByIndex called");
+            throw new NotImplementedException();
+            Log.Trace("IWICMetadataBlockReader.GetReaderByIndex finished");
+        }
+
+        void IWICMetadataBlockReader.GetEnumerator(out IEnumUnknown ppIEnumMetadata)
+        {
+            Log.Trace("IWICMetadataBlockReader.GetEnumerator called");
+            ppIEnumMetadata = new MetadataEnumerator(Exif);
+            Log.Trace("IWICMetadataBlockReader.GetEnumerator finished");
+        }
     }
 }

@@ -32,9 +32,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="stdole" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WIC\DXGI_FORMAT.cs" />
     <Compile Include="WIC\IEnumSTATSTG.cs" />
