@@ -14,6 +14,6 @@ namespace WIC
 
 		public uint wReserved3;
 
-		public __MIDL___MIDL_itf_wic_0001_0002_0001 __MIDL____MIDL_itf_wic_0001_00020001;
+		public __MIDL___MIDL_itf_wic_0001_0002_0001 value;
 	}
 }

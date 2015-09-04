@@ -21,18 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6AE866C76C8409095F24276457444672"
-        "OwnerKey" = "8:_F4FA67F37C8E4C70BA18FDFD597C5B65"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6AE866C76C8409095F24276457444672"
-        "OwnerKey" = "8:_BD8F3C55FEF13E2867F7820DACAB98C6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_71895EEA8028E98FE06F688EB89EA898"
         "OwnerKey" = "8:_F4FA67F37C8E4C70BA18FDFD597C5B65"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_17F5EE383604E271C228187D51C57345"
+        "OwnerKey" = "8:_F4FA67F37C8E4C70BA18FDFD597C5B65"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,13 +76,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F4FA67F37C8E4C70BA18FDFD597C5B65"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6AE866C76C8409095F24276457444672"
+        "OwnerKey" = "8:_17F5EE383604E271C228187D51C57345"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -206,37 +188,6 @@
                     }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D30E57EFFE0D41F185F03BE25B7009B1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6AE866C76C8409095F24276457444672"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_6AE866C76C8409095F24276457444672"
-                    {
-                    "Name" = "8:stdole.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:stdole.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D30E57EFFE0D41F185F03BE25B7009B1"
@@ -414,7 +365,7 @@
             {
                 "Keys"
                 {
-                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_582112EA58CD47F7BEC7318EAE6D89E3"
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_1686CA1D6B894F21B53A55D1950FF286"
                     {
                     "Name" = "8:Software"
                     "Condition" = "8:"
@@ -423,7 +374,7 @@
                     "Transitive" = "11:FALSE"
                         "Keys"
                         {
-                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A87CE2CA6CE94FF299CE1767F27590F0"
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_C26732E6093B4390AC743307ABC6BA62"
                             {
                             "Name" = "8:Microsoft"
                             "Condition" = "8:"
@@ -432,7 +383,7 @@
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
-                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_9803B11CABAF4FD798E1CCEBAF932281"
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_81D7D6E079044BCFB212EC4074565759"
                                     {
                                     "Name" = "8:Windows"
                                     "Condition" = "8:"
@@ -441,7 +392,7 @@
                                     "Transitive" = "11:FALSE"
                                         "Keys"
                                         {
-                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_CCFDEC106B5A42CEBBF008DED8CAAEB8"
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_DF0CBA2CFB6549C7B03075E855534B4F"
                                             {
                                             "Name" = "8:CurrentVersion"
                                             "Condition" = "8:"
@@ -450,65 +401,7 @@
                                             "Transitive" = "11:FALSE"
                                                 "Keys"
                                                 {
-                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_0C814959920E45D792D2D81A7388860D"
-                                                    {
-                                                    "Name" = "8:PhotoPropertyHandler"
-                                                    "Condition" = "8:"
-                                                    "AlwaysCreate" = "11:FALSE"
-                                                    "DeleteAtUninstall" = "11:FALSE"
-                                                    "Transitive" = "11:FALSE"
-                                                        "Keys"
-                                                        {
-                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_99E3A6B3E237420B8ADD9BD746305DF0"
-                                                            {
-                                                            "Name" = "8:.rw2"
-                                                            "Condition" = "8:"
-                                                            "AlwaysCreate" = "11:FALSE"
-                                                            "DeleteAtUninstall" = "11:FALSE"
-                                                            "Transitive" = "11:FALSE"
-                                                                "Keys"
-                                                                {
-                                                                }
-                                                                "Values"
-                                                                {
-                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_5F8155746A214900A88E378BDA4F73E2"
-                                                                    {
-                                                                    "Name" = "8:"
-                                                                    "Condition" = "8:"
-                                                                    "Transitive" = "11:FALSE"
-                                                                    "ValueTypes" = "3:1"
-                                                                    "Value" = "8:{a38b883c-1682-497e-97b0-0a3a9e801682}"
-                                                                    }
-                                                                }
-                                                            }
-                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_F428597E56CC46768B5BD1D2AF8E849C"
-                                                            {
-                                                            "Name" = "8:ContainerAssociations"
-                                                            "Condition" = "8:"
-                                                            "AlwaysCreate" = "11:FALSE"
-                                                            "DeleteAtUninstall" = "11:FALSE"
-                                                            "Transitive" = "11:FALSE"
-                                                                "Keys"
-                                                                {
-                                                                }
-                                                                "Values"
-                                                                {
-                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_5361FA9A34C545A1932A1A594BAD6EBE"
-                                                                    {
-                                                                    "Name" = "8:{DD48659C-F21F-4C15-AE70-6879ED43B84C}"
-                                                                    "Condition" = "8:"
-                                                                    "Transitive" = "11:FALSE"
-                                                                    "ValueTypes" = "3:1"
-                                                                    "Value" = "8:{163bcc30-e2e9-4f0b-961d-a3e9fdb788a3}"
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                        "Values"
-                                                        {
-                                                        }
-                                                    }
-                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_E7E77ACA7B62400BBB5BED54C1B4D700"
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_E547BA20795248628E289521BC350EDD"
                                                     {
                                                     "Name" = "8:Explorer"
                                                     "Condition" = "8:"
@@ -517,7 +410,7 @@
                                                     "Transitive" = "11:FALSE"
                                                         "Keys"
                                                         {
-                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_8064D99E667C4FFAA2AA7502C6AB90F7"
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7A2664C3873D48C9B1138E3BE9332DCB"
                                                             {
                                                             "Name" = "8:KindMap"
                                                             "Condition" = "8:"
@@ -529,13 +422,71 @@
                                                                 }
                                                                 "Values"
                                                                 {
-                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_1CFAB4FF52FB43B684770041BC6D946F"
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_63F6E62C9D7342FFB72AB8C8AEC8C6E0"
                                                                     {
                                                                     "Name" = "8:.rw2"
                                                                     "Condition" = "8:"
                                                                     "Transitive" = "11:FALSE"
                                                                     "ValueTypes" = "3:1"
                                                                     "Value" = "8:Picture"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        "Values"
+                                                        {
+                                                        }
+                                                    }
+                                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_FA2C668B1B794C19BDB731A5E84873C4"
+                                                    {
+                                                    "Name" = "8:PhotoPropertyHandler"
+                                                    "Condition" = "8:"
+                                                    "AlwaysCreate" = "11:FALSE"
+                                                    "DeleteAtUninstall" = "11:FALSE"
+                                                    "Transitive" = "11:FALSE"
+                                                        "Keys"
+                                                        {
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_4445C4E2A64D4D1A9EF698A3780DBB24"
+                                                            {
+                                                            "Name" = "8:.rw2"
+                                                            "Condition" = "8:"
+                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "DeleteAtUninstall" = "11:FALSE"
+                                                            "Transitive" = "11:FALSE"
+                                                                "Keys"
+                                                                {
+                                                                }
+                                                                "Values"
+                                                                {
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_D256013478A04680B4369BAA7C12298A"
+                                                                    {
+                                                                    "Name" = "8:"
+                                                                    "Condition" = "8:"
+                                                                    "Transitive" = "11:FALSE"
+                                                                    "ValueTypes" = "3:1"
+                                                                    "Value" = "8:{a38b883c-1682-497e-97b0-0a3a9e801682}"
+                                                                    }
+                                                                }
+                                                            }
+                                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A54D49899E984D33989DC3CA153AE877"
+                                                            {
+                                                            "Name" = "8:ContainerAssociations"
+                                                            "Condition" = "8:"
+                                                            "AlwaysCreate" = "11:FALSE"
+                                                            "DeleteAtUninstall" = "11:FALSE"
+                                                            "Transitive" = "11:FALSE"
+                                                                "Keys"
+                                                                {
+                                                                }
+                                                                "Values"
+                                                                {
+                                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_07F6BD758D4848C5B0331A65D9F16440"
+                                                                    {
+                                                                    "Name" = "8:{BBE1100D-3781-4FCC-BF0D-46FBAAECC01F}"
+                                                                    "Condition" = "8:"
+                                                                    "Transitive" = "11:FALSE"
+                                                                    "ValueTypes" = "3:1"
+                                                                    "Value" = "8:{163bcc30-e2e9-4f0b-961d-a3e9fdb788a3}"
                                                                     }
                                                                 }
                                                             }
@@ -576,7 +527,7 @@
             {
                 "Keys"
                 {
-                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_0C7D7E5C02FA4E70B977E4BBB6F72798"
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_73DFA1F0018441D5BC1736332EB6C4A0"
                     {
                     "Name" = "8:CLSID"
                     "Condition" = "8:"
@@ -585,221 +536,7 @@
                     "Transitive" = "11:FALSE"
                         "Keys"
                         {
-                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_2EB1542916414CA5A5FAC4A0D577EBD4"
-                            {
-                            "Name" = "8:{DD48659C-F21F-4C15-AE70-6879ED43B84C}"
-                            "Condition" = "8:"
-                            "AlwaysCreate" = "11:FALSE"
-                            "DeleteAtUninstall" = "11:FALSE"
-                            "Transitive" = "11:FALSE"
-                                "Keys"
-                                {
-                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_8A4C64A713D84903ABC373108E4E1D78"
-                                    {
-                                    "Name" = "8:Formats"
-                                    "Condition" = "8:"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "DeleteAtUninstall" = "11:FALSE"
-                                    "Transitive" = "11:FALSE"
-                                        "Keys"
-                                        {
-                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_78404B9B97D9407594AC75FE7685AE8E"
-                                            {
-                                            "Name" = "8:{6FDDC324-4E03-4BFE-B185-3D77768DC90D}"
-                                            "Condition" = "8:"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "DeleteAtUninstall" = "11:FALSE"
-                                            "Transitive" = "11:FALSE"
-                                                "Keys"
-                                                {
-                                                }
-                                                "Values"
-                                                {
-                                                }
-                                            }
-                                        }
-                                        "Values"
-                                        {
-                                        }
-                                    }
-                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_CD6B85DA1CDC4A3ABDFA54B2F8C331BE"
-                                    {
-                                    "Name" = "8:Patterns"
-                                    "Condition" = "8:"
-                                    "AlwaysCreate" = "11:FALSE"
-                                    "DeleteAtUninstall" = "11:FALSE"
-                                    "Transitive" = "11:FALSE"
-                                        "Keys"
-                                        {
-                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_6F0AD7A1E25443CC98172264DC730FF6"
-                                            {
-                                            "Name" = "8:0"
-                                            "Condition" = "8:"
-                                            "AlwaysCreate" = "11:FALSE"
-                                            "DeleteAtUninstall" = "11:FALSE"
-                                            "Transitive" = "11:FALSE"
-                                                "Keys"
-                                                {
-                                                }
-                                                "Values"
-                                                {
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_226828589342419EB0581C195E269B0A"
-                                                    {
-                                                    "Name" = "8:Mask"
-                                                    "Condition" = "8:"
-                                                    "Transitive" = "11:FALSE"
-                                                    "ValueTypes" = "3:4"
-                                                    "Value" = "8:FFFFFFFFFFFFFFFF"
-                                                    }
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_646A778BCDC146F2B2E903AAC17A6B7F"
-                                                    {
-                                                    "Name" = "8:Pattern"
-                                                    "Condition" = "8:"
-                                                    "Transitive" = "11:FALSE"
-                                                    "ValueTypes" = "3:4"
-                                                    "Value" = "8:4949550018000000"
-                                                    }
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_78BEBE410C9D443CBD006C592AAAE76D"
-                                                    {
-                                                    "Name" = "8:Position"
-                                                    "Condition" = "8:"
-                                                    "Transitive" = "11:FALSE"
-                                                    "ValueTypes" = "3:3"
-                                                    "Value" = "3:0"
-                                                    }
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_AE2F741CDE6C42B887294F68A3FE5001"
-                                                    {
-                                                    "Name" = "8:Length"
-                                                    "Condition" = "8:"
-                                                    "Transitive" = "11:FALSE"
-                                                    "ValueTypes" = "3:3"
-                                                    "Value" = "3:8"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        "Values"
-                                        {
-                                        }
-                                    }
-                                }
-                                "Values"
-                                {
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_028A24027EBA4676B13118B4F072A597"
-                                    {
-                                    "Name" = "8:SupportChromaKey"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:3"
-                                    "Value" = "3:0"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_03B9723B958742789AD2414BFA2E85F3"
-                                    {
-                                    "Name" = "8:FriendlyName"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:Rambalac Lumix GH4 RW2 Decoder"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_1ED911DC3E734B7580E98F58EEB7B837"
-                                    {
-                                    "Name" = "8:FileExtensions"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:.rw2"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_531C966F598B47219C27ABB0A6D5291A"
-                                    {
-                                    "Name" = "8:ArbitrationPriority"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:3"
-                                    "Value" = "3:10"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_7F20DFF0661F40BB8D8FBCD095EE6891"
-                                    {
-                                    "Name" = "8:Description"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:Rambalac Lumix GH4 RW2 Decoder"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_98E35BDA92464FD3BD6C308FFD2A1E3A"
-                                    {
-                                    "Name" = "8:Author"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:Rambalac"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_9A7014E964B04F19B3CAD93772153DE8"
-                                    {
-                                    "Name" = "8:ColorManagementVersion"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:1.0.0.0"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_AF8C501F352D4CDCB80090CA831EE170"
-                                    {
-                                    "Name" = "8:ContainerFormat"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:{DD48659C-F21F-4C15-AE70-6879ED43B84C}"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_BC33F3EB50F740269C87EC94DE4EBDDB"
-                                    {
-                                    "Name" = "8:SpecVersion"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:1.0.0.0"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_CA9CAA0A90394FD5A23B8DF1482FA0A1"
-                                    {
-                                    "Name" = "8:SupportAnimation"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:3"
-                                    "Value" = "3:0"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_DF3C7783D20D47549ECBC2138B2CE98A"
-                                    {
-                                    "Name" = "8:MimeTypes"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:image/rw2"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_ED38EA7E0D954316A225FD25B717601E"
-                                    {
-                                    "Name" = "8:SupportMultiframe"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:3"
-                                    "Value" = "3:0"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_F0AE5E1933714C1EA4C01423AF6BE662"
-                                    {
-                                    "Name" = "8:Version"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:1"
-                                    "Value" = "8:1.0"
-                                    }
-                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_FBC8307578D64519BA306AA6ECE25E51"
-                                    {
-                                    "Name" = "8:SupportLossless"
-                                    "Condition" = "8:"
-                                    "Transitive" = "11:FALSE"
-                                    "ValueTypes" = "3:3"
-                                    "Value" = "3:1"
-                                    }
-                                }
-                            }
-                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_D3B1EAF509114198AF3DF99C6EE8013D"
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_099272B073EC4225B18E829CEB35FBCD"
                             {
                             "Name" = "8:{7ED96837-96F0-4812-B211-F13C24117ED3}"
                             "Condition" = "8:"
@@ -808,7 +545,7 @@
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
-                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_CE2C3704B79A4D49A2E0A43919117FC3"
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_FB4932402F47491C8BE41B5FDB565E1D"
                                     {
                                     "Name" = "8:Instance"
                                     "Condition" = "8:"
@@ -817,7 +554,7 @@
                                     "Transitive" = "11:FALSE"
                                         "Keys"
                                         {
-                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A7EBC12EE9DC47ECAB4DED1C2A713882"
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_09831FEB284441FF9F695A187FC530D2"
                                             {
                                             "Name" = "8:{DD48659C-F21F-4C15-AE70-6879ED43B84C}"
                                             "Condition" = "8:"
@@ -829,7 +566,7 @@
                                                 }
                                                 "Values"
                                                 {
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_3200E6813EDE448D84FC317AD5A3013F"
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_9E806E6DF172466280387C66CECFD40C"
                                                     {
                                                     "Name" = "8:CLSID"
                                                     "Condition" = "8:"
@@ -837,7 +574,7 @@
                                                     "ValueTypes" = "3:1"
                                                     "Value" = "8:{DD48659C-F21F-4C15-AE70-6879ED43B84C}"
                                                     }
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B515F410AF894D94974BB88FE2BB1042"
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_C6D53D658A5E455892E3124636D8D288"
                                                     {
                                                     "Name" = "8:FriendlyName"
                                                     "Condition" = "8:"
@@ -857,34 +594,308 @@
                                 {
                                 }
                             }
-                        }
-                        "Values"
-                        {
-                        }
-                    }
-                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_46A42D227640451DAB144C4D8FB568DF"
-                    {
-                    "Name" = "8:.rw2"
-                    "Condition" = "8:"
-                    "AlwaysCreate" = "11:FALSE"
-                    "DeleteAtUninstall" = "11:FALSE"
-                    "Transitive" = "11:FALSE"
-                        "Keys"
-                        {
-                        }
-                        "Values"
-                        {
-                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_7BFC5FF84B674ECC86FCCA8D7EFED07F"
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_3D1538E8F91F48D5BFFDABB55A105A12"
                             {
-                            "Name" = "8:ContentType"
+                            "Name" = "8:{DD48659C-F21F-4C15-AE70-6879ED43B84C}"
                             "Condition" = "8:"
+                            "AlwaysCreate" = "11:FALSE"
+                            "DeleteAtUninstall" = "11:FALSE"
                             "Transitive" = "11:FALSE"
-                            "ValueTypes" = "3:1"
-                            "Value" = "8:image/rw2"
+                                "Keys"
+                                {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_0B504485B8694170A7A1D2CE6ECA9909"
+                                    {
+                                    "Name" = "8:Patterns"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_61785B8291DA4DFFBF2BAD29DCC73130"
+                                            {
+                                            "Name" = "8:0"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                }
+                                                "Values"
+                                                {
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_0C14A9792AE6482A8668AE0D46C3703F"
+                                                    {
+                                                    "Name" = "8:Pattern"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:4"
+                                                    "Value" = "8:4949550018000000"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_681E2A248D354DC5BAF2B3FE2231AB11"
+                                                    {
+                                                    "Name" = "8:Length"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:8"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_C97FF1E31F0D4711B7D2E0F07B2A5813"
+                                                    {
+                                                    "Name" = "8:Mask"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:4"
+                                                    "Value" = "8:FFFFFFFFFFFFFFFF"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_FBDB7AD4816841D7B486CA70EC9AFCB1"
+                                                    {
+                                                    "Name" = "8:Position"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:0"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_4D9F9B3737E64D8887B54235935D3DEE"
+                                    {
+                                    "Name" = "8:Containers"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_BC7CB1BB4261466F938F37B3AA2268BA"
+                                            {
+                                            "Name" = "8:{BBE1100D-3781-4FCC-BF0D-46FBAAECC01F}"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                }
+                                                "Values"
+                                                {
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_16ACCC43590043FA9B3B5A77B896B79E"
+                                                    {
+                                                    "Name" = "8:Position"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:0"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_641982A3BEB44711A541065106B2BC35"
+                                                    {
+                                                    "Name" = "8:Mask"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:4"
+                                                    "Value" = "8:FFFFFFFFFFFFFFFF"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_BFC067BED218488CA0DBD86225702FA9"
+                                                    {
+                                                    "Name" = "8:Pattern"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:4"
+                                                    "Value" = "8:4949550018000000"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_FB1733A2755E4525BBF8EC88EED33C7F"
+                                                    {
+                                                    "Name" = "8:Length"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:8"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_DC65648E6AFF40C3B8C70B2BBFCF7660"
+                                    {
+                                    "Name" = "8:Formats"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_8ABB36D7814E43A09279E0F8AAB2628A"
+                                            {
+                                            "Name" = "8:{6FDDC324-4E03-4BFE-B185-3D77768DC90F}"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_B108E821AB114A26B85E145E14617E24"
+                                            {
+                                            "Name" = "8:{6FDDC324-4E03-4BFE-B185-3D77768DC90D}"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                }
+                                                "Values"
+                                                {
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
+                                        }
+                                    }
+                                }
+                                "Values"
+                                {
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_117F1E34D22C4FC9A4CD9D56776E6BF3"
+                                    {
+                                    "Name" = "8:MimeTypes"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:image/rw2"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_19E140BAEFEA4E8EB0B4B51FF9C71AF6"
+                                    {
+                                    "Name" = "8:SupportAnimation"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:3"
+                                    "Value" = "3:0"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_2A3C707934F34436BC8D6431ABA09043"
+                                    {
+                                    "Name" = "8:ArbitrationPriority"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:3"
+                                    "Value" = "3:10"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_4C126D07E0B24763A06F5E9D9F6829AF"
+                                    {
+                                    "Name" = "8:Description"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:Rambalac Lumix GH4 RW2 Decoder"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_549FF55C0C1141328BC58B847A3F060B"
+                                    {
+                                    "Name" = "8:ContainerFormat"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:{BBE1100D-3781-4FCC-BF0D-46FBAAECC01F}"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_633BCF04D3E04265B617E12DF90EBB30"
+                                    {
+                                    "Name" = "8:SupportChromaKey"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:3"
+                                    "Value" = "3:0"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_82F9C07936AA425AA6CA0B575872FC1E"
+                                    {
+                                    "Name" = "8:SupportLossless"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:3"
+                                    "Value" = "3:1"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_9403E6E3195F4A808941F13BCF46CFDA"
+                                    {
+                                    "Name" = "8:SupportMultiframe"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:3"
+                                    "Value" = "3:0"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_AFC2724DEF384D7F96517454F6F0684C"
+                                    {
+                                    "Name" = "8:Author"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:Rambalac"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B336A69126EF40398035A978D421139D"
+                                    {
+                                    "Name" = "8:SpecVersion"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:1.0.0.0"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B7BD21DE78AF4502ACFD8141935EE684"
+                                    {
+                                    "Name" = "8:Version"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:1.0"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_CCF87B4AAA024ED38724947443A444EB"
+                                    {
+                                    "Name" = "8:VendorGUID"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:077A36A5-66CF-40B4-8820-027ECBD9C371"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_CF18E602F5254FF8B1AE1DDF3630F01E"
+                                    {
+                                    "Name" = "8:ColorManagementVersion"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:1.0.0.0"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_D83D838839BC40D1B0B92B9CBB65174D"
+                                    {
+                                    "Name" = "8:FriendlyName"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:Rambalac Lumix GH4 RW2 Decoder"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_F301AA4C45C84A14BFC8ED68E83D25DA"
+                                    {
+                                    "Name" = "8:FileExtensions"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:.rw2"
+                                    }
+                                }
                             }
                         }
+                        "Values"
+                        {
+                        }
                     }
-                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_F4984621D9344CB9AAAFA3F0FBC36DD0"
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_73F92A26A59A43A48DCF5C3DC08B0F26"
                     {
                     "Name" = "8:SystemFileAssociations"
                     "Condition" = "8:"
@@ -893,7 +904,7 @@
                     "Transitive" = "11:FALSE"
                         "Keys"
                         {
-                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_4DC14063EE134F8585F1398E01F842A6"
+                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_5D2F763689CF43ECBB36E4E06126D26C"
                             {
                             "Name" = "8:.rw2"
                             "Condition" = "8:"
@@ -902,7 +913,7 @@
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
-                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_329F64C8995A433DA44A32AC920B85A8"
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_212AF08A0CE24C9184F8D22C15D0A23B"
                                     {
                                     "Name" = "8:ShellEx"
                                     "Condition" = "8:"
@@ -911,7 +922,7 @@
                                     "Transitive" = "11:FALSE"
                                         "Keys"
                                         {
-                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_241B34A58E78444281758548073AEA97"
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A03475E1ED394ADE9E8B76996DD6B5A4"
                                             {
                                             "Name" = "8:{e357fccd-a995-4576-b01f-234630154e96}"
                                             "Condition" = "8:"
@@ -923,7 +934,7 @@
                                                 }
                                                 "Values"
                                                 {
-                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_64A17EF9AEED4CF2879CF0C183987ACD"
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_873D12DB2B074CAC82DE5A06B7CBC34E"
                                                     {
                                                     "Name" = "8:"
                                                     "Condition" = "8:"
@@ -946,6 +957,28 @@
                         }
                         "Values"
                         {
+                        }
+                    }
+                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_78920D705177495180AB6C8A56FD248D"
+                    {
+                    "Name" = "8:.rw2"
+                    "Condition" = "8:"
+                    "AlwaysCreate" = "11:FALSE"
+                    "DeleteAtUninstall" = "11:FALSE"
+                    "Transitive" = "11:FALSE"
+                        "Keys"
+                        {
+                        }
+                        "Values"
+                        {
+                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_00AC2E9E9ACA43D6BFE94E9F64F79655"
+                            {
+                            "Name" = "8:ContentType"
+                            "Condition" = "8:"
+                            "Transitive" = "11:FALSE"
+                            "ValueTypes" = "3:1"
+                            "Value" = "8:image/rw2"
+                            }
                         }
                     }
                 }

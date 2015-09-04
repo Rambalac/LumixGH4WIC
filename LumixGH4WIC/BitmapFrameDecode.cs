@@ -5,6 +5,7 @@ using com.azi.Filters.Converters;
 using com.azi.Filters.Converters.Demosaic;
 using com.azi.Filters.VectorMapFilters;
 using com.azi.Image;
+using LumixGH4WIC;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -216,7 +217,7 @@ namespace LumixGH4WIC
             Log.Trace("Frame GetContainerFormat called");
             try
             {
-                pguidContainerFormat = typeof(RW2BitmapDecoder).GUID;
+                pguidContainerFormat = RW2BitmapDecoder.FormatGuid;
                 Log.Trace("Frame  GetContainerFormat finished");
             }
             catch (Exception e)

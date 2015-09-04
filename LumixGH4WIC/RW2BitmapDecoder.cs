@@ -15,6 +15,7 @@ namespace LumixGH4WIC
     [Guid("DD48659C-F21F-4C15-AE70-6879ED43B84C")]
     public class RW2BitmapDecoder : IWICBitmapDecoder, IDisposable//, IWICMetadataBlockReader
     {
+        internal static readonly Guid FormatGuid = new Guid("BBE1100D-3781-4FCC-BF0D-46FBAAECC01F");
         internal static IWICImagingFactory ImagingFactory;
         internal static IWICImagingFactory GetImagingFactory()
         {
@@ -81,10 +82,12 @@ namespace LumixGH4WIC
         public void GetContainerFormat(out Guid pguidContainerFormat)
         {
             Log.Trace("Main GetContainerFormat called");
-            try {
-                pguidContainerFormat = new Guid("163bcc30-e2e9-4f0b-961d-a3e9fdb788a3");
+            try
+            {
+                pguidContainerFormat = FormatGuid;
                 Log.Trace("Main GetContainerFormat finished");
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Log.Error("Main GetContainerFormat failed: " + e);
                 throw;
@@ -201,15 +204,15 @@ namespace LumixGH4WIC
         public void GetCount(out uint pcCount)
         {
             Log.Trace("IWICMetadataBlockReader.GetCount called");
-            pcCount = (uint)Exif.RawIfd.Count;
+            pcCount = 1;
             Log.Trace("IWICMetadataBlockReader.GetCount finished");
         }
 
         public void GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
         {
             Log.Trace($"IWICMetadataBlockReader.GetReaderByIndex called: {nIndex}");
-            throw new NotImplementedException();
-            //Log.Trace("IWICMetadataBlockReader.GetReaderByIndex finished");
+            ppIMetadataReader = new MetadataReader(Exif);
+            Log.Trace("IWICMetadataBlockReader.GetReaderByIndex finished");
         }
 
         public void GetEnumerator(out IEnumUnknown ppIEnumMetadata)
