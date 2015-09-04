@@ -18,7 +18,7 @@ namespace LumixGH4WIC
         }
 
         [SecurityCritical]
-        public void Read(Byte[] buffer, Int32 bufferSize, IntPtr bytesReadPtr)
+        public void Read(byte[] buffer, int bufferSize, IntPtr bytesReadPtr)
         {
             int red = stream.Read(buffer, 0, bufferSize);
             if (bytesReadPtr != IntPtr.Zero)
@@ -28,7 +28,7 @@ namespace LumixGH4WIC
         }
 
         [SecurityCritical]
-        public void Seek(Int64 offset, Int32 origin, IntPtr newPositionPtr)
+        public void Seek(long offset, int origin, IntPtr newPositionPtr)
         {
             long position = stream.Seek(offset,(SeekOrigin)origin);
 
@@ -38,7 +38,7 @@ namespace LumixGH4WIC
             }
         }
 
-        public void SetSize(Int64 libNewSize)
+        public void SetSize(long libNewSize)
         {
             stream.SetLength(libNewSize);
         }
@@ -62,7 +62,7 @@ namespace LumixGH4WIC
         }
 
         [SecurityCritical]
-        public void Write(Byte[] buffer, Int32 bufferSize, IntPtr bytesWrittenPtr)
+        public void Write(byte[] buffer, int bufferSize, IntPtr bytesWrittenPtr)
         {
             stream.Write(buffer, 0, bufferSize);
             if (bytesWrittenPtr != IntPtr.Zero)
@@ -75,17 +75,17 @@ namespace LumixGH4WIC
             throw new NotSupportedException();
         }
 
-        public void CopyTo(IStream targetStream, Int64 bufferSize, IntPtr buffer, IntPtr bytesWrittenPtr)
+        public void CopyTo(IStream targetStream, long bufferSize, IntPtr buffer, IntPtr bytesWrittenPtr)
         {
             throw new NotSupportedException();
         }
 
-        public void Commit(Int32 flags)
+        public void Commit(int flags)
         {
             throw new NotSupportedException();
         }
 
-        public void LockRegion(Int64 offset, Int64 byteCount, Int32 lockType)
+        public void LockRegion(long offset, long byteCount, int lockType)
         {
             throw new NotSupportedException();
         }
@@ -95,7 +95,7 @@ namespace LumixGH4WIC
             throw new NotSupportedException();
         }
 
-        public void UnlockRegion(Int64 offset, Int64 byteCount, Int32 lockType)
+        public void UnlockRegion(long offset, long byteCount, int lockType)
         {
             throw new NotSupportedException();
         }
