@@ -38,7 +38,12 @@ namespace LumixGH4WIC
         {
             exif = _exif;
             stream = _stream;
-            map = new PanasonicRW2Decoder().DecodeMap(stream, exif);
+            try {
+                map = new PanasonicRW2Decoder().DecodeMap(stream, exif);
+            } catch(Exception e)
+            {
+                throw new COMException("RW2 Decoding failed", e);
+            }
         }
 
         public void CopyPalette(IWICPalette pIPalette)
