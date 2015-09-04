@@ -9,7 +9,7 @@ namespace WIC
 	public interface IWICBitmapSourceTransform
 	{
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		void CopyPixels([In] ref WICRect prc, [In] uint uiWidth, [In] uint uiHeight, [ComAliasName("WIC.WICPixelFormatGUID")] [In] ref WICPixelFormatGUID pguidDstFormat, [In] WICBitmapTransformOptions dstTransform, [In] uint nStride, [In] uint cbBufferSize, out byte pbBuffer);
+		void CopyPixels([In] ref WICRect prc, [In] uint uiWidth, [In] uint uiHeight, [ComAliasName("WIC.WICPixelFormatGUID")] [In] ref WICPixelFormatGUID pguidDstFormat, [In] WICBitmapTransformOptions dstTransform, [In] uint nStride, [In] uint cbBufferSize, IntPtr pbBuffer);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		void GetClosestSize([In] [Out] ref uint puiWidth, [In] [Out] ref uint puiHeight);

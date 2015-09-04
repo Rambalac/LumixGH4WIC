@@ -13,7 +13,7 @@ namespace LumixGH4WIC
 {
     [ComVisible(true)]
     [Guid("DD48659C-F21F-4C15-AE70-6879ED43B84C")]
-    public class RW2BitmapDecoder : IWICBitmapDecoder, IWICMetadataBlockReader, IDisposable
+    public class RW2BitmapDecoder : IWICBitmapDecoder, IDisposable//, IWICMetadataBlockReader
     {
         internal static IWICImagingFactory ImagingFactory;
         internal static IWICImagingFactory GetImagingFactory()
@@ -82,7 +82,7 @@ namespace LumixGH4WIC
         {
             Log.Trace("Main GetContainerFormat called");
             try {
-                pguidContainerFormat = GetType().GUID;
+                pguidContainerFormat = new Guid("163bcc30-e2e9-4f0b-961d-a3e9fdb788a3");
                 Log.Trace("Main GetContainerFormat finished");
             }catch(Exception e)
             {
@@ -207,7 +207,7 @@ namespace LumixGH4WIC
 
         public void GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
         {
-            Log.Trace("IWICMetadataBlockReader.GetReaderByIndex called");
+            Log.Trace($"IWICMetadataBlockReader.GetReaderByIndex called: {nIndex}");
             throw new NotImplementedException();
             //Log.Trace("IWICMetadataBlockReader.GetReaderByIndex finished");
         }

@@ -94,5 +94,10 @@ namespace com.azi.Image
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public ColorPixel<byte> GetPixel(int x, int y)
+        {
+            return new ColorPixel<byte>(Rgb, y * Stride + x * 3, y * Stride + (_width - x) * 3);
+        }
     }
 }

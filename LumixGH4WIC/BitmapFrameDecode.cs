@@ -6,6 +6,7 @@ using com.azi.Filters.Converters.Demosaic;
 using com.azi.Filters.VectorMapFilters;
 using com.azi.Image;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -16,7 +17,7 @@ namespace LumixGH4WIC
 {
     [ComVisible(true)]
     [Guid("1253D0FF-6836-4DE9-A141-FEF5B4C55DAA")]
-    class BitmapFrameDecode : IWICBitmapFrameDecode
+    class BitmapFrameDecode : IWICBitmapFrameDecode, IWICBitmapSourceTransform //, IWICMetadataBlockReader
     {
         static readonly Guid GUID_WICPixelFormat16bppBGR565 = new Guid("6FDDC324-4E03-4BFE-B185-3D77768DC90A");
         static readonly Guid GUID_WICPixelFormat16bppBGRA5551 = new Guid("05EC7C2B-F1E6-4961-AD46-E1CC810A87D2");
@@ -38,9 +39,11 @@ namespace LumixGH4WIC
         {
             exif = _exif;
             stream = _stream;
-            try {
+            try
+            {
                 map = new PanasonicRW2Decoder().DecodeMap(stream, exif);
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 throw new COMException("RW2 Decoding failed", e);
             }
@@ -55,6 +58,32 @@ namespace LumixGH4WIC
             }
         }
 
+        private void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, IntPtr pbBuffer)
+        {
+            for (int y = prc.Y; y < prc.Y + prc.Height; y++)
+                Marshal.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, new IntPtr(pbBuffer.ToInt64() + cbStride * (y - prc.Y)), prc.Width * 3);
+        }
+
+        private void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, IntPtr pbBuffer)
+        {
+            var buff = ArraysReuseManager.ReuseOrGetNew<byte>(prc.Width * 4);
+            for (int y = prc.Y; y < prc.Y + prc.Height; y++)
+            {
+                var pix = rgbmap.GetPixel(prc.X, y);
+                int off = 0;
+                for (int x = 0; x < prc.Width; x++)
+                {
+                    buff[off + 0] = pix.B;
+                    buff[off + 1] = pix.G;
+                    buff[off + 2] = pix.R;
+                    buff[off + 3] = 255;
+                    off += 4;
+                    pix.MoveNext();
+                }
+                Marshal.Copy(buff, 0, new IntPtr(pbBuffer.ToInt64() + cbStride * (y - prc.Y)), prc.Width * 4);
+            }
+        }
+
         public void CopyPixels(ref WICRect prc, uint cbStride, uint cbBufferSize, IntPtr pbBuffer)
         {
             //Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
@@ -63,8 +92,7 @@ namespace LumixGH4WIC
             {
                 if (rgbmap == null) BuildRGB();
                 //Log.Trace($"CopyPixels rgbmap {rgbmap.Width}, {rgbmap.Height}");
-                for (int y = prc.Y; y < prc.Y + prc.Height; y++)
-                    Marshal.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, new IntPtr(pbBuffer.ToInt64() + cbStride * (y - prc.Y)), prc.Width * 3);
+                CopyRGB(ref prc, cbStride, cbBufferSize, pbBuffer);
                 //Log.Trace("CopyPixels finished");
             }
             catch (Exception e)
@@ -75,9 +103,8 @@ namespace LumixGH4WIC
 
         }
 
-        private void BuildRGB()
+        private List<IFilter> PrepareFilters()
         {
-            Log.Trace($"BuildRGB called");
             var debayer = new AverageBGGRDemosaic();
 
             var white = new WhiteBalanceFilter();
@@ -97,10 +124,9 @@ namespace LumixGH4WIC
                         {0.05f, -0.47f, 1.42f}
                     }.ToMatrix4x4()
             };
-
-            //var compressor = new VectorRGBCompressorFilter();
             var compressor = new VectorRGBCompressorFilter();
-            var filters = new IFilter[]
+
+            var filters = new List<IFilter>()
             {
                     debayer,
                     //white,
@@ -109,10 +135,17 @@ namespace LumixGH4WIC
                     colorMatrix,
                     compressor
             };
+            return filters;
+        }
+
+        private void BuildRGB()
+        {
+            Log.Trace($"BuildRGB called");
+
+            var filters = PrepareFilters();
 
             var processor = new ImageProcessor(map, filters);
             rgbmap = (RGB8Map)processor.Invoke();
-            map = null;
             Log.Trace("BuildRGB finished");
         }
 
@@ -178,5 +211,83 @@ namespace LumixGH4WIC
             Log.Trace("GetThumbnail finished");
         }
 
+        public void GetContainerFormat(out Guid pguidContainerFormat)
+        {
+            Log.Trace("Frame GetContainerFormat called");
+            try
+            {
+                pguidContainerFormat = typeof(RW2BitmapDecoder).GUID;
+                Log.Trace("Frame  GetContainerFormat finished");
+            }
+            catch (Exception e)
+            {
+                Log.Error("Frame  GetContainerFormat failed: " + e);
+                throw;
+            }
+
+        }
+
+        ////////// Metadata
+        public void GetCount(out uint pcCount)
+        {
+            Log.Trace("Frame GetCount called");
+            throw new NotImplementedException();
+        }
+
+        public void GetReaderByIndex([In] uint nIndex, [MarshalAs(UnmanagedType.Interface)] out IWICMetadataReader ppIMetadataReader)
+        {
+            Log.Trace("Frame GetReaderByIndex called");
+            throw new NotImplementedException();
+        }
+
+        public void GetEnumerator([MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppIEnumMetadata)
+        {
+            Log.Trace("Frame GetEnumerator called");
+            throw new NotImplementedException();
+        }
+
+        ////////// Transform
+
+        public void GetClosestSize([In, Out] ref uint puiWidth, [In, Out] ref uint puiHeight)
+        {
+            Log.Trace($"Trans GetClosestSize called: {puiWidth} {puiHeight}");
+            //throw new NotImplementedException();
+        }
+
+        public void GetClosestPixelFormat([In, Out] ref WICPixelFormatGUID dstf)
+        {
+            var dstFormat = new Guid(dstf.Data1, dstf.Data2, dstf.Data3, dstf.Data4);
+            Log.Trace($"Trans GetClosestPixelFormat called: {dstFormat}");
+            if (dstFormat == GUID_WICPixelFormat32bppBGRA) return;
+
+            Log.Error($"Trans GetClosestPixelFormat not supported: {dstFormat}");
+            throw new NotImplementedException();
+        }
+
+        public void DoesSupportTransform([In] WICBitmapTransformOptions dstTransform, out int pfIsSupported)
+        {
+            Log.Trace($"Trans DoesSupportTransform called");
+            pfIsSupported = 0;
+        }
+
+        public void CopyPixels([In] ref WICRect prc, [In] uint uiWidth, [In] uint uiHeight, [In] ref WICPixelFormatGUID dstf, [In] WICBitmapTransformOptions dstTransform, [In] uint nStride, [In] uint cbBufferSize, IntPtr pbBuffer)
+        {
+            try
+            {
+                var dstFormat = new Guid(dstf.Data1, dstf.Data2, dstf.Data3, dstf.Data4);
+                Log.Trace($"Trans CopyPixels called: {uiWidth}, {uiHeight} {dstFormat}");
+                if (rgbmap == null) BuildRGB();
+                if (dstFormat == GUID_WICPixelFormat24bppRGB)
+                    CopyRGB(ref prc, nStride, cbBufferSize, pbBuffer);
+                else if (dstFormat == GUID_WICPixelFormat32bppBGRA)
+                    CopyBGRA(ref prc, nStride, cbBufferSize, pbBuffer);
+                Log.Trace("CopyPixels finished");
+            }
+            catch (Exception e)
+            {
+                Log.Error("CopyPixels failed: " + e);
+                throw;
+            }
+        }
     }
 }
