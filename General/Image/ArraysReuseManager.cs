@@ -9,49 +9,32 @@ namespace com.azi.Image
 {
     public static class ArraysReuseManager
     {
+        const int MinSizeLimit = 1 << 20;
         static class _ArraysReuseManager<T>
         {
-            private static ConcurrentDictionary<int, HashSet<WeakReference<T[]>>> reuse = new ConcurrentDictionary<int, HashSet<WeakReference<T[]>>>(5, 100);
+            private static ConcurrentDictionary<int, ConcurrentBag<WeakReference<T[]>>> reuse = new ConcurrentDictionary<int, ConcurrentBag<WeakReference<T[]>>>(5, 100);
 
             public static void Release(T[] arr)
             {
-                var set = reuse.GetOrAdd(arr.Length, (s) => new HashSet<WeakReference<T[]>>());
-                lock (set)
-                {
-                    set.Add(new WeakReference<T[]>(arr));
-                }
+                if (arr.Length < MinSizeLimit) return;
+                var set = reuse.GetOrAdd(arr.Length, (s) => new ConcurrentBag<WeakReference<T[]>>());
+                set.Add(new WeakReference<T[]>(arr));
             }
 
             public static T[] ReuseOrGetNew(int size)
             {
-                HashSet<WeakReference<T[]>> set;
+                if (size < MinSizeLimit) return new T[size];
+                ConcurrentBag<WeakReference<T[]>> set;
+                WeakReference<T[]> item;
+                T[] ar;
                 if (reuse.TryGetValue(size, out set))
                 {
-                    LinkedList<WeakReference<T[]>> delete = new LinkedList<WeakReference<T[]>>();
-                    lock (set)
+                    while (set.TryTake(out item))
                     {
-                        try
-                        {
-
-                            foreach (var item in set)
-                            {
-                                T[] ar;
-                                if (item.TryGetTarget(out ar))
-                                {
-                                    delete.AddLast(item);
-                                    return ar;
-                                }
-                                else delete.AddLast(item);
-                            }
-                            return new T[size];
-                        }
-                        finally
-                        {
-                            foreach (var item in delete)
-                                set.Remove(item);
-                            if (set.Count == 0) reuse.TryRemove(size, out set);
-                        }
+                        if (item.TryGetTarget(out ar))
+                            return ar;
                     }
+                    return new T[size];
                 }
                 else
                     return new T[size];

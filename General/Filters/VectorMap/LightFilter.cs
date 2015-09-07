@@ -25,9 +25,10 @@ namespace com.azi.Filters.VectorMapFilters
 
             Vector3 max;
             Vector3 min;
-            h.FindMinMax(out min, out max, 0.005f);
-            //min = Enumerable.Repeat(min.Average(), 3).ToArray();
-            //max = Enumerable.Repeat(max.Average(), 3).ToArray();
+            h.FindMinMax(out min, out max, 0.01f, 0.005f);
+
+            //min = new Vector3(min.MinComponent());
+            //max = new Vector3(max.MaxComponent());
 
             f.Set(min, max, Vector3.Zero, Vector3.One, contrast);
         }

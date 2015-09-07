@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="General.Tests.PerfomanceTests.TestArrayReuseParallel" /><Add Test="General.Tests.PerfomanceTests.TestArrayNewParallel" /><Add Test="General.Tests.PerfomanceTests.TestArrayReuse" /><Add Test="General.Tests.PerfomanceTests.TestArrayNew" /></Playlist>

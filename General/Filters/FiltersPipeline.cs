@@ -39,11 +39,18 @@ namespace com.azi.Filters
                         currentMap = ApplyIndependentColorFilters(currentMap, indColorFilter);
                         indColorFilter.Clear();
                     }
-                    currentMap = ApplySingleFilter(currentMap, filter);
+                    var newmap = ApplySingleFilter(currentMap, filter);
+                    if (newmap != currentMap && currentMap != map) map.Dispose();
+                    currentMap = newmap;
+
                 }
             }
             if (indColorFilter.Any())
-                currentMap = ApplyIndependentColorFilters(currentMap, indColorFilter);
+            {
+                var newmap = ApplyIndependentColorFilters(currentMap, indColorFilter);
+                if (newmap!=currentMap&&currentMap != map) map.Dispose();
+                currentMap = newmap;
+            }
             return currentMap;
         }
 

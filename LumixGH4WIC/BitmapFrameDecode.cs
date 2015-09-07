@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using WIC;
@@ -109,12 +110,12 @@ namespace LumixGH4WIC
             var debayer = new AverageBGGRDemosaic();
 
             var white = new WhiteBalanceFilter();
+            //white.WhiteColor = exif.WhiteColor.ToVector3();
             //white.AutoAdjust(color16Image);
+
             var gamma = new GammaFilter();
 
-
             var light = new LightFilter();
-            //light.AutoAdjust(color16Image);
 
             var colorMatrix = new ColorMatrixFilter
             {

@@ -112,36 +112,37 @@ namespace com.azi.Image
             return result;
         }
 
-        public void FindMinMax(out ushort[] minout, out ushort[] maxout, float e = 0.005f)
+        public void FindMinMax(out ushort[] minout, out ushort[] maxout, float e1 = 0.005f, float e2 = 0.005f)
         {
             int[] min, max;
-            FindMinMax(out min, out max, e);
+            FindMinMax(out min, out max, e1, e2);
             minout = min.Cast<ushort>().ToArray();
             maxout = max.Cast<ushort>().ToArray();
         }
 
-        public void FindMinMax(out float[] minout, out float[] maxout, float e = 0.005f)
+        public void FindMinMax(out float[] minout, out float[] maxout, float e1 = 0.005f, float e2 = 0.005f)
         {
             int[] min, max;
-            FindMinMax(out min, out max, e);
+            FindMinMax(out min, out max, e1, e2);
             minout = ToFloat(min);
             maxout = ToFloat(max);
         }
 
-        public void FindMinMax(out Vector3 minout, out Vector3 maxout, float e = 0.005f)
+        public void FindMinMax(out Vector3 minout, out Vector3 maxout, float e1 = 0.005f, float e2 = 0.005f)
         {
             int[] min, max;
-            FindMinMax(out min, out max, e);
+            FindMinMax(out min, out max, e1, e2);
             minout = ToVector(min);
             maxout = ToVector(max);
         }
 
-        public void FindMinMax(out int[] min, out int[] max, float e = 0.005f)
+        public void FindMinMax(out int[] min, out int[] max, float e1 = 0.005f, float e2 = 0.005f)
         {
             max = new[] { _maxIndex, _maxIndex, _maxIndex };
             min = new[] { 0, 0, 0 };
 
-            var amount = (int)(e * TotalPixels);
+            var amount1 = (int)(e1 * TotalPixels);
+            var amount2 = (int)(e2 * TotalPixels);
             for (var c = 0; c < 3; c++)
             {
                 var vals = Values[c];
@@ -149,18 +150,22 @@ namespace com.azi.Image
                 var maxsum = 0;
                 var start = Math.Min(1, Math.Min(MinIndex[c], _maxIndex - MaxIndex[c]));
 
-                for (var i = start; i < _maxIndex; i++)
+                bool cont = true;
+                for (var i = start; i < _maxIndex && cont; i++)
                 {
+                    cont = false;
                     minsum += vals[i];
-                    if (minsum < amount)
+                    if (minsum < amount1)
                     {
                         min[c] = (ushort)i;
+                        cont = true;
                     }
 
                     maxsum += vals[_maxIndex - i];
-                    if (maxsum < amount)
+                    if (maxsum < amount2)
                     {
                         max[c] = (ushort)(_maxIndex - i);
+                        cont = true;
                     }
                 }
             }

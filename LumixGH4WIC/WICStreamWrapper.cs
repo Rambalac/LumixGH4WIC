@@ -15,7 +15,7 @@ namespace LumixGH4WIC
         public WICReadOnlyStreamWrapper(IStream stream)
         {
             this.stream = stream;
-            stream.Stat(out stat, 0);
+            stream.Stat(out stat, 1);
         }
         public override bool CanRead => true;
 
@@ -51,13 +51,12 @@ namespace LumixGH4WIC
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            byte[] buf;
-            if (offset == 0)
-                buf = buffer;
-            else
+            CheckDisposed();
+            byte[] buf = buffer;
+            if (offset != 0)
                 buf = ArraysReuseManager.ReuseOrGetNew<byte>(count);
 
-            IntPtr red = Marshal.AllocHGlobal(4);
+            IntPtr red = Marshal.AllocCoTaskMem(sizeof(int));
             try
             {
                 stream.Read(buf, count, red);
@@ -71,13 +70,14 @@ namespace LumixGH4WIC
             }
             finally
             {
-                Marshal.Release(red);
+                Marshal.FreeCoTaskMem(red);
             }
         }
 
         public override long Seek(long offset, SeekOrigin origin)
         {
-            IntPtr newptr = Marshal.AllocHGlobal(8);
+            CheckDisposed();
+            IntPtr newptr = Marshal.AllocCoTaskMem(sizeof(long));
             try
             {
                 stream.Seek(offset, (int)origin, newptr);
@@ -85,18 +85,36 @@ namespace LumixGH4WIC
             }
             finally
             {
-                Marshal.Release(newptr);
+                Marshal.FreeCoTaskMem(newptr);
             }
         }
 
         public override void SetLength(long value)
         {
+            CheckDisposed();
             stream.SetSize(value);
         }
 
         public override void Write(byte[] buffer, int offset, int count)
         {
             throw new NotImplementedException();
+        }
+
+        private void CheckDisposed()
+        {
+            if (stream == null)
+            {
+                throw new ObjectDisposedException("StreamWrapper");
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (stream != null)
+            {
+                Marshal.ReleaseComObject(stream);
+                stream = null;
+            }
         }
     }
 }

@@ -24,6 +24,13 @@ namespace com.azi.Image
 
         public static Vector3 ToVector3(this float[] color) => new Vector3(color[0], color[1], color[2]);
 
+        public static float[,] Shift(this float[,] arr, int row, int index, float shift)
+        {
+            var othershift = -shift / (arr.GetUpperBound(1));
+            for (int i = 0; i < arr.GetUpperBound(1) + 1; i++) arr[row, i] += ((i == index) ? shift : othershift);
+            return arr;
+        }
+
         public static Matrix4x4 ToMatrix4x4(this float[,] matrix) => new Matrix4x4(
             matrix[0, 0], matrix[1, 0], matrix[2, 0], 0,
             matrix[0, 1], matrix[1, 1], matrix[2, 1], 0,
