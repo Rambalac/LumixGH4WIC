@@ -94,7 +94,7 @@ namespace com.azi.Image
                     if (image != imagetoadjust) imagetoadjust.Dispose();
                     last.AutoAdjuster = null;
 
-                    newimage = FiltersPipeline.ProcessFilters(image, new[] { last.Filter });
+                    newimage = FiltersPipeline.ProcessFilters(image, last.Filter);
                     image.Dispose();
                     image = newimage;
                 }

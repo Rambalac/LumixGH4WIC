@@ -60,19 +60,19 @@ namespace LumixGH4WIC
             }
         }
 
-        private void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, IntPtr pbBuffer)
+        private void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
         {
             for (int y = prc.Y; y < prc.Y + prc.Height; y++)
-                Marshal.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, new IntPtr(pbBuffer.ToInt64() + cbStride * (y - prc.Y)), prc.Width * 3);
+                Array.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, pbBuffer, cbStride * (y - prc.Y), prc.Width * 3);
         }
 
-        private void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, IntPtr pbBuffer)
+        private void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] buff)
         {
-            var buff = ArraysReuseManager.ReuseOrGetNew<byte>(prc.Width * 4);
+            //var buff = ArraysReuseManager.ReuseOrGetNew<byte>(prc.Width * 4);
             for (int y = prc.Y; y < prc.Y + prc.Height; y++)
             {
                 var pix = rgbmap.GetPixel(prc.X, y);
-                int off = 0;
+                int off = (int)cbStride * (y - prc.Y);
                 for (int x = 0; x < prc.Width; x++)
                 {
                     buff[off + 0] = pix.B;
@@ -82,11 +82,10 @@ namespace LumixGH4WIC
                     off += 4;
                     pix.MoveNext();
                 }
-                Marshal.Copy(buff, 0, new IntPtr(pbBuffer.ToInt64() + cbStride * (y - prc.Y)), prc.Width * 4);
             }
         }
 
-        public void CopyPixels(ref WICRect prc, uint cbStride, uint cbBufferSize, IntPtr pbBuffer)
+        public void CopyPixels(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
         {
             //Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
 
@@ -272,7 +271,7 @@ namespace LumixGH4WIC
             pfIsSupported = 0;
         }
 
-        public void CopyPixels([In] ref WICRect prc, [In] uint uiWidth, [In] uint uiHeight, [In] ref WICPixelFormatGUID dstf, [In] WICBitmapTransformOptions dstTransform, [In] uint nStride, [In] uint cbBufferSize, IntPtr pbBuffer)
+        public void CopyPixels([In] ref WICRect prc, [In] uint uiWidth, [In] uint uiHeight, [In] ref WICPixelFormatGUID dstf, [In] WICBitmapTransformOptions dstTransform, [In] uint nStride, [In] uint cbBufferSize, byte[] pbBuffer)
         {
             try
             {

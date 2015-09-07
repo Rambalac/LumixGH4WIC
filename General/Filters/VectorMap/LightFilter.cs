@@ -17,15 +17,15 @@ namespace com.azi.Filters.VectorMapFilters
 
             var wcenter = h.FindWeightCenter(Vector3.Zero, Vector3.One);
             var wcenterf = (wcenter - f.MinIn) / (f.MaxIn - f.MinIn);
-            var contrast = Log(new Vector3(0.5f), wcenterf);
+            var contrast = Log(new Vector3(0.55f), wcenterf);
 
-            f.Contrast = f.Contrast.Average();
+            //f.Contrast = f.Contrast.Average();
 
             //            h.Transform((index, value, comp) => (int)(1023 * Math.Pow(index / 1023f, _contrast[comp])));
 
             Vector3 max;
             Vector3 min;
-            h.FindMinMax(out min, out max, 0.01f, 0.005f);
+            h.FindMinMax(out min, out max, 0.005f, 0.001f);
 
             //min = new Vector3(min.MinComponent());
             //max = new Vector3(max.MaxComponent());

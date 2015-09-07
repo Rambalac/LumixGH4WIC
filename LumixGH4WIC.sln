@@ -17,7 +17,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WicWrapper", "Wic\WicWrappe
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LumixGH4WICSetup", "LumixGH4WICSetup\LumixGH4WICSetup.vdproj", "{82417498-FAC7-4472-9A19-2FAEF67023BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LumixGH4WIC.Tests", "LumixGH4WIC.Tests\LumixGH4WIC.Tests.csproj", "{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}"
+EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
@@ -77,6 +82,14 @@ Global
 		{82417498-FAC7-4472-9A19-2FAEF67023BA}.Debug|x86.ActiveCfg = Debug
 		{82417498-FAC7-4472-9A19-2FAEF67023BA}.Release|Any CPU.ActiveCfg = Release
 		{82417498-FAC7-4472-9A19-2FAEF67023BA}.Release|x86.ActiveCfg = Release
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Debug|x86.Build.0 = Debug|Any CPU
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Release|x86.ActiveCfg = Release|Any CPU
+		{1FD2BC2C-84D3-4ADC-8EA0-43214BCB0128}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

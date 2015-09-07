@@ -12,6 +12,14 @@ using System.Threading.Tasks;
 
 namespace General.Tests
 {
+    public class PerfomanceTestsMain
+    {
+        public static void Main(string[] args)
+        {
+            new PerfomanceTests().FullProcessWithAutoAdjustTest();
+        }
+    }
+
     [TestClass]
     public class PerfomanceTests
     {
@@ -119,7 +127,7 @@ namespace General.Tests
                 var filters = new IFilter[]
                 {
                     debayer,
-                    white,
+                    //white,
                     gamma,
                     light,
                     compressor

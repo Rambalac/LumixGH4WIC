@@ -11,15 +11,6 @@ namespace Tests
     [TestClass]
     public class Test
     {
-        [TestMethod]
-        public void TestWic()
-        {
-            BitmapCreateOptions createOptions = BitmapCreateOptions.PreservePixelFormat | BitmapCreateOptions.IgnoreColorProfile;
-            using (Stream sourceStream = File.Open(@"..\..\P1350577.RW2", FileMode.Open, FileAccess.Read))
-            {
-                BitmapDecoder sourceDecoder = BitmapDecoder.Create(sourceStream, createOptions, BitmapCacheOption.None);
-            }
-        }
 
         [TestMethod]
         public void TestDecodeDoesNotFail()

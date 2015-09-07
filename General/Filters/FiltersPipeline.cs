@@ -19,6 +19,11 @@ namespace com.azi.Filters
 
         public IColorMap ProcessFilters(IColorMap map) => ProcessFilters(map, _filters);
 
+        public static IColorMap ProcessFilters(IColorMap map, IFilter filter)
+        {
+            return ProcessFilters(map, new[] { filter });
+        }
+
         public static IColorMap ProcessFilters(IColorMap map, IEnumerable<IFilter> filters)
         {
             var indColorFilter = new List<IIndependentComponentFilter>();
@@ -40,7 +45,7 @@ namespace com.azi.Filters
                         indColorFilter.Clear();
                     }
                     var newmap = ApplySingleFilter(currentMap, filter);
-                    if (newmap != currentMap && currentMap != map) map.Dispose();
+                    if (newmap != currentMap && currentMap != map) currentMap.Dispose();
                     currentMap = newmap;
 
                 }
@@ -48,7 +53,7 @@ namespace com.azi.Filters
             if (indColorFilter.Any())
             {
                 var newmap = ApplyIndependentColorFilters(currentMap, indColorFilter);
-                if (newmap!=currentMap&&currentMap != map) map.Dispose();
+                if (newmap!=currentMap&&currentMap != map) currentMap.Dispose();
                 currentMap = newmap;
             }
             return currentMap;
