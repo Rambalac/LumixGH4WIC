@@ -35,6 +35,9 @@ namespace com.azi.tiff
         public string SubsecTimeOriginal;
         public byte[] Thumbnail;
         public float[] WhiteColor;
+        public int RealHeight;
+        public int RealWidth;
+
 
         protected void InternalParse(Stream stream)
         {

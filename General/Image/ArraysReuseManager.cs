@@ -16,14 +16,12 @@ namespace com.azi.Image
 
             public static void Release(T[] arr)
             {
-                if (arr.Length < MinSizeLimit) return;
                 var set = reuse.GetOrAdd(arr.Length, (s) => new ConcurrentBag<WeakReference<T[]>>());
                 set.Add(new WeakReference<T[]>(arr));
             }
 
             public static T[] ReuseOrGetNew(int size)
             {
-                if (size < MinSizeLimit) return new T[size];
                 ConcurrentBag<WeakReference<T[]>> set;
                 WeakReference<T[]> item;
                 T[] ar;
@@ -43,10 +41,12 @@ namespace com.azi.Image
 
         public static R[] ReuseOrGetNew<R>(int size)
         {
+            if (size < MinSizeLimit) return new R[size];
             return _ArraysReuseManager<R>.ReuseOrGetNew(size);
         }
         public static void Release<R>(R[] arr)
         {
+            if (arr.Length < MinSizeLimit) return;
             _ArraysReuseManager<R>.Release(arr);
         }
     }

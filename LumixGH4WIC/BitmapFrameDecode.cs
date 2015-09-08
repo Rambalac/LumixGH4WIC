@@ -41,6 +41,10 @@ namespace LumixGH4WIC
         {
             exif = _exif;
             stream = _stream;
+        }
+
+        private void ReadRaw()
+        {
             try
             {
                 map = new PanasonicRW2Decoder().DecodeMap(stream, exif);
@@ -62,13 +66,15 @@ namespace LumixGH4WIC
 
         private void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
         {
+            if (rgbmap == null) BuildRGB();
+
             for (int y = prc.Y; y < prc.Y + prc.Height; y++)
                 Array.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, pbBuffer, cbStride * (y - prc.Y), prc.Width * 3);
         }
 
         private void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] buff)
         {
-            //var buff = ArraysReuseManager.ReuseOrGetNew<byte>(prc.Width * 4);
+            if (rgbmap == null) BuildRGB();
             for (int y = prc.Y; y < prc.Y + prc.Height; y++)
             {
                 var pix = rgbmap.GetPixel(prc.X, y);
@@ -83,25 +89,6 @@ namespace LumixGH4WIC
                     pix.MoveNext();
                 }
             }
-        }
-
-        public void CopyPixels(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
-        {
-            //Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
-
-            try
-            {
-                if (rgbmap == null) BuildRGB();
-                //Log.Trace($"CopyPixels rgbmap {rgbmap.Width}, {rgbmap.Height}");
-                CopyRGB(ref prc, cbStride, cbBufferSize, pbBuffer);
-                //Log.Trace("CopyPixels finished");
-            }
-            catch (Exception e)
-            {
-                Log.Error("CopyPixels failed: " + e);
-                throw;
-            }
-
         }
 
         private List<IFilter> PrepareFilters()
@@ -142,11 +129,13 @@ namespace LumixGH4WIC
         private void BuildRGB()
         {
             Log.Trace($"BuildRGB called");
+            if (map == null) ReadRaw();
 
             var filters = PrepareFilters();
 
             var processor = new ImageProcessor(map, filters);
             rgbmap = (RGB8Map)processor.Invoke();
+            map.Dispose();
             Log.Trace("BuildRGB finished");
         }
 
@@ -194,8 +183,8 @@ namespace LumixGH4WIC
         public void GetSize(out uint puiWidth, out uint puiHeight)
         {
             Log.Trace("GetSize called");
-            puiWidth = (uint)map.Width;
-            puiHeight = (uint)map.Height;
+            puiWidth = (uint)exif.RealWidth;
+            puiHeight = (uint)exif.RealHeight;
             Log.Trace($"GetSize finished: {puiWidth}x{puiHeight}");
         }
 
@@ -275,13 +264,14 @@ namespace LumixGH4WIC
         {
             try
             {
+                Log.Trace($"Trans CopyPixels called");
                 var dstFormat = new Guid(dstf.Data1, dstf.Data2, dstf.Data3, dstf.Data4);
                 Log.Trace($"Trans CopyPixels called: {uiWidth}, {uiHeight} {dstFormat}");
-                if (rgbmap == null) BuildRGB();
                 if (dstFormat == GUID_WICPixelFormat24bppRGB)
                     CopyRGB(ref prc, nStride, cbBufferSize, pbBuffer);
                 else if (dstFormat == GUID_WICPixelFormat32bppBGRA)
                     CopyBGRA(ref prc, nStride, cbBufferSize, pbBuffer);
+                if (prc.Y+prc.Height==rgbmap.Height) rgbmap.Dispose();
                 Log.Trace("CopyPixels finished");
             }
             catch (Exception e)
@@ -290,5 +280,25 @@ namespace LumixGH4WIC
                 throw;
             }
         }
+
+        public void CopyPixels(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
+        {
+            Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
+
+            try
+            {
+                //Log.Trace($"CopyPixels rgbmap {rgbmap.Width}, {rgbmap.Height}");
+                CopyRGB(ref prc, cbStride, cbBufferSize, pbBuffer);
+                if (prc.Y + prc.Height == rgbmap.Height) rgbmap.Dispose();
+                //Log.Trace("CopyPixels finished");
+            }
+            catch (Exception e)
+            {
+                Log.Error("CopyPixels failed: " + e);
+                throw;
+            }
+
+        }
+
     }
 }

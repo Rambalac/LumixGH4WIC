@@ -137,6 +137,7 @@ namespace LumixGH4WIC
 
         public void GetPreview(out IWICBitmapSource ppIBitmapSource)
         {
+            Log.Trace("GetPreview called");
             GetThumbnail(out ppIBitmapSource);
         }
 

@@ -70,6 +70,8 @@ namespace com.azi.Decoder.Panasonic
             var max = result.CamMul.Max();
             result.WhiteColor = result.CamMul.Select(v => max/v).Reverse().ToArray();
             result.Multiplier = max;
+            result.RealHeight = result.ImageHeight;
+            result.RealWidth = result.CropRight;
 
             return result;
         }

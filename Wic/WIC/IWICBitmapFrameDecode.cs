@@ -21,6 +21,9 @@ namespace WIC
         void CopyPalette([MarshalAs(UnmanagedType.Interface)] [In] IWICPalette pIPalette);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
+        void CopyPixels([In] ref WICRect prc, [In] uint cbStride, [In] uint cbBufferSize, [Out, MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.U1, SizeParamIndex = 2)] byte[] pbBuffer);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
         void GetMetadataQueryReader([MarshalAs(UnmanagedType.Interface)] out IWICMetadataQueryReader ppIMetadataQueryReader);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
