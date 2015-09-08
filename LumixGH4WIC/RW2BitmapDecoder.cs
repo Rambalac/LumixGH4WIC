@@ -56,13 +56,18 @@ namespace LumixGH4WIC
         {
             NativeMethods.SHChangeNotify(HChangeNotifyEventID.SHCNE_ASSOCCHANGED, HChangeNotifyFlags.SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
 
-            Log.Trace("GH4 RW2 WIC Decoder registered. " + type);
+            Log.Debug("GH4 RW2 WIC Decoder registered. " + type);
+        }
+
+        public static void Main(string[] arg)
+        {
+            OnRegistry(null);
         }
 
         [ComUnregisterFunction]
         public static void OnUnregistry(Type type)
         {
-            Log.Trace("GH4 RW2 WIC Decoder unregistered. " + type);
+            Log.Debug("GH4 RW2 WIC Decoder unregistered. " + type);
         }
 
         public void CopyPalette(IWICPalette pIPalette)

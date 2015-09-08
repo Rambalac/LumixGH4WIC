@@ -22,6 +22,11 @@ namespace LumixGH4WIC
 #endif
         }
 
+        public static void Debug(string log)
+        {
+            EventLog.WriteEntry(application, log);
+        }
+
         public static void Error(string log)
         {
             EventLog.WriteEntry(application, log, EventLogEntryType.Error);
