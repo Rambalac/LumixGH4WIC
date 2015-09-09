@@ -18,10 +18,13 @@ namespace WIC
 		void GetCount(out uint pcCount);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		void GetValueByIndex([In] uint nIndex, [In] [Out] ref tag_inner_PROPVARIANT pvarSchema, [In] [Out] ref tag_inner_PROPVARIANT pvarId, [In] [Out] ref tag_inner_PROPVARIANT pvarValue);
+		void GetValueByIndex([In] uint nIndex, 
+            [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarSchema, 
+            [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarId, 
+            [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarValue);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		void GetValue([In] ref tag_inner_PROPVARIANT pvarSchema, [In] ref tag_inner_PROPVARIANT pvarId, [In] [Out] ref tag_inner_PROPVARIANT pvarValue);
+		void GetValue([In][MarshalAs(UnmanagedType.Struct)] ref object pvarSchema, [In][MarshalAs(UnmanagedType.Struct)] ref object pvarId, [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarValue);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		void GetEnumerator([MarshalAs(UnmanagedType.Interface)] out IWICEnumMetadataItem ppIEnumMetadata);

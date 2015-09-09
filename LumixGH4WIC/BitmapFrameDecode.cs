@@ -19,7 +19,7 @@ namespace LumixGH4WIC
 {
     [ComVisible(true)]
     [Guid("1253D0FF-6836-4DE9-A141-FEF5B4C55DAA")]
-    class BitmapFrameDecode : IWICBitmapFrameDecode, IWICBitmapSourceTransform //, IWICMetadataBlockReader
+    class BitmapFrameDecode : IWICBitmapFrameDecode, IWICBitmapSourceTransform, IWICMetadataBlockReader
     {
         static readonly Guid GUID_WICPixelFormat16bppBGR565 = new Guid("6FDDC324-4E03-4BFE-B185-3D77768DC90A");
         static readonly Guid GUID_WICPixelFormat16bppBGRA5551 = new Guid("05EC7C2B-F1E6-4961-AD46-E1CC810A87D2");
@@ -47,6 +47,7 @@ namespace LumixGH4WIC
         {
             try
             {
+                var position = stream.Position;
                 map = new PanasonicRW2Decoder().DecodeMap(stream, exif);
             }
             catch (Exception e)
@@ -220,19 +221,20 @@ namespace LumixGH4WIC
         ////////// Metadata
         public void GetCount(out uint pcCount)
         {
-            Log.Trace("Frame GetCount called");
+            Log.Trace("Frame IWICMetadataBlockReader.GetCount called");
+            pcCount = 0;
+            Log.Trace("Frame IWICMetadataBlockReader.GetCount finished");
+        }
+
+        public void GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
+        {
+            Log.Trace($"Frame IWICMetadataBlockReader.GetReaderByIndex called: {nIndex}");
             throw new NotImplementedException();
         }
 
-        public void GetReaderByIndex([In] uint nIndex, [MarshalAs(UnmanagedType.Interface)] out IWICMetadataReader ppIMetadataReader)
+        public void GetEnumerator(out IEnumUnknown ppIEnumMetadata)
         {
-            Log.Trace("Frame GetReaderByIndex called");
-            throw new NotImplementedException();
-        }
-
-        public void GetEnumerator([MarshalAs(UnmanagedType.Interface)] out IEnumUnknown ppIEnumMetadata)
-        {
-            Log.Trace("Frame GetEnumerator called");
+            Log.Trace("Frame IWICMetadataBlockReader.GetEnumerator called");
             throw new NotImplementedException();
         }
 
@@ -271,7 +273,7 @@ namespace LumixGH4WIC
                     CopyRGB(ref prc, nStride, cbBufferSize, pbBuffer);
                 else if (dstFormat == GUID_WICPixelFormat32bppBGRA)
                     CopyBGRA(ref prc, nStride, cbBufferSize, pbBuffer);
-                if (prc.Y+prc.Height==rgbmap.Height) rgbmap.Dispose();
+                if (prc.Y + prc.Height == rgbmap.Height) rgbmap.Dispose();
                 Log.Trace("CopyPixels finished");
             }
             catch (Exception e)
@@ -283,7 +285,7 @@ namespace LumixGH4WIC
 
         public void CopyPixels(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
         {
-            Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
+            //Log.Trace($"CopyPixels called: ({prc.X} {prc.Y} {prc.Width} {prc.Height}) Stride: {cbStride}, Size: {cbBufferSize}");
 
             try
             {

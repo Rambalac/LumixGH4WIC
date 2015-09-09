@@ -76,6 +76,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_68574BEA6E66408BB692591242C8BA73"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_78F305FBABD360F8B183C22A8DB59DEE"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -89,12 +95,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FA6A940E78D43C7370FEBCFB20E69823"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_68574BEA6E66408BB692591242C8BA73"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -199,6 +199,11 @@
             "AssemblyAsmDisplayName" = "8:PanasonicRW2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=295c6ee1e964396a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_53B3AFD4E42C3402D4D36A0DA23C2966"
+                    {
+                    "Name" = "8:PanasonicRW2.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:PanasonicRW2.dll"
             "TargetName" = "8:"
@@ -225,6 +230,11 @@
             "AssemblyAsmDisplayName" = "8:WIC, Version=2.0.0.0, Culture=neutral, PublicKeyToken=295c6ee1e964396a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_78F305FBABD360F8B183C22A8DB59DEE"
+                    {
+                    "Name" = "8:WIC.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:WIC.dll"
             "TargetName" = "8:"
@@ -251,6 +261,11 @@
             "AssemblyAsmDisplayName" = "8:General, Version=1.0.0.0, Culture=neutral, PublicKeyToken=295c6ee1e964396a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_FA6A940E78D43C7370FEBCFB20E69823"
+                    {
+                    "Name" = "8:General.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:General.dll"
             "TargetName" = "8:"
@@ -845,7 +860,7 @@
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "ValueTypes" = "3:1"
-                                    "Value" = "8:077A36A5-66CF-40B4-8820-027ECBD9C371"
+                                    "Value" = "8:{077A36A5-66CF-40B4-8820-027ECBD9C371}"
                                     }
                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_CF18E602F5254FF8B1AE1DDF3630F01E"
                                     {

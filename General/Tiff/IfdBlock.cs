@@ -379,6 +379,7 @@ namespace com.azi.tiff
         public byte[] rawdata;
         public ushort rawtag;
         public ushort rawtype;
+        public object variant;
 
         public IfdTag? tag;
         public IfdType type;

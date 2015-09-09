@@ -46,7 +46,9 @@ namespace LumixGH4WIC
             get
             {
                 if (_exif == null)
-                    _exif = (PanasonicExif)new PanasonicRW2Decoder().DecodeExif(stream);
+                {
+                    ReadExif();
+                }
                 return _exif;
             }
         }
@@ -57,11 +59,6 @@ namespace LumixGH4WIC
             NativeMethods.SHChangeNotify(HChangeNotifyEventID.SHCNE_ASSOCCHANGED, HChangeNotifyFlags.SHCNF_IDLIST, IntPtr.Zero, IntPtr.Zero);
 
             Log.Debug("GH4 RW2 WIC Decoder registered. " + type);
-        }
-
-        public static void Main(string[] arg)
-        {
-            OnRegistry(null);
         }
 
         [ComUnregisterFunction]
@@ -177,11 +174,16 @@ namespace LumixGH4WIC
 
             if (cacheOptions == WICDecodeOptions.WICDecodeMetadataCacheOnLoad)
             {
-                var position = stream.Position;
-                _exif = (PanasonicExif)new PanasonicRW2Decoder().DecodeExif(new WICReadOnlyStreamWrapper(pIStream));
-                stream.Position = position;
+                ReadExif();
             }
             Log.Trace("Initialize finished");
+        }
+
+        private void ReadExif()
+        {
+            var position = stream.Position;
+            _exif = (PanasonicExif)new PanasonicRW2Decoder().DecodeExif(stream);
+            stream.Position = position;
         }
 
         public void QueryCapability(IStream pIStream, out uint pdwCapability)

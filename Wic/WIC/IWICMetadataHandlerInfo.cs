@@ -18,12 +18,20 @@ namespace WIC
         [MethodImpl(MethodImplOptions.InternalCall)]
         void GetSigningStatus(out uint pStatus);
 
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        void GetAuthor([In] uint cchAuthor, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzAuthor, out uint pcchActual);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         void GetVendorGUID(out Guid pguidVendor);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
+        void GetVersion([In] uint cchVersion, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzVersion, out uint pcchActual);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
         void GetSpecVersion([In] uint cchSpecVersion, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzSpecVersion, out uint pcchActual);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        void GetFriendlyName([In] uint cchFriendlyName, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzFriendlyName, out uint pcchActual);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         void GetMetadataFormat(out Guid pguidMetadataFormat);
@@ -32,7 +40,7 @@ namespace WIC
         void GetContainerFormats([In] uint cContainerFormats, [In] [Out] ref Guid pguidContainerFormats, out uint pcchActual);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        void GetDeviceManufacturer([In] uint cchDeviceManufacturer, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder wzDeviceManufacturer, out uint pcchActual);
+        void GetDeviceManufacturer([In] uint cchDeviceManufacturer, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzDeviceManufacturer, out uint pcchActual);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         void GetDeviceModels([In] uint cchDeviceModels, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzDeviceModels, out uint pcchActual);

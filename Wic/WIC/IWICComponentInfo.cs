@@ -22,9 +22,6 @@ namespace WIC
         void GetAuthor([In] uint cchAuthor, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzAuthor, out uint pcchActual);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        void GetFriendlyName([In] uint cchFriendlyName, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzFriendlyName, out uint pcchActual);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
         void GetVendorGUID(out Guid pguidVendor);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
@@ -33,5 +30,7 @@ namespace WIC
         [MethodImpl(MethodImplOptions.InternalCall)]
         void GetSpecVersion([In] uint cchSpecVersion, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzSpecVersion, out uint pcchActual);
 
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        void GetFriendlyName([In] uint cchFriendlyName, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzFriendlyName, out uint pcchActual);
     }
 }

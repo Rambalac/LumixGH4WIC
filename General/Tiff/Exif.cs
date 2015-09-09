@@ -68,24 +68,31 @@ namespace com.azi.tiff
             {
                 case IfdTag.ImageWidth:
                     ImageWidth = block.GetUInt16();
+                    block.variant = ImageWidth;
                     break;
                 case IfdTag.ImageLength:
                     ImageHeight = block.GetUInt16();
+                    block.variant = ImageHeight;
                     break;
                 case IfdTag.Make:
                     Maker = block.GetString();
+                    block.variant = Maker;
                     break;
                 case IfdTag.Model:
                     Model = block.GetString();
+                    block.variant = Model;
                     break;
                 case IfdTag.StripOffsets:
-                    StripOffset = (int) block.GetUInt32();
+                    StripOffset = (int)block.GetUInt32();
+                    block.variant = StripOffset;
                     break;
                 case IfdTag.Orientation:
-                    Orientation = (int) block.GetUInt32();
+                    Orientation = (int)block.GetUInt32();
+                    block.variant = Orientation;
                     break;
                 case IfdTag.RowsPerStrip:
-                    StripByteCounts = (int) block.GetUInt32();
+                    StripByteCounts = (int)block.GetUInt32();
+                    block.variant = StripByteCounts;
                     break;
                 case IfdTag.ExifIFD:
                     reader.BaseStream.Seek(block.GetUInt32(), SeekOrigin.Begin);
@@ -93,45 +100,66 @@ namespace com.azi.tiff
                     break;
                 case IfdTag.ExposureTime:
                     Shutter = block.GetFraction();
+                    block.variant = Shutter;
                     break;
                 case IfdTag.FNumber:
                     Aperture = block.GetFraction();
+                    block.variant = Aperture;
                     break;
                 case IfdTag.ExposureProgram:
-                    ExposureProgram = (int) block.GetUInt32();
+                    ExposureProgram = (int)block.GetUInt32();
+                    block.variant = ExposureProgram;
                     break;
                 case IfdTag.ExifVersion:
                     ExifVersion = block.GetString();
+                    block.variant = ExifVersion;
                     break;
                 case IfdTag.DateTimeOriginal:
                     DateTimeOriginal = block.GetString();
+                    block.variant = DateTimeOriginal;
                     break;
                 case IfdTag.DateTimeDigitized:
                     DateTimeDigitized = block.GetString();
+                    block.variant = DateTimeDigitized;
                     break;
                 case IfdTag.ExposureBiasValue:
                     ExposureBiasValue = block.GetFraction();
+                    block.variant = ExposureBiasValue;
                     break;
                 case IfdTag.MaxApertureValue:
                     MaxApertureValue = block.GetFraction();
+                    block.variant = MaxApertureValue;
                     break;
                 case IfdTag.MeteringMode:
-                    MeteringMode = (int) block.GetUInt32();
+                    MeteringMode = (int)block.GetUInt32();
+                    block.variant = MeteringMode;
                     break;
                 case IfdTag.Flash:
-                    Flash = (int) block.GetUInt32();
+                    Flash = (int)block.GetUInt32();
+                    block.variant = Flash;
                     break;
                 case IfdTag.FocalLength:
                     FocalLength = block.GetFraction();
+                    block.variant = FocalLength;
                     break;
                 case IfdTag.SubsecTimeOriginal:
                     SubsecTimeOriginal = block.GetString();
+                    block.variant = SubsecTimeOriginal;
                     break;
                 case IfdTag.SubsecTimeDigitized:
                     SubsecTimeDigitized = block.GetString();
+                    block.variant = SubsecTimeDigitized;
                     break;
                 case IfdTag.FileSource:
-                    FileSource = (int) block.GetUInt32();
+                    FileSource = (int)block.GetUInt32();
+                    block.variant = FileSource;
+                    break;
+                default:
+                    if (block.length <= 4)
+                        block.variant = block.GetUInt32();
+                    else if (block.type == IfdType.UInt32Fraction)
+                        block.variant = block.GetFraction().ToString();
+                    else block.variant = string.Join(", ", block.rawdata);
                     break;
             }
         }

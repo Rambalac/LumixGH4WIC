@@ -68,7 +68,7 @@ namespace com.azi.Decoder.Panasonic
             if (result.CamMul == null) return result;
 
             var max = result.CamMul.Max();
-            result.WhiteColor = result.CamMul.Select(v => max/v).Reverse().ToArray();
+            result.WhiteColor = result.CamMul.Select(v => max / v).Reverse().ToArray();
             result.Multiplier = max;
             result.RealHeight = result.ImageHeight;
             result.RealWidth = result.CropRight;
@@ -88,38 +88,47 @@ namespace com.azi.Decoder.Panasonic
             switch (tag)
             {
                 case PanasoncIfdTag.CropLeft:
-                    CropLeft = (int) block.GetUInt32();
+                    CropLeft = (int)block.GetUInt32();
                     CropRight += CropLeft;
+                    block.variant = CropLeft;
                     break;
                 case PanasoncIfdTag.CropTop:
-                    CropTop = (int) block.GetUInt32();
+                    CropTop = (int)block.GetUInt32();
                     CropBottom += CropTop;
+                    block.variant = CropTop;
                     break;
                 case PanasoncIfdTag.CropWidth:
-                    CropRight += (int) block.GetUInt32();
+                    CropRight += (int)block.GetUInt32();
+                    block.variant = (int)block.GetUInt32();
                     break;
                 case PanasoncIfdTag.CropHeight:
-                    CropBottom += (int) block.GetUInt32();
+                    CropBottom += (int)block.GetUInt32();
+                    block.variant = (int)block.GetUInt32();
                     break;
                 case PanasoncIfdTag.Filters:
-                    Filters = (int) block.GetUInt32();
+                    Filters = (int)block.GetUInt32();
+                    block.variant = Filters;
                     break;
                 case PanasoncIfdTag.Iso:
-                    Iso = (int) block.GetUInt32();
+                    Iso = (int)block.GetUInt32();
+                    block.variant = Iso;
                     break;
                 case PanasoncIfdTag.Black:
                     Black[block.rawtag - 28] = block.GetUInt16();
                     Black[3] = Black[1];
+                    block.variant = string.Join(", ", Black); ;
                     break;
                 case PanasoncIfdTag.CamMul:
                     if (CamMul == null) CamMul = new float[3];
                     CamMul[block.rawtag - 36] = block.GetUInt16();
+                    block.variant = string.Join(", ", CamMul);
                     break;
                 case PanasoncIfdTag.Thumb:
                     Thumbnail = block.rawdata;
                     break;
                 case PanasoncIfdTag.RawOffset:
-                    RawOffset = (int) block.GetUInt32();
+                    RawOffset = (int)block.GetUInt32();
+                    block.variant = RawOffset;
                     break;
             }
         }

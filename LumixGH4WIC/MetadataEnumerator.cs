@@ -13,6 +13,14 @@ namespace LumixGH4WIC
     [ComVisible(true)]
     class MetadataHandlerInfo : IWICMetadataHandlerInfo
     {
+        private void SetString(string str, uint bufsize, StringBuilder buf, out uint actual)
+        {
+            actual = (uint)(str.Length + 1);
+            if (bufsize != 0)
+                buf.Append(str);
+        }
+
+
         public void DoesRequireFixedSize(out int pfFixedSize)
         {
             Log.Trace("MetadataHandlerInfo.DoesRequireFixedSize called");
@@ -31,16 +39,17 @@ namespace LumixGH4WIC
             throw new NotImplementedException();
         }
 
-        public void GetAuthor([In] uint cchAuthor, StringBuilder wzAuthor, out uint pcchActual)
+        public void GetAuthor([In] uint size, StringBuilder buf, out uint actual)
         {
             Log.Trace("MetadataHandlerInfo.GetAuthor called");
-            throw new NotImplementedException();
+            SetString("Rambalac", size, buf, out actual);
         }
 
         public void GetCLSID(out Guid pclsid)
         {
             Log.Trace("MetadataHandlerInfo.GetCLSID called");
-            throw new NotImplementedException();
+            pclsid = typeof(RW2BitmapDecoder).GUID;
+            Log.Trace("MetadataHandlerInfo.GetCLSID finished");
         }
 
         public void GetComponentType(out WICComponentType pType)
@@ -55,33 +64,24 @@ namespace LumixGH4WIC
             throw new NotImplementedException();
         }
 
-        string Manufacturer = "Panasonic";
-
-        public void GetDeviceManufacturer([In] uint cchDeviceManufacturer, StringBuilder wzDeviceManufacturer, out uint pcchActual)
+        public void GetDeviceManufacturer([In] uint size, StringBuilder buf, out uint actual)
         {
-            if (cchDeviceManufacturer == 0) { pcchActual = (uint)Manufacturer.Length; return; }
-
             Log.Trace("MetadataHandlerInfo.GetDeviceManufacturer called");
-            wzDeviceManufacturer.Append(Manufacturer);
-            pcchActual = (uint)wzDeviceManufacturer.Length;
+            SetString("Panasonic", size, buf, out actual);
             Log.Trace("MetadataHandlerInfo.GetDeviceManufacturer finished");
         }
 
-        public void GetDeviceModels([In] uint cchDeviceModels, StringBuilder wzDeviceModels, out uint pcchActual)
+        public void GetDeviceModels([In] uint size, StringBuilder buf, out uint actual)
         {
             Log.Trace("MetadataHandlerInfo.GetDeviceModels called");
-            throw new NotImplementedException();
+            SetString("Lumix GH4", size, buf, out actual);
+            Log.Trace("MetadataHandlerInfo.GetDeviceModels finished");
         }
 
-        string FriendlyName = "Rambalac Lumix GH4 WIC Decoder";
-
-        public void GetFriendlyName([In] uint cchFriendlyName, StringBuilder wzFriendlyName, out uint pcchActual)
+        public void GetFriendlyName([In] uint size, StringBuilder buf, out uint actual)
         {
-            if (cchFriendlyName == 0) { pcchActual = (uint)FriendlyName.Length; return; }
-
             Log.Trace("MetadataHandlerInfo.GetFriendlyName called");
-            wzFriendlyName.Append(FriendlyName);
-            pcchActual = (uint)wzFriendlyName.Length;
+            SetString("Rambalac Lumix GH4 WIC Decoder", size, buf, out actual);
             Log.Trace("MetadataHandlerInfo.GetFriendlyName finished");
         }
 
@@ -103,31 +103,35 @@ namespace LumixGH4WIC
         public void GetSigningStatus(out uint pStatus)
         {
             Log.Trace("MetadataHandlerInfo.GetSigningStatus called");
-            throw new NotImplementedException();
+            pStatus = 0;
+            Log.Trace("MetadataHandlerInfo.GetSigningStatus finished");
         }
 
-        public void GetSpecVersion([In] uint cchSpecVersion, StringBuilder wzSpecVersion, out uint pcchActual)
+        public void GetSpecVersion([In] uint size, StringBuilder buf, out uint actual)
         {
             Log.Trace("MetadataHandlerInfo.GetSpecVersion called");
-            throw new NotImplementedException();
+            SetString("s1.0", size, buf, out actual);
+            Log.Trace("MetadataHandlerInfo.GetSpecVersion finished");
         }
 
         public void GetVendorGUID(out Guid pguidVendor)
         {
             Log.Trace("MetadataHandlerInfo.GetVendorGUID called");
-            throw new NotImplementedException();
+            pguidVendor = new Guid("077A36A5-66CF-40B4-8820-027ECBD9C371");
+            Log.Trace("MetadataHandlerInfo.GetVendorGUID finished");
         }
 
-        public void GetVersion([In] uint cchVersion, StringBuilder wzVersion, out uint pcchActual)
+        public void GetVersion([In] uint size, StringBuilder buf, out uint actual)
         {
             Log.Trace("MetadataHandlerInfo.GetVersion called");
-            throw new NotImplementedException();
+            SetString("v1.0", size, buf, out actual);
+            Log.Trace("MetadataHandlerInfo.GetVersion finished");
         }
 
     }
 
     [ComVisible(true)]
-    class MetadataReader : IWICMetadataReader
+    class MetadataReader : IWICMetadataReader//, IWICPersistStream, IWICStreamProvider
     {
         private PanasonicExif exif;
         static MetadataHandlerInfo MetadataHandlerInfo = new MetadataHandlerInfo();
@@ -135,7 +139,8 @@ namespace LumixGH4WIC
         public void GetMetadataFormat(out Guid pguidMetadataFormat)
         {
             Log.Trace("MetadataReader.GetMetadataFormat called");
-            pguidMetadataFormat = new Guid("{8FD3DFC3-F951-492B-817F-69C2E6D9A5B0}");
+            //pguidMetadataFormat = new Guid("{8FD3DFC3-F951-492B-817F-69C2E6D9A5B0}");
+            pguidMetadataFormat = new Guid("{163bcc30-e2e9-4f0b-961d-a3e9fdb788a3}");
             Log.Trace("MetadataReader.GetMetadataFormat finished");
         }
 
@@ -150,16 +155,19 @@ namespace LumixGH4WIC
         {
             Log.Trace("MetadataReader.GetCount called");
             pcCount = (uint)exif.RawIfd.Count;
-            Log.Trace("MetadataReader.GetCount finished");
+            Log.Trace("MetadataReader.GetCount finished: " + pcCount);
         }
 
-        public void GetValueByIndex(uint nIndex, ref tag_inner_PROPVARIANT pvarSchema, ref tag_inner_PROPVARIANT pvarId, ref tag_inner_PROPVARIANT pvarValue)
+        public void GetValueByIndex(uint nIndex, ref object pvarSchema, ref object pvarId, ref object pvarValue)
         {
-            Log.Trace("MetadataReader.GetValueByIndex called");
-            throw new NotImplementedException();
+            Log.Trace("MetadataReader.GetValueByIndex called: " + nIndex);
+            pvarSchema = "idf";
+            pvarId = exif.RawIfd[(int)nIndex].rawtag;
+            pvarValue = exif.RawIfd[(int)nIndex].variant;
+            Log.Trace("MetadataReader.GetValueByIndex finished");
         }
 
-        public void GetValue(ref tag_inner_PROPVARIANT pvarSchema, ref tag_inner_PROPVARIANT pvarId, ref tag_inner_PROPVARIANT pvarValue)
+        public void GetValue(ref object pvarSchema, ref object pvarId, ref object pvarValue)
         {
             Log.Trace("MetadataReader.GetValue called");
             throw new NotImplementedException();
