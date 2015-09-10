@@ -112,7 +112,7 @@ namespace LumixGH4WIC
         {
             if (stream != null)
             {
-                Marshal.ReleaseComObject(stream);
+                //Marshal.ReleaseComObject(stream);
                 stream = null;
             }
         }
