@@ -5,7 +5,6 @@ using com.azi.Filters.Converters;
 using com.azi.Filters.Converters.Demosaic;
 using com.azi.Filters.VectorMapFilters;
 using com.azi.Image;
-using LumixGH4WIC;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -153,23 +152,11 @@ namespace LumixGH4WIC
             Log.Trace("GetMetadataQueryReader finished");
         }
 
-        private static WICPixelFormatGUID GuidToWICGuid(Guid g)
-        {
-            var b = g.ToByteArray();
-            WICPixelFormatGUID o;
-            o.Data4 = new byte[8];
-            o.Data1 = BitConverter.ToInt32(b, 0);
-            o.Data2 = BitConverter.ToInt16(b, 4);
-            o.Data3 = BitConverter.ToInt16(b, 6);
-            Array.Copy(b, 8, o.Data4, 0, 8);
-            return o;
-        }
-
-        public void GetPixelFormat(out WICPixelFormatGUID pPixelFormat)
+        public void GetPixelFormat(out Guid pPixelFormat)
         {
             Log.Trace("GetPixelFormat called");
             //pPixelFormat = GuidToWICGuid(GUID_WICPixelFormat32bppBGRA);
-            pPixelFormat = GuidToWICGuid(GUID_WICPixelFormat24bppRGB);
+            pPixelFormat = GUID_WICPixelFormat24bppRGB;
             Log.Trace("GetPixelFormat finished");
         }
 
@@ -246,9 +233,8 @@ namespace LumixGH4WIC
             //throw new NotImplementedException();
         }
 
-        public void GetClosestPixelFormat([In, Out] ref WICPixelFormatGUID dstf)
+        public void GetClosestPixelFormat([In, Out] ref Guid dstFormat)
         {
-            var dstFormat = new Guid(dstf.Data1, dstf.Data2, dstf.Data3, dstf.Data4);
             Log.Trace($"Trans GetClosestPixelFormat called: {dstFormat}");
             if (dstFormat == GUID_WICPixelFormat32bppBGRA) return;
 
@@ -262,12 +248,11 @@ namespace LumixGH4WIC
             pfIsSupported = 0;
         }
 
-        public void CopyPixels([In] ref WICRect prc, [In] uint uiWidth, [In] uint uiHeight, [In] ref WICPixelFormatGUID dstf, [In] WICBitmapTransformOptions dstTransform, [In] uint nStride, [In] uint cbBufferSize, byte[] pbBuffer)
+        public void CopyPixels([In] ref WICRect prc, [In] uint uiWidth, [In] uint uiHeight, Guid dstFormat, [In] WICBitmapTransformOptions dstTransform, [In] uint nStride, [In] uint cbBufferSize, byte[] pbBuffer)
         {
             try
             {
                 Log.Trace($"Trans CopyPixels called");
-                var dstFormat = new Guid(dstf.Data1, dstf.Data2, dstf.Data3, dstf.Data4);
                 Log.Trace($"Trans CopyPixels called: {uiWidth}, {uiHeight} {dstFormat}");
                 if (dstFormat == GUID_WICPixelFormat24bppRGB)
                     CopyRGB(ref prc, nStride, cbBufferSize, pbBuffer);

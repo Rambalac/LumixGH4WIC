@@ -43,6 +43,7 @@ namespace LumixGH4WIC
         {
             Log.Trace("MetadataHandlerInfo.GetAuthor called");
             SetString("Rambalac", size, buf, out actual);
+            Log.Trace("MetadataHandlerInfo.GetAuthor finished");
         }
 
         public void GetCLSID(out Guid pclsid)
@@ -85,7 +86,7 @@ namespace LumixGH4WIC
             Log.Trace("MetadataHandlerInfo.GetFriendlyName finished");
         }
 
-        public void GetMetadataFormat(out Guid pguidMetadataFormat)
+        public void GetMetadataFormat(ref Guid pguidMetadataFormat)
         {
             Log.Trace("MetadataHandlerInfo.GetMetadataFormat called");
             try
@@ -117,7 +118,7 @@ namespace LumixGH4WIC
         public void GetVendorGUID(out Guid pguidVendor)
         {
             Log.Trace("MetadataHandlerInfo.GetVendorGUID called");
-            pguidVendor = new Guid("077A36A5-66CF-40B4-8820-027ECBD9C371");
+            pguidVendor = new Guid("{077A36A5-66CF-40B4-8820-027ECBD9C371}");
             Log.Trace("MetadataHandlerInfo.GetVendorGUID finished");
         }
 
@@ -136,11 +137,11 @@ namespace LumixGH4WIC
         private PanasonicExif exif;
         static MetadataHandlerInfo MetadataHandlerInfo = new MetadataHandlerInfo();
 
-        public void GetMetadataFormat(out Guid pguidMetadataFormat)
+        public void GetMetadataFormat(ref Guid pguidMetadataFormat)
         {
             Log.Trace("MetadataReader.GetMetadataFormat called");
-            //pguidMetadataFormat = new Guid("{8FD3DFC3-F951-492B-817F-69C2E6D9A5B0}");
-            pguidMetadataFormat = new Guid("{163bcc30-e2e9-4f0b-961d-a3e9fdb788a3}");
+            pguidMetadataFormat = new Guid("{8FD3DFC3-F951-492B-817F-69C2E6D9A5B0}");
+            //pguidMetadataFormat = new Guid("{163bcc30-e2e9-4f0b-961d-a3e9fdb788a3}");
             Log.Trace("MetadataReader.GetMetadataFormat finished");
         }
 
@@ -158,16 +159,19 @@ namespace LumixGH4WIC
             Log.Trace("MetadataReader.GetCount finished: " + pcCount);
         }
 
-        public void GetValueByIndex(uint nIndex, ref object pvarSchema, ref object pvarId, ref object pvarValue)
+        public void GetValueByIndex(uint nIndex, IntPtr _pvarSchema, ref object pvarId, ref object pvarValue)
         {
             Log.Trace("MetadataReader.GetValueByIndex called: " + nIndex);
-            pvarSchema = "idf";
+            if (_pvarSchema != IntPtr.Zero)
+            {
+                Marshal.GetNativeVariantForObject("idf", _pvarSchema);
+            }
             pvarId = exif.RawIfd[(int)nIndex].rawtag;
             pvarValue = exif.RawIfd[(int)nIndex].variant;
             Log.Trace("MetadataReader.GetValueByIndex finished");
         }
 
-        public void GetValue(ref object pvarSchema, ref object pvarId, ref object pvarValue)
+        public void GetValue(object pvarSchema, object pvarId, ref object pvarValue)
         {
             Log.Trace("MetadataReader.GetValue called");
             throw new NotImplementedException();
@@ -225,6 +229,7 @@ namespace LumixGH4WIC
         {
             Log.Trace("MetadataEnumerator.GetContainerFormatGetContainerFormat called");
             pguidContainerFormat = RW2BitmapDecoder.FormatGuid;
+            Log.Trace("MetadataEnumerator.GetContainerFormatGetContainerFormat finished");
         }
 
         public void GetLocation(uint cchMaxLength, ref ushort wzNamespace, out uint pcchActualLength)

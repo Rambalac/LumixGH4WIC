@@ -13,7 +13,7 @@ namespace WIC
             [In] ref WICRect prc, //0
             [In] uint uiWidth, //1
             [In] uint uiHeight, //2
-            [ComAliasName("WIC.WICPixelFormatGUID")] [In] ref WICPixelFormatGUID pguidDstFormat, //3
+            Guid pguidDstFormat, //3
             [In] WICBitmapTransformOptions dstTransform,  //4
             [In] uint nStride,  //5
             [In] uint cbBufferSize, //6
@@ -23,7 +23,7 @@ namespace WIC
         void GetClosestSize([In] [Out] ref uint puiWidth, [In] [Out] ref uint puiHeight);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        void GetClosestPixelFormat([ComAliasName("WIC.WICPixelFormatGUID")] [In] [Out] ref WICPixelFormatGUID pguidDstFormat);
+        void GetClosestPixelFormat(ref Guid pguidDstFormat);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         void DoesSupportTransform([In] WICBitmapTransformOptions dstTransform, out int pfIsSupported);

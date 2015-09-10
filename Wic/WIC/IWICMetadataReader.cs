@@ -9,7 +9,7 @@ namespace WIC
 	public interface IWICMetadataReader
 	{
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		void GetMetadataFormat(out Guid pguidMetadataFormat);
+		void GetMetadataFormat(ref Guid pguidMetadataFormat);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		void GetMetadataHandlerInfo([MarshalAs(UnmanagedType.Interface)] out IWICMetadataHandlerInfo ppIHandler);
@@ -19,12 +19,12 @@ namespace WIC
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		void GetValueByIndex([In] uint nIndex, 
-            [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarSchema, 
+            IntPtr pvarSchema, 
             [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarId, 
             [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarValue);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		void GetValue([In][MarshalAs(UnmanagedType.Struct)] ref object pvarSchema, [In][MarshalAs(UnmanagedType.Struct)] ref object pvarId, [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarValue);
+		void GetValue([In][MarshalAs(UnmanagedType.Struct)] object pvarSchema, [In][MarshalAs(UnmanagedType.Struct)] object pvarId, [In] [Out][MarshalAs(UnmanagedType.Struct)] ref object pvarValue);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		void GetEnumerator([MarshalAs(UnmanagedType.Interface)] out IWICEnumMetadataItem ppIEnumMetadata);

@@ -13,7 +13,7 @@ namespace LumixGH4WIC
 {
     [ComVisible(true)]
     [Guid("DD48659C-F21F-4C15-AE70-6879ED43B84C")]
-    public class RW2BitmapDecoder : IWICBitmapDecoder, IDisposable//, IWICMetadataBlockReader
+    public class RW2BitmapDecoder : IWICBitmapDecoder, IDisposable, IWICMetadataBlockReader
     {
         internal static readonly Guid FormatGuid = new Guid("BBE1100D-3781-4FCC-BF0D-46FBAAECC01F");
         internal static IWICImagingFactory ImagingFactory;

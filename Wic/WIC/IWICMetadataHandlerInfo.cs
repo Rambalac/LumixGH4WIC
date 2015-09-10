@@ -34,7 +34,7 @@ namespace WIC
         void GetFriendlyName([In] uint cchFriendlyName, [MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 0)] StringBuilder wzFriendlyName, out uint pcchActual);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        void GetMetadataFormat(out Guid pguidMetadataFormat);
+        void GetMetadataFormat(ref Guid pguidMetadataFormat);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         void GetContainerFormats([In] uint cContainerFormats, [In] [Out] ref Guid pguidContainerFormats, out uint pcchActual);

@@ -12,7 +12,7 @@ namespace WIC
         void GetSize(out uint puiWidth, out uint puiHeight);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        void GetPixelFormat([ComAliasName("WIC.WICPixelFormatGUID")] out WICPixelFormatGUID pPixelFormat);
+        void GetPixelFormat(out Guid pPixelFormat);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         void GetResolution(out double pDpiX, out double pDpiY);
