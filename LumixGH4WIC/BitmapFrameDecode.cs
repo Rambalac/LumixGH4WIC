@@ -43,14 +43,18 @@ namespace LumixGH4WIC
 
         private RawMap ReadRaw()
         {
+            var position = stream.Position;
             try
             {
-                var position = stream.Position;
                 return new PanasonicRW2Decoder().DecodeMap(stream, exif);
             }
             catch (Exception e)
             {
                 throw new COMException("RW2 Decoding failed", e);
+            }
+            finally
+            {
+                stream.Position = position;
             }
         }
 
