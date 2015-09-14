@@ -15,7 +15,7 @@ namespace WIC
 		void GetLocation([In] uint cchMaxLength, [In] [Out] ref ushort wzNamespace, out uint pcchActualLength);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
-		void GetMetadataByName([MarshalAs(UnmanagedType.LPWStr)] [In] string wzName, [In] [Out] ref tag_inner_PROPVARIANT pvarValue);
+		void GetMetadataByName([MarshalAs(UnmanagedType.LPWStr)] [In] string wzName, IntPtr pvarValue);
 
 		[MethodImpl(MethodImplOptions.InternalCall)]
 		void GetEnumerator([MarshalAs(UnmanagedType.Interface)] out IEnumString ppIEnumString);

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WIC;
 
@@ -238,10 +239,22 @@ namespace LumixGH4WIC
             throw new NotImplementedException();
         }
 
-        public void GetMetadataByName(string wzName, ref tag_inner_PROPVARIANT pvarValue)
+
+        static readonly Regex metadatabyname = new Regex(@"/ifd/((?<subtype>\w+)/)?{(?<type>\w+)=(?<id>\d+)}", RegexOptions.Compiled);
+        public void GetMetadataByName(string wzName, IntPtr pvarValue)
         {
-            Log.Trace("MetadataEnumerator.GetMetadataByName called");
-            throw new NotImplementedException();
+            Log.Trace("MetadataEnumerator.GetMetadataByName called: " + wzName);
+            //  /ifd/{ushort=40094}
+            var match = metadatabyname.Match(wzName);
+            if (!match.Success)
+            {
+                Log.Error("MetadataEnumerator.GetMetadataByName failed: " + wzName);
+                throw new NotSupportedException();
+            }
+            var id = ushort.Parse(match.Groups["id"].Value);
+            var tag = exif.RawIfd.FirstOrDefault(i => i.rawtag == id);
+            Marshal.GetNativeVariantForObject(tag?.variant, pvarValue);
+            Log.Trace("MetadataEnumerator.GetMetadataByName finished: " + tag?.variant);
         }
 
         public void GetEnumerator(out IEnumString ppIEnumString)
