@@ -133,8 +133,8 @@ namespace LumixGH4WIC
         public void GetMetadataQueryReader(out IWICMetadataQueryReader ppIMetadataQueryReader)
         {
             Log.Trace("GetMetadataQueryReader called");
-
             ppIMetadataQueryReader = new MetadataEnumerator(Exif);
+            Log.Trace("GetMetadataQueryReader finished");
         }
 
         public void GetPreview(out IWICBitmapSource ppIBitmapSource)
