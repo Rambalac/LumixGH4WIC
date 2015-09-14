@@ -33,7 +33,6 @@ namespace LumixGH4WIC
 
         PanasonicExif exif;
         Stream stream;
-        RawMap map;
         RGB8Map rgbmap;
 
         public BitmapFrameDecode(Stream _stream, PanasonicExif _exif)
@@ -42,12 +41,12 @@ namespace LumixGH4WIC
             stream = _stream;
         }
 
-        private void ReadRaw()
+        private RawMap ReadRaw()
         {
             try
             {
                 var position = stream.Position;
-                map = new PanasonicRW2Decoder().DecodeMap(stream, exif);
+                return new PanasonicRW2Decoder().DecodeMap(stream, exif);
             }
             catch (Exception e)
             {
@@ -129,11 +128,11 @@ namespace LumixGH4WIC
         private void BuildRGB()
         {
             Log.Trace($"BuildRGB called");
-            lock(this)
+            lock (this)
             {
                 if (rgbmap == null)
                 {
-                    if (map == null) ReadRaw();
+                    var map = ReadRaw();
 
                     var filters = PrepareFilters();
 
