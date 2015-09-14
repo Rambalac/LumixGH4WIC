@@ -100,11 +100,11 @@ namespace com.azi.tiff
                     break;
                 case IfdTag.ExposureTime:
                     Shutter = block.GetFraction();
-                    block.variant = Shutter;
+                    block.variant = Shutter.ToFloat();
                     break;
                 case IfdTag.FNumber:
                     Aperture = block.GetFraction();
-                    block.variant = Aperture;
+                    block.variant = Aperture.ToFloat();
                     break;
                 case IfdTag.ExposureProgram:
                     ExposureProgram = (int)block.GetUInt32();
@@ -124,11 +124,11 @@ namespace com.azi.tiff
                     break;
                 case IfdTag.ExposureBiasValue:
                     ExposureBiasValue = block.GetFraction();
-                    block.variant = ExposureBiasValue;
+                    block.variant = ExposureBiasValue.ToFloat();
                     break;
                 case IfdTag.MaxApertureValue:
                     MaxApertureValue = block.GetFraction();
-                    block.variant = MaxApertureValue;
+                    block.variant = MaxApertureValue.ToFloat();
                     break;
                 case IfdTag.MeteringMode:
                     MeteringMode = (int)block.GetUInt32();
@@ -140,7 +140,7 @@ namespace com.azi.tiff
                     break;
                 case IfdTag.FocalLength:
                     FocalLength = block.GetFraction();
-                    block.variant = FocalLength;
+                    block.variant = FocalLength.ToFloat();
                     break;
                 case IfdTag.SubsecTimeOriginal:
                     SubsecTimeOriginal = block.GetString();

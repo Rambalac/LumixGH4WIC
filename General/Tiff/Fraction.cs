@@ -2,8 +2,8 @@
 {
     public class Fraction
     {
-        private readonly int denominator;
         private readonly int numenator;
+        private readonly int denominator;
 
         public Fraction(int n, int d)
         {
@@ -11,9 +11,8 @@
             denominator = d;
         }
 
-        public override string ToString()
-        {
-            return numenator + "/" + denominator;
-        }
+        public float ToFloat() => numenator / (float)denominator;
+
+        public override string ToString() => numenator + "/" + denominator;
     }
 }

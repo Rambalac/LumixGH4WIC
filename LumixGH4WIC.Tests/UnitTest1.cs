@@ -42,7 +42,7 @@ namespace LumixGH4WIC.Tests
         [TestMethod]
         public void TestCreateDecoder()
         {
-            using (Stream sourceStream = File.Open(@"..\..\P1350577.RW2", FileMode.Open, FileAccess.Read))
+            using (Stream sourceStream = File.Open(@"..\..\..\PanasonicRW2.Tests\P1350577.RW2", FileMode.Open, FileAccess.Read))
             {
                 Guid nul = Guid.Empty;
                 IWICBitmapDecoder decoder = GetImagingFactory().CreateDecoderFromStream(new StreamComWrapper(sourceStream), nul, WICDecodeOptions.WICDecodeMetadataCacheOnDemand);
