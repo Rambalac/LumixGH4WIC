@@ -38,20 +38,9 @@ namespace LumixGH4WIC
             return ImagingFactory;
         }
 
-        PanasonicExif _exif;
+        PanasonicExif exif;
         WICReadOnlyStreamWrapper stream;
-
-        private PanasonicExif Exif
-        {
-            get
-            {
-                if (_exif == null)
-                {
-                    ReadExif();
-                }
-                return _exif;
-            }
-        }
+        BitmapFrameDecode frame;
 
         [ComRegisterFunction]
         public static void OnRegistry(Type type)
@@ -115,7 +104,12 @@ namespace LumixGH4WIC
             try
             {
                 if (index != 0) throw new COMException("Only 0 Frame available");
-                ppIBitmapFrame = new BitmapFrameDecode(stream, Exif);
+                lock (this)
+                {
+                    if (frame == null)
+                        frame = new BitmapFrameDecode(stream, exif);
+                }
+                ppIBitmapFrame = frame;
                 Log.Trace("GetFrame finished");
             }
             catch (Exception e)
@@ -133,7 +127,7 @@ namespace LumixGH4WIC
         public void GetMetadataQueryReader(out IWICMetadataQueryReader ppIMetadataQueryReader)
         {
             Log.Trace("GetMetadataQueryReader called");
-            ppIMetadataQueryReader = new MetadataEnumerator(Exif);
+            ppIMetadataQueryReader = new MetadataEnumerator(exif);
             Log.Trace("GetMetadataQueryReader finished");
         }
 
@@ -151,12 +145,15 @@ namespace LumixGH4WIC
             {
                 var guid = Guid.Empty;
 
-                var pPreviewDecoder = GetImagingFactory().CreateDecoderFromStream(
-                                    new StreamComWrapper(new MemoryStream(Exif.Thumbnail)), ref guid,
-                                    WICDecodeOptions.WICDecodeMetadataCacheOnDemand);
-                IWICBitmapFrameDecode pPreviewFrame;
-                pPreviewDecoder.GetFrame(0, out pPreviewFrame);
-                ppIThumbnail = pPreviewFrame;
+                lock (this)
+                {
+                    var pPreviewDecoder = GetImagingFactory().CreateDecoderFromStream(
+                                        new StreamComWrapper(new MemoryStream(exif.Thumbnail)), ref guid,
+                                        WICDecodeOptions.WICDecodeMetadataCacheOnDemand);
+                    IWICBitmapFrameDecode pPreviewFrame;
+                    pPreviewDecoder.GetFrame(0, out pPreviewFrame);
+                    ppIThumbnail = pPreviewFrame;
+                }
                 Log.Trace("GetThumbnail finished");
             }
             catch (Exception e)
@@ -170,10 +167,11 @@ namespace LumixGH4WIC
         {
             Log.Trace("Initialize called");
 
-            stream = new WICReadOnlyStreamWrapper(pIStream);
-
-            if (cacheOptions == WICDecodeOptions.WICDecodeMetadataCacheOnLoad)
+            lock (this)
             {
+                frame = null;
+                stream = new WICReadOnlyStreamWrapper(pIStream);
+
                 ReadExif();
             }
             Log.Trace("Initialize finished");
@@ -182,7 +180,7 @@ namespace LumixGH4WIC
         private void ReadExif()
         {
             var position = stream.Position;
-            _exif = (PanasonicExif)new PanasonicRW2Decoder().DecodeExif(stream);
+            exif = (PanasonicExif)new PanasonicRW2Decoder().DecodeExif(stream);
             stream.Position = position;
         }
 
@@ -219,14 +217,14 @@ namespace LumixGH4WIC
         public void GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
         {
             Log.Trace($"IWICMetadataBlockReader.GetReaderByIndex called: {nIndex}");
-            ppIMetadataReader = new MetadataReader(Exif);
+            ppIMetadataReader = new MetadataReader(exif);
             Log.Trace("IWICMetadataBlockReader.GetReaderByIndex finished");
         }
 
         public void GetEnumerator(out IEnumUnknown ppIEnumMetadata)
         {
             Log.Trace("IWICMetadataBlockReader.GetEnumerator called");
-            ppIEnumMetadata = new MetadataEnumerator(Exif);
+            ppIEnumMetadata = new MetadataEnumerator(exif);
             Log.Trace("IWICMetadataBlockReader.GetEnumerator finished");
         }
 

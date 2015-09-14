@@ -66,7 +66,7 @@ namespace LumixGH4WIC
 
         private void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
         {
-            if (rgbmap == null) BuildRGB();
+            BuildRGB();
 
             for (int y = prc.Y; y < prc.Y + prc.Height; y++)
                 Array.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, pbBuffer, cbStride * (y - prc.Y), prc.Width * 3);
@@ -74,7 +74,7 @@ namespace LumixGH4WIC
 
         private void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] buff)
         {
-            if (rgbmap == null) BuildRGB();
+            BuildRGB();
             for (int y = prc.Y; y < prc.Y + prc.Height; y++)
             {
                 var pix = rgbmap.GetPixel(prc.X, y);
@@ -129,13 +129,19 @@ namespace LumixGH4WIC
         private void BuildRGB()
         {
             Log.Trace($"BuildRGB called");
-            if (map == null) ReadRaw();
+            lock(this)
+            {
+                if (rgbmap == null)
+                {
+                    if (map == null) ReadRaw();
 
-            var filters = PrepareFilters();
+                    var filters = PrepareFilters();
 
-            var processor = new ImageProcessor(map, filters);
-            rgbmap = (RGB8Map)processor.Invoke();
-            map.Dispose();
+                    var processor = new ImageProcessor(map, filters);
+                    rgbmap = (RGB8Map)processor.Invoke();
+                    map.Dispose();
+                }
+            }
             Log.Trace("BuildRGB finished");
         }
 
