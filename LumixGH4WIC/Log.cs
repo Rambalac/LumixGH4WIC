@@ -15,11 +15,11 @@ namespace LumixGH4WIC
             if (!EventLog.SourceExists(application))
                 EventLog.CreateEventSource(application, "Application");
         }
+
+        [Conditional("TRACE")]
         public static void Trace(string log)
         {
-#if TRACE
             EventLog.WriteEntry(application, log);
-#endif
         }
 
         public static void Debug(string log)

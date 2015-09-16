@@ -152,8 +152,8 @@ namespace LumixGH4WIC
 
         public void GetColorContexts(uint cCount, ref IWICColorContext ppIColorContexts, out uint pcActualCount)
         {
-            Log.Error("GetColorContexts called");
-            throw new NotImplementedException();
+            Log.Trace("GetColorContexts called");
+            pcActualCount = 0;
         }
 
         public void GetMetadataQueryReader(out IWICMetadataQueryReader ppIMetadataQueryReader)
