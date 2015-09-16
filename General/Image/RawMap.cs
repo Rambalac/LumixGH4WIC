@@ -14,8 +14,8 @@ namespace com.azi.Image
     {
         public readonly int MaxBits;
         public readonly ushort[] Raw;
-        private readonly int _height;
-        private readonly int _width;
+        readonly int _height;
+        readonly int _width;
 
         public RawMap(int w, int h, int maxBits)
         {

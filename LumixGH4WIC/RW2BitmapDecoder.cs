@@ -11,6 +11,7 @@ using IStream = System.Runtime.InteropServices.ComTypes.IStream;
 
 namespace LumixGH4WIC
 {
+    [ClassInterface(ClassInterfaceType.None)]
     [ComVisible(true)]
     [Guid("DD48659C-F21F-4C15-AE70-6879ED43B84C")]
     public class RW2BitmapDecoder : IWICBitmapDecoder, IDisposable, IWICMetadataBlockReader
@@ -58,7 +59,7 @@ namespace LumixGH4WIC
 
         public void CopyPalette(IWICPalette pIPalette)
         {
-            Log.Trace("CopyPalette called");
+            Log.Error("CopyPalette called");
 
             throw new NotImplementedException();
         }
@@ -67,7 +68,7 @@ namespace LumixGH4WIC
         {
             Log.Trace("GetColorContexts called");
 
-            throw new NotImplementedException();
+            pcActualCount = 0;
         }
 
         public void GetContainerFormat(out Guid pguidContainerFormat)
@@ -177,7 +178,7 @@ namespace LumixGH4WIC
             Log.Trace("Initialize finished");
         }
 
-        private void ReadExif()
+        void ReadExif()
         {
             var position = stream.Position;
             exif = (PanasonicExif)new PanasonicRW2Decoder().DecodeExif(stream);
@@ -187,8 +188,7 @@ namespace LumixGH4WIC
         public void QueryCapability(IStream pIStream, out uint pdwCapability)
         {
             Log.Trace("QueryCapability called");
-
-            stream = new WICReadOnlyStreamWrapper(pIStream);
+            var stream = new WICReadOnlyStreamWrapper(pIStream);
             var position = stream.Position;
             try
             {
@@ -203,7 +203,10 @@ namespace LumixGH4WIC
             {
                 pdwCapability = 0;
             }
-            finally { stream.Position = position; }
+            finally {
+                stream.Position = position;
+
+            }
 
         }
 

@@ -12,7 +12,7 @@ namespace com.azi.Image
         const int MinSizeLimit = 1 << 20;
         static class _ArraysReuseManager<T>
         {
-            private static ConcurrentDictionary<int, ConcurrentBag<WeakReference<T[]>>> reuse = new ConcurrentDictionary<int, ConcurrentBag<WeakReference<T[]>>>(5, 100);
+            static readonly ConcurrentDictionary<int, ConcurrentBag<WeakReference<T[]>>> reuse = new ConcurrentDictionary<int, ConcurrentBag<WeakReference<T[]>>>(5, 100);
 
             public static void Release(T[] arr)
             {

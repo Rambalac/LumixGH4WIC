@@ -25,7 +25,7 @@ namespace com.azi.Filters.Converters.Demosaic
             return res;
         }
 
-        private static void ProcessMiddleRows(RawBGGRMap file, UshortColorMap res)
+        static void ProcessMiddleRows(RawBGGRMap file, UshortColorMap res)
         {
             // Middle Rows
             Parallel.For(0, (res.Height - 2) / 2, yy =>
@@ -39,7 +39,7 @@ namespace com.azi.Filters.Converters.Demosaic
             });
         }
 
-        private static void ProcessMiddleEvenRows(RawPixel raw, int Width, ColorPixel<ushort> pix)
+        static void ProcessMiddleEvenRows(RawPixel raw, int Width, ColorPixel<ushort> pix)
         {
             // Second left pixel
             pix.SetAndMoveNext(
@@ -77,7 +77,7 @@ namespace com.azi.Filters.Converters.Demosaic
             raw.MoveNext();
         }
 
-        private static void ProcessMiddleOddRows(RawPixel raw, int Width, ColorPixel<ushort> pix)
+        static void ProcessMiddleOddRows(RawPixel raw, int Width, ColorPixel<ushort> pix)
         {
             // First left pixel
             pix.SetAndMoveNext(
@@ -114,7 +114,7 @@ namespace com.azi.Filters.Converters.Demosaic
             raw.MoveNext();
         }
 
-        private static void ProcessTopLine(RawBGGRMap map, UshortColorMap res)
+        static void ProcessTopLine(RawBGGRMap map, UshortColorMap res)
         {
             var pix = res.GetPixel();
             var raw = map.GetRow(0);
@@ -154,7 +154,7 @@ namespace com.azi.Filters.Converters.Demosaic
         // G R G R
         // B G B G
         // G R G R
-        private static void ProcessBottomLine(RawBGGRMap map, UshortColorMap res)
+        static void ProcessBottomLine(RawBGGRMap map, UshortColorMap res)
         {
             var pix = res.GetPixel();
             var raw = map.GetRow(res.Height - 1);

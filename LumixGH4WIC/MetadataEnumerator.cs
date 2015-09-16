@@ -11,33 +11,37 @@ using WIC;
 
 namespace LumixGH4WIC
 {
+    [ClassInterface(ClassInterfaceType.None)]
+    [Guid("8DBEC8A1-AF64-4270-9A9C-C1D816046F9F")]
     [ComVisible(true)]
-    class MetadataHandlerInfo : IWICMetadataHandlerInfo
+    public class MetadataHandlerInfo : IWICMetadataHandlerInfo, IWICComponentInfo
     {
-        private void SetString(string str, uint bufsize, StringBuilder buf, out uint actual)
-        {
-            actual = (uint)(str.Length + 1);
-            if (bufsize != 0)
-                buf.Append(str);
-        }
-
-
         public void DoesRequireFixedSize(out int pfFixedSize)
         {
             Log.Trace("MetadataHandlerInfo.DoesRequireFixedSize called");
-            throw new NotImplementedException();
+            pfFixedSize = 0;
+            Log.Trace("MetadataHandlerInfo.DoesRequireFixedSize finished");
+        }
+
+        public void GetCLSID(out Guid pclsid)
+        {
+            Log.Trace("MetadataHandlerInfo.GetCLSID called");
+            pclsid = new Guid("8DBEC8A1-AF64-4270-9A9C-C1D816046F9F");
+            Log.Trace("MetadataHandlerInfo.GetCLSID finished");
         }
 
         public void DoesRequireFullStream(out int pfRequiresFullStream)
         {
             Log.Trace("MetadataHandlerInfo.DoesRequireFullStream called");
-            throw new NotImplementedException();
+            pfRequiresFullStream = 0;
+            Log.Trace("MetadataHandlerInfo.DoesRequireFullStream finished");
         }
 
         public void DoesSupportPadding(out int pfSupportsPadding)
         {
             Log.Trace("MetadataHandlerInfo.DoesSupportPadding called");
-            throw new NotImplementedException();
+            pfSupportsPadding = 0;
+            Log.Trace("MetadataHandlerInfo.DoesSupportPadding finished");
         }
 
         public void GetAuthor([In] uint size, StringBuilder buf, out uint actual)
@@ -47,22 +51,15 @@ namespace LumixGH4WIC
             Log.Trace("MetadataHandlerInfo.GetAuthor finished");
         }
 
-        public void GetCLSID(out Guid pclsid)
-        {
-            Log.Trace("MetadataHandlerInfo.GetCLSID called");
-            pclsid = typeof(RW2BitmapDecoder).GUID;
-            Log.Trace("MetadataHandlerInfo.GetCLSID finished");
-        }
-
         public void GetComponentType(out WICComponentType pType)
         {
-            Log.Trace("MetadataHandlerInfo.GetComponentType called");
+            Log.Error("MetadataHandlerInfo.GetComponentType called");
             throw new NotImplementedException();
         }
 
         public void GetContainerFormats([In] uint cContainerFormats, [In, Out] ref Guid pguidContainerFormats, out uint pcchActual)
         {
-            Log.Trace("MetadataHandlerInfo.GetContainerFormats called");
+            Log.Error("MetadataHandlerInfo.GetContainerFormats called");
             throw new NotImplementedException();
         }
 
@@ -77,7 +74,7 @@ namespace LumixGH4WIC
         {
             Log.Trace("MetadataHandlerInfo.GetDeviceModels called");
             SetString("Lumix GH4", size, buf, out actual);
-            Log.Trace("MetadataHandlerInfo.GetDeviceModels finished");
+            Log.Trace("MetadataHandlerInfo.GetDeviceModels finished: "+buf);
         }
 
         public void GetFriendlyName([In] uint size, StringBuilder buf, out uint actual)
@@ -130,13 +127,20 @@ namespace LumixGH4WIC
             Log.Trace("MetadataHandlerInfo.GetVersion finished");
         }
 
+        void SetString(string str, uint bufsize, StringBuilder buf, out uint actual)
+        {
+            actual = (uint)(str.Length + 1);
+            if (bufsize != 0)
+                buf.Clear().Append(str);
+        }
     }
 
+    [Guid("12140A82-9B74-4DCA-8045-20D5D9B8512F")]
+    [ClassInterface(ClassInterfaceType.None)]
     [ComVisible(true)]
-    class MetadataReader : IWICMetadataReader//, IWICPersistStream, IWICStreamProvider
+    public class MetadataReader : IWICMetadataReader//, IWICPersistStream, IWICStreamProvider
     {
-        private PanasonicExif exif;
-        static MetadataHandlerInfo MetadataHandlerInfo = new MetadataHandlerInfo();
+        readonly PanasonicExif exif;
 
         public void GetMetadataFormat(ref Guid pguidMetadataFormat)
         {
@@ -149,7 +153,7 @@ namespace LumixGH4WIC
         public void GetMetadataHandlerInfo(out IWICMetadataHandlerInfo ppIHandler)
         {
             Log.Trace("MetadataReader.GetMetadataHandlerInfo called");
-            ppIHandler = MetadataHandlerInfo;
+            ppIHandler = new MetadataHandlerInfo();
             Log.Trace("MetadataReader.GetMetadataHandlerInfo finished");
         }
 
@@ -174,13 +178,13 @@ namespace LumixGH4WIC
 
         public void GetValue(object pvarSchema, object pvarId, ref object pvarValue)
         {
-            Log.Trace("MetadataReader.GetValue called");
+            Log.Error("MetadataReader.GetValue called");
             throw new NotImplementedException();
         }
 
         public void GetEnumerator(out IWICEnumMetadataItem ppIEnumMetadata)
         {
-            Log.Trace("MetadataReader.GetEnumerator called");
+            Log.Error("MetadataReader.GetEnumerator called");
             throw new NotImplementedException();
         }
 
@@ -193,8 +197,8 @@ namespace LumixGH4WIC
     [ComVisible(true)]
     class MetadataEnumerator : IEnumUnknown, IWICMetadataQueryReader
     {
-        private PanasonicExif exif;
-        private List<IfdBlock>.Enumerator enumerator;
+        PanasonicExif exif;
+        List<IfdBlock>.Enumerator enumerator;
 
         public MetadataEnumerator(PanasonicExif exif)
         {
@@ -210,7 +214,7 @@ namespace LumixGH4WIC
 
         public void RemoteNext(uint celt, out object rgelt, out uint pceltFetched)
         {
-            Log.Trace("MetadataEnumerator.RemoteNext called");
+            Log.Error("MetadataEnumerator.RemoteNext called");
             throw new NotImplementedException();
         }
 
@@ -222,7 +226,7 @@ namespace LumixGH4WIC
 
         public void Skip(uint celt)
         {
-            Log.Trace("MetadataEnumerator.Skip called");
+            Log.Error("MetadataEnumerator.Skip called");
             throw new NotImplementedException();
         }
 
@@ -235,7 +239,7 @@ namespace LumixGH4WIC
 
         public void GetLocation(uint cchMaxLength, ref ushort wzNamespace, out uint pcchActualLength)
         {
-            Log.Trace("MetadataEnumerator.GetLocation called");
+            Log.Error("MetadataEnumerator.GetLocation called");
             throw new NotImplementedException();
         }
 
@@ -259,7 +263,7 @@ namespace LumixGH4WIC
 
         public void GetEnumerator(out IEnumString ppIEnumString)
         {
-            Log.Trace("MetadataEnumerator.GetEnumerator called");
+            Log.Error("MetadataEnumerator.GetEnumerator called");
             throw new NotImplementedException();
         }
 

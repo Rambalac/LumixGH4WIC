@@ -11,8 +11,8 @@ namespace com.azi.Image
         public delegate Vector3 CurveProcessor(int index, Vector3 input);
 
         public readonly Vector3[] Rgb;
-        private readonly int _height;
-        private readonly int _width;
+        readonly int _height;
+        readonly int _width;
 
         protected virtual void Dispose(Boolean notnative)
         {

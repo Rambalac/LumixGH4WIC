@@ -100,7 +100,7 @@ namespace LumixGH4WIC
             throw new NotImplementedException();
         }
 
-        private void CheckDisposed()
+        void CheckDisposed()
         {
             if (stream == null)
             {
@@ -112,7 +112,7 @@ namespace LumixGH4WIC
         {
             if (stream != null)
             {
-                //Marshal.ReleaseComObject(stream);
+                Marshal.ReleaseComObject(stream);
                 stream = null;
             }
         }

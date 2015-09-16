@@ -8,8 +8,8 @@ namespace com.azi.Image
 
         public readonly byte[] Rgb;
         public readonly int Stride;
-        private readonly int _height;
-        private readonly int _width;
+        readonly int _height;
+        readonly int _width;
 
         public RGB8Map(int w, int h)
             : this(w, h, (4 * (w * 3 + 3) / 4), null)
@@ -18,7 +18,7 @@ namespace com.azi.Image
             //for (int i = 0; i < Rgb.Length; i++) Rgb[i] = 255;
         }
 
-        private RGB8Map(int width, int height, int stride, byte[] rgb)
+        RGB8Map(int width, int height, int stride, byte[] rgb)
         {
             _width = width;
             _height = height;

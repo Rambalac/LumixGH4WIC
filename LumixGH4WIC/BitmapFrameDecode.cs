@@ -16,6 +16,7 @@ using WIC;
 
 namespace LumixGH4WIC
 {
+    [ClassInterface(ClassInterfaceType.None)]
     [ComVisible(true)]
     [Guid("1253D0FF-6836-4DE9-A141-FEF5B4C55DAA")]
     class BitmapFrameDecode : IWICBitmapFrameDecode, IWICBitmapSourceTransform, IWICMetadataBlockReader
@@ -41,7 +42,7 @@ namespace LumixGH4WIC
             stream = _stream;
         }
 
-        private RawMap ReadRaw()
+        RawMap ReadRaw()
         {
             var position = stream.Position;
             try
@@ -55,6 +56,7 @@ namespace LumixGH4WIC
             finally
             {
                 stream.Position = position;
+                stream.Dispose();
             }
         }
 
@@ -67,7 +69,7 @@ namespace LumixGH4WIC
             }
         }
 
-        private void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
+        void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
         {
             BuildRGB();
 
@@ -75,7 +77,7 @@ namespace LumixGH4WIC
                 Array.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, pbBuffer, cbStride * (y - prc.Y), prc.Width * 3);
         }
 
-        private void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] buff)
+        void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] buff)
         {
             BuildRGB();
             for (int y = prc.Y; y < prc.Y + prc.Height; y++)
@@ -94,7 +96,7 @@ namespace LumixGH4WIC
             }
         }
 
-        private List<IFilter> PrepareFilters()
+        List<IFilter> PrepareFilters()
         {
             var debayer = new AverageBGGRDemosaic();
 
@@ -129,7 +131,7 @@ namespace LumixGH4WIC
             return filters;
         }
 
-        private void BuildRGB()
+        void BuildRGB()
         {
             Log.Trace($"BuildRGB called");
             lock (this)
@@ -150,7 +152,7 @@ namespace LumixGH4WIC
 
         public void GetColorContexts(uint cCount, ref IWICColorContext ppIColorContexts, out uint pcActualCount)
         {
-            Log.Trace("GetColorContexts called");
+            Log.Error("GetColorContexts called");
             throw new NotImplementedException();
         }
 
@@ -224,13 +226,13 @@ namespace LumixGH4WIC
 
         public void GetReaderByIndex(uint nIndex, out IWICMetadataReader ppIMetadataReader)
         {
-            Log.Trace($"Frame IWICMetadataBlockReader.GetReaderByIndex called: {nIndex}");
+            Log.Error($"Frame IWICMetadataBlockReader.GetReaderByIndex called: {nIndex}");
             throw new NotImplementedException();
         }
 
         public void GetEnumerator(out IEnumUnknown ppIEnumMetadata)
         {
-            Log.Trace("Frame IWICMetadataBlockReader.GetEnumerator called");
+            Log.Error("Frame IWICMetadataBlockReader.GetEnumerator called");
             throw new NotImplementedException();
         }
 

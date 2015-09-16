@@ -48,7 +48,7 @@ namespace LumixGH4WIC.Tests
             using (Stream sourceStream = File.Open(@"..\..\..\PanasonicRW2.Tests\P1350577.RW2", FileMode.Open, FileAccess.Read))
             {
                 Guid nul = Guid.Empty;
-                IStream stream = new StreamComWrapper(sourceStream);
+                var stream = new StreamComWrapper(sourceStream);
                 IWICBitmapDecoder decoder = factory.CreateDecoderFromStream(stream, nul, WICDecodeOptions.WICDecodeMetadataCacheOnDemand);
                 decoder.Initialize(stream, WICDecodeOptions.WICDecodeMetadataCacheOnLoad);
                 IWICBitmapFrameDecode frame;
@@ -67,7 +67,7 @@ namespace LumixGH4WIC.Tests
             using (Stream sourceStream = File.Open(@"..\..\..\PanasonicRW2.Tests\P1350577.RW2", FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 Guid nul = Guid.Empty;
-                IStream stream = new StreamComWrapper(sourceStream);
+                var stream = new StreamComWrapper(sourceStream);
                 IWICBitmapDecoder decoder = factory.CreateDecoderFromStream(stream, nul, WICDecodeOptions.WICDecodeMetadataCacheOnDemand);
                 decoder.Initialize(stream, WICDecodeOptions.WICDecodeMetadataCacheOnLoad);
                 Parallel.For(0, 8, new ParallelOptions { MaxDegreeOfParallelism = 8 }, (i) =>

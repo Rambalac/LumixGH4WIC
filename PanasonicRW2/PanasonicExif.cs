@@ -23,7 +23,7 @@ namespace com.azi.Decoder.Panasonic
     {
         public const int MaxBits = 12;
 
-        private static readonly Dictionary<int, PanasoncIfdTag> TagMap = new Dictionary<int, PanasoncIfdTag>
+        static readonly Dictionary<int, PanasoncIfdTag> TagMap = new Dictionary<int, PanasoncIfdTag>
         {
             {5, PanasoncIfdTag.CropLeft},
             {6, PanasoncIfdTag.CropTop},

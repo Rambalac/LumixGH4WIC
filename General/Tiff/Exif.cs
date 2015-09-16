@@ -6,7 +6,7 @@ namespace com.azi.tiff
 {
     public class Exif
     {
-        private readonly List<IfdBlock> _ifdBlocks = new List<IfdBlock>();
+        readonly List<IfdBlock> _ifdBlocks = new List<IfdBlock>();
 
         public List<IfdBlock> RawIfd => _ifdBlocks;
 
@@ -164,7 +164,7 @@ namespace com.azi.tiff
             }
         }
 
-        private void ParseIfd(BinaryReader reader)
+        void ParseIfd(BinaryReader reader)
         {
             var blocksnumber = reader.ReadUInt16();
             if (blocksnumber > 512) throw new ArgumentException("Too many items in ifd");

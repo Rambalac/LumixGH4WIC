@@ -10,7 +10,7 @@ namespace com.azi.Filters
 {
     public class FiltersPipeline
     {
-        private readonly List<IFilter> _filters;
+        readonly List<IFilter> _filters;
 
         public FiltersPipeline(IEnumerable<IFilter> filters)
         {
@@ -79,16 +79,15 @@ namespace com.azi.Filters
                     return ConvertToRGB((VectorMap)map, (VectorToColorFilter<byte>)filter);
                 }
                 else
-                    throw new NotSupportedException("Not supported Filter: " + filter.GetType() + " for Map: " +
-                                                    map.GetType());
+                    throw new NotSupportedException($"Not supported Filter: {filter.GetType()} for Map: {map.GetType()}");
             }
             else
             {
-                throw new NotSupportedException("Not supported Map: " + map.GetType());
+                throw new NotSupportedException($"Not supported Map: {map.GetType()}");
             }
         }
 
-        private static VectorMap ApplySingleFilter(VectorMap map, VectorToVectorFilter filter)
+        static VectorMap ApplySingleFilter(VectorMap map, VectorToVectorFilter filter)
         {
             var result = new VectorMap(map.Width, map.Height);
             Parallel.For(0, map.Height, y =>
@@ -105,7 +104,7 @@ namespace com.azi.Filters
             return result;
         }
 
-        private static RGB8Map ConvertToRGB(VectorMap map, VectorToColorFilter<byte> filter)
+        static RGB8Map ConvertToRGB(VectorMap map, VectorToColorFilter<byte> filter)
         {
             var result = new RGB8Map(map.Width, map.Height);
             Parallel.For(0, map.Height, y =>
@@ -121,7 +120,7 @@ namespace com.azi.Filters
             });
             return result;
         }
-        private static Vector3[] InitVector3Array(int maxIndex)
+        static Vector3[] InitVector3Array(int maxIndex)
         {
             var curve = ArraysReuseManager.ReuseOrGetNew<Vector3>(maxIndex + 1);
 
@@ -133,7 +132,7 @@ namespace com.azi.Filters
             return curve;
         }
 
-        private static ushort[][] InitUshortArray(int maxIndex)
+        static ushort[][] InitUshortArray(int maxIndex)
         {
             var curve = new[] { ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1) }; ;
 
@@ -144,7 +143,7 @@ namespace com.azi.Filters
             return curve;
         }
 
-        private static byte[][] InitByteArray(int maxIndex)
+        static byte[][] InitByteArray(int maxIndex)
         {
             var curve = new[] { ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1) }; ;
 
@@ -155,7 +154,7 @@ namespace com.azi.Filters
             return curve;
         }
 
-        private static object ConvertToCurve(
+        static object ConvertToCurve(
             ICollection<IIndependentComponentFilter> indFilters, int maxIndex)
         {
             object curvein = null;
@@ -184,7 +183,7 @@ namespace com.azi.Filters
             return curvein;
         }
 
-        private static IColorMap ApplyIndependentColorFilters(IColorMap map,
+        static IColorMap ApplyIndependentColorFilters(IColorMap map,
             ICollection<IIndependentComponentFilter> indColorFilters)
         {
             if (map is UshortColorMap)
@@ -210,7 +209,7 @@ namespace com.azi.Filters
             throw new NotSupportedException($"Map is not supported: {map.GetType()}");
         }
 
-        private static IColorMap ApplyCurve(UshortColorMap map, object curve)
+        static IColorMap ApplyCurve(UshortColorMap map, object curve)
         {
             //GC.Collect(2, GCCollectionMode.Forced, true, true);
 
@@ -223,7 +222,7 @@ namespace com.azi.Filters
             throw new NotSupportedException($"Curve not supported: {curve.GetType()}");
         }
 
-        private static UshortColorMap ApplyCurve(UshortColorMap map, ushort[][] curve)
+        static UshortColorMap ApplyCurve(UshortColorMap map, ushort[][] curve)
         {
             var result = new UshortColorMap(map.Width, map.Height, map.MaxBits);
             Parallel.For(0, result.Height, y =>
@@ -239,7 +238,7 @@ namespace com.azi.Filters
             return result;
         }
 
-        private static VectorMap ApplyCurve(UshortColorMap map, Vector3[] curve)
+        static VectorMap ApplyCurve(UshortColorMap map, Vector3[] curve)
         {
             var result = new VectorMap(map.Width, map.Height);
             Parallel.For(0, result.Height, y =>
@@ -255,7 +254,7 @@ namespace com.azi.Filters
             return result;
         }
 
-        private static RGB8Map ApplyCurve(UshortColorMap map, byte[][] curve)
+        static RGB8Map ApplyCurve(UshortColorMap map, byte[][] curve)
         {
             var result = new RGB8Map(map.Width, map.Height);
 

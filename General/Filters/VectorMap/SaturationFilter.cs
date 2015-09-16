@@ -7,7 +7,7 @@ namespace com.azi.Filters.VectorMapFilters
 {
     public class SaturationFilter : VectorToVectorFilter
     {
-        private float _saturation = 1;
+        float _saturation = 1;
 
         public float Saturation
         {

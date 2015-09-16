@@ -42,7 +42,7 @@ namespace com.azi.Filters
 
         static public void AddAutoAdjuster<A, F>() where A : IIIFilterAutoAdjuster, new() where F : IFilter => AddAutoAdjuster(typeof(A), typeof(F));
 
-        static private void AddAutoAdjuster(Type adjuster, Type filter)
+        static void AddAutoAdjuster(Type adjuster, Type filter)
         {
             var list = GetAutoAdjusterTypes(filter);
             list.Add(adjuster);

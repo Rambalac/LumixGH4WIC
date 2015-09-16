@@ -6,8 +6,8 @@ namespace com.azi.Filters.VectorMapFilters
 {
     public class GammaFilter : VectorToVectorFilter, IIndependentComponentFilter
     {
-        private Vector3 _gamma = new Vector3(2.2f, 2.2f, 2.2f);
-        private Vector3 _gamma1 = new Vector3(1 / 2.2f, 1 / 2.2f, 1 / 2.2f);
+        Vector3 _gamma = new Vector3(2.2f, 2.2f, 2.2f);
+        Vector3 _gamma1 = new Vector3(1 / 2.2f, 1 / 2.2f, 1 / 2.2f);
 
         public GammaFilter()
         {

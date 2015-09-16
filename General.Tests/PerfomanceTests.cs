@@ -30,7 +30,7 @@ namespace General.Tests
             const int maxIter = 5;
             for (var iter = 0; iter < maxIter; iter++)
             {
-                Stream stream = new FileStream(@"..\..\..\PanasonicRW2.Tests\P1350577.RW2", FileMode.Open,
+                var stream = new FileStream(@"..\..\..\PanasonicRW2.Tests\P1350577.RW2", FileMode.Open,
                     FileAccess.Read);
                 var decoder = new PanasonicRW2Decoder();
                 var exif = decoder.DecodeExif(stream);
@@ -70,7 +70,7 @@ namespace General.Tests
             const int maxIter = 1;
             for (var iter = 0; iter < maxIter; iter++)
             {
-                Stream stream = new FileStream(@"..\..\..\PanasonicRW2.Tests\P1460461.RW2", FileMode.Open,
+                var stream = new FileStream(@"..\..\..\PanasonicRW2.Tests\P1460461.RW2", FileMode.Open,
                     FileAccess.Read);
                 var decoder = new PanasonicRW2Decoder();
                 var exif = decoder.DecodeExif(stream);
@@ -111,7 +111,7 @@ namespace General.Tests
             const int maxIter = 5;
             for (var iter = 0; iter < maxIter; iter++)
             {
-                Stream stream = new FileStream(@"..\..\..\PanasonicRW2.Tests\P1350577.RW2", FileMode.Open,
+                var stream = new FileStream(@"..\..\..\PanasonicRW2.Tests\P1350577.RW2", FileMode.Open,
                     FileAccess.Read);
                 var debayer = new AverageBGGRDemosaic();
 

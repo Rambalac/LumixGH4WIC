@@ -14,7 +14,7 @@ namespace com.azi.Image
         public readonly int[] MaxValues;
         public readonly int[] MinIndex;
         public readonly int[][] Values;
-        private readonly int _maxIndex;
+        readonly int _maxIndex;
         public int TotalPixels;
 
         public Histogram(int maxIndex)
@@ -62,22 +62,22 @@ namespace com.azi.Image
             return ToVector(result);
         }
 
-        private int[] FromVector(Vector3 a)
+        int[] FromVector(Vector3 a)
         {
             return new[] { (int)(a.X * _maxIndex), (int)(a.Y * _maxIndex), (int)(a.Z * _maxIndex) };
         }
 
-        private Vector3 ToVector(int[] a)
+        Vector3 ToVector(int[] a)
         {
             return new Vector3(a[0] / (float)_maxIndex, a[1] / (float)_maxIndex, a[2] / (float)_maxIndex);
         }
 
-        private int[] FromFloat(IEnumerable<float> a)
+        int[] FromFloat(IEnumerable<float> a)
         {
             return a.Select(v => (int)(v * _maxIndex)).ToArray();
         }
 
-        private float[] ToFloat(IEnumerable<int> a)
+        float[] ToFloat(IEnumerable<int> a)
         {
             return a.Select(v => v / (float)_maxIndex).ToArray();
         }

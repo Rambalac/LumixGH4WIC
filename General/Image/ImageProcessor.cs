@@ -17,7 +17,7 @@ namespace com.azi.Image
 
         public static IEnumerable<ICollection<T>> Split<T>(this IEnumerable<T> elements, Func<T, bool> predicate, SplitPlace place)
         {
-            List<T> result = new List<T>();
+            var result = new List<T>();
             foreach (T element in elements)
             {
                 if (predicate(element))
@@ -49,8 +49,9 @@ namespace com.azi.Image
             public IFilter Filter { get; set; }
             public IIIFilterAutoAdjuster AutoAdjuster { get; set; }
         }
-        RawMap raw;
-        List<Stage> stages;
+
+        readonly RawMap raw;
+        readonly List<Stage> stages;
 
         public ImageProcessor(RawMap raw, IEnumerable<IFilter> filters)
         {
@@ -68,7 +69,7 @@ namespace com.azi.Image
             }).ToList();
         }
 
-        private void OnFilterChange(IFilter obj)
+        void OnFilterChange(IFilter obj)
         {
         }
 

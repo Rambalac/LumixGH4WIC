@@ -4,9 +4,9 @@ namespace com.azi.Image
 {
     public class RawPixel
     {
-        private readonly int _limit;
-        private readonly RawMap _map;
-        private int _index;
+        readonly int _limit;
+        readonly RawMap _map;
+        int _index;
 
 
         public RawPixel(RawMap map, int x, int y, int limit)

@@ -28,9 +28,9 @@ namespace com.azi.Filters.VectorMapFilters
 
     public class WhiteBalanceFilter : VectorToVectorFilter, IIndependentComponentFilter, IAutoAdjustableFilter
     {
-        private Vector3 _whiteColor = Vector3.One;
-        private Vector3 _whiteColor1 = Vector3.One;
-        private bool isAdjusted = false;
+        Vector3 _whiteColor = Vector3.One;
+        Vector3 _whiteColor1 = Vector3.One;
+        bool isAdjusted = false;
 
         public bool IsAdjusted
         {

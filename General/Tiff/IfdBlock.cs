@@ -7,7 +7,7 @@ namespace com.azi.tiff
 {
     public class IfdBlock
     {
-        private static readonly Dictionary<int, IfdTag> TagMap = new Dictionary<int, IfdTag>
+        static readonly Dictionary<int, IfdTag> TagMap = new Dictionary<int, IfdTag>
         {
             {254, IfdTag.NewSubfileType},
             {255, IfdTag.SubfileType},
@@ -361,7 +361,7 @@ namespace com.azi.tiff
             {51125, IfdTag.DefaultUserCrop}
         };
 
-        private static readonly Dictionary<int, IfdType> IfdTypes = new Dictionary<int, IfdType>
+        static readonly Dictionary<int, IfdType> IfdTypes = new Dictionary<int, IfdType>
         {
             // 11124811248484
             {1, new IfdType {BytesLength = 1}},

@@ -5,7 +5,7 @@ namespace com.azi.Filters.VectorMapFilters
 {
     public class ColorMatrixFilter : VectorToVectorFilter
     {
-        private Matrix4x4 _matrix = Matrix4x4.Identity;
+        Matrix4x4 _matrix = Matrix4x4.Identity;
 
         public Matrix4x4 Matrix
         {

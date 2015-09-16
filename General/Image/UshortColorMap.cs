@@ -10,8 +10,8 @@ namespace com.azi.Image
         public delegate ushort CurveProcessor(int component, int index, ushort input);
 
         public readonly ushort[] Rgb;
-        private readonly int _height;
-        private readonly int _width;
+        readonly int _height;
+        readonly int _width;
 
         public int Width
         {

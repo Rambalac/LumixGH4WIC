@@ -9,10 +9,10 @@ namespace com.azi.Image
 {
     public static class Vector3Extensions
     {
-        private static double PowA(double a, double b)
+        static double PowA(double a, double b)
         {
-            int tmp = (int)(BitConverter.DoubleToInt64Bits(a) >> 32);
-            int tmp2 = (int)(b * (tmp - 1072632447) + 1072632447);
+            var tmp = (int)(BitConverter.DoubleToInt64Bits(a) >> 32);
+            var tmp2 = (int)(b * (tmp - 1072632447) + 1072632447);
             return BitConverter.Int64BitsToDouble(((long)tmp2) << 32);
         }
         public static Vector3 Pow(Vector3 a, Vector3 b) => new Vector3((float)Math.Pow(a.X, b.X),

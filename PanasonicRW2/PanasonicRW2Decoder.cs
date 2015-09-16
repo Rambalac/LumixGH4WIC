@@ -82,13 +82,13 @@ namespace com.azi.Decoder.Panasonic.Rw2
         /// <summary>
         ///     Panasonic specific bit stream
         /// </summary>
-        private class PanasonicBitStream
+        class PanasonicBitStream
         {
-            private const int Bufsize = 16384;
-            private const int LoadFlags = 8200;
-            private readonly byte[] _buf = new byte[Bufsize + 1];
-            private readonly Stream _stream;
-            private int _bitsLeft;
+            const int Bufsize = 16384;
+            const int LoadFlags = 8200;
+            readonly byte[] _buf = new byte[Bufsize + 1];
+            readonly Stream _stream;
+            int _bitsLeft;
 
             public PanasonicBitStream(Stream stream)
             {

@@ -5,9 +5,9 @@ namespace com.azi.Image
 {
     public class VectorPixel
     {
-        private readonly int _limit;
-        private readonly Vector3[] _map;
-        private int _index;
+        readonly int _limit;
+        readonly Vector3[] _map;
+        int _index;
 
         public int Offset { get { return _index; } }
 

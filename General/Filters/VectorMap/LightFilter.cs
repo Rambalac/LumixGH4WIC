@@ -35,12 +35,12 @@ namespace com.azi.Filters.VectorMapFilters
     }
     public class LightFilter : VectorToVectorFilter, IIndependentComponentFilter
     {
-        private Vector3 _contrast = Vector3.One;
-        private Vector3 _inoutLen = Vector3.One;
-        private Vector3 _maxIn = Vector3.One;
-        private Vector3 _maxOut = Vector3.One;
-        private Vector3 _minIn = Vector3.Zero;
-        private Vector3 _minOut = Vector3.Zero;
+        Vector3 _contrast = Vector3.One;
+        Vector3 _inoutLen = Vector3.One;
+        Vector3 _maxIn = Vector3.One;
+        Vector3 _maxOut = Vector3.One;
+        Vector3 _minIn = Vector3.Zero;
+        Vector3 _minOut = Vector3.Zero;
 
         public Vector3 Contrast
         {
@@ -96,7 +96,7 @@ namespace com.azi.Filters.VectorMapFilters
             _contrast = new Vector3(value, value, value);
         }
 
-        private void Recalculate()
+        void Recalculate()
         {
             _inoutLen = (_maxOut - _minOut) / (_maxIn - _minIn);
         }
