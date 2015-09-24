@@ -15,86 +15,56 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_53B3AFD4E42C3402D4D36A0DA23C2966"
-        "OwnerKey" = "8:_68574BEA6E66408BB692591242C8BA73"
+        "MsmKey" = "8:_1C76C367FB49B02D77A7BA82E014029C"
+        "OwnerKey" = "8:_23CFD510275F489BAF2C3540143C5A8C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_53B3AFD4E42C3402D4D36A0DA23C2966"
-        "OwnerKey" = "8:_6FCEB29E2D1543F7B16B3D3EEEEE42FD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_68574BEA6E66408BB692591242C8BA73"
+        "MsmKey" = "8:_23CFD510275F489BAF2C3540143C5A8C"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6FCEB29E2D1543F7B16B3D3EEEEE42FD"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_C84D5323B84E4347A7110517782E49C4"
+        "OwnerKey" = "8:_23CFD510275F489BAF2C3540143C5A8C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_78F305FBABD360F8B183C22A8DB59DEE"
-        "OwnerKey" = "8:_68574BEA6E66408BB692591242C8BA73"
+        "MsmKey" = "8:_C84D5323B84E4347A7110517782E49C4"
+        "OwnerKey" = "8:_FF5CEACAE2879C177D220771AB0527F2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_78F305FBABD360F8B183C22A8DB59DEE"
-        "OwnerKey" = "8:_6FCEB29E2D1543F7B16B3D3EEEEE42FD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FA6A940E78D43C7370FEBCFB20E69823"
-        "OwnerKey" = "8:_68574BEA6E66408BB692591242C8BA73"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FA6A940E78D43C7370FEBCFB20E69823"
-        "OwnerKey" = "8:_6FCEB29E2D1543F7B16B3D3EEEEE42FD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_FA6A940E78D43C7370FEBCFB20E69823"
-        "OwnerKey" = "8:_53B3AFD4E42C3402D4D36A0DA23C2966"
+        "MsmKey" = "8:_FF5CEACAE2879C177D220771AB0527F2"
+        "OwnerKey" = "8:_23CFD510275F489BAF2C3540143C5A8C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6FCEB29E2D1543F7B16B3D3EEEEE42FD"
+        "OwnerKey" = "8:_C84D5323B84E4347A7110517782E49C4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_68574BEA6E66408BB692591242C8BA73"
+        "OwnerKey" = "8:_23CFD510275F489BAF2C3540143C5A8C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_78F305FBABD360F8B183C22A8DB59DEE"
+        "OwnerKey" = "8:_1C76C367FB49B02D77A7BA82E014029C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_53B3AFD4E42C3402D4D36A0DA23C2966"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_FA6A940E78D43C7370FEBCFB20E69823"
+        "OwnerKey" = "8:_FF5CEACAE2879C177D220771AB0527F2"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -192,45 +162,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_53B3AFD4E42C3402D4D36A0DA23C2966"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:PanasonicRW2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=295c6ee1e964396a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_53B3AFD4E42C3402D4D36A0DA23C2966"
-                    {
-                    "Name" = "8:PanasonicRW2.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:PanasonicRW2.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D30E57EFFE0D41F185F03BE25B7009B1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_78F305FBABD360F8B183C22A8DB59DEE"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1C76C367FB49B02D77A7BA82E014029C"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:WIC, Version=2.0.0.0, Culture=neutral, PublicKeyToken=295c6ee1e964396a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_78F305FBABD360F8B183C22A8DB59DEE"
+                    "_1C76C367FB49B02D77A7BA82E014029C"
                     {
                     "Name" = "8:WIC.dll"
                     "Attributes" = "3:512"
@@ -239,7 +178,7 @@
             "SourcePath" = "8:WIC.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_D30E57EFFE0D41F185F03BE25B7009B1"
+            "Folder" = "8:_602A79CDAA1A47C18B2AE6ED80A3C7F8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -254,14 +193,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FA6A940E78D43C7370FEBCFB20E69823"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C84D5323B84E4347A7110517782E49C4"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:General, Version=1.0.0.0, Culture=neutral, PublicKeyToken=295c6ee1e964396a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_FA6A940E78D43C7370FEBCFB20E69823"
+                    "_C84D5323B84E4347A7110517782E49C4"
                     {
                     "Name" = "8:General.dll"
                     "Attributes" = "3:512"
@@ -270,7 +209,38 @@
             "SourcePath" = "8:General.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_D30E57EFFE0D41F185F03BE25B7009B1"
+            "Folder" = "8:_602A79CDAA1A47C18B2AE6ED80A3C7F8"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FF5CEACAE2879C177D220771AB0527F2"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:PanasonicRW2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=295c6ee1e964396a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FF5CEACAE2879C177D220771AB0527F2"
+                    {
+                    "Name" = "8:PanasonicRW2.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:PanasonicRW2.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_602A79CDAA1A47C18B2AE6ED80A3C7F8"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -1398,35 +1368,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_68574BEA6E66408BB692591242C8BA73"
-            {
-            "SourcePath" = "8:..\\LumixGH4WIC\\obj\\Release\\LumixGH4WIC.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D30E57EFFE0D41F185F03BE25B7009B1"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:2"
-            "OutputConfiguration" = "8:Release|Any CPU"
-            "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{89195E0E-895B-4BF6-8DDB-D50AEAF7BE76}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6FCEB29E2D1543F7B16B3D3EEEEE42FD"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_23CFD510275F489BAF2C3540143C5A8C"
             {
             "SourcePath" = "8:..\\LumixGH4WIC\\obj\\Release\\LumixGH4WIC.dll"
             "TargetName" = "8:"

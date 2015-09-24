@@ -220,6 +220,7 @@
     <Compile Include="WIC\WICRect.cs" />
     <Compile Include="WIC\WICSectionAccessLevel.cs" />
     <Compile Include="WIC\WICTiffCompressionOption.cs" />
+    <Compile Include="WIC\WinCodecErrors.cs" />
     <Compile Include="WIC\_BYTE_SIZEDARR.cs" />
     <Compile Include="WIC\_FILETIME.cs" />
     <Compile Include="WIC\_FLAGGED_WORD_BLOB.cs" />

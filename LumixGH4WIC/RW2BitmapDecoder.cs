@@ -21,21 +21,7 @@ namespace LumixGH4WIC
         internal static IWICImagingFactory GetImagingFactory()
         {
             if (ImagingFactory == null)
-                try
-                {
-                    ImagingFactory = (IWICImagingFactory)new WICImagingFactory1();
-                }
-                catch
-                {
-                    try
-                    {
-                        ImagingFactory = (IWICImagingFactory)new WICImagingFactory2();
-                    }
-                    catch
-                    {
-                        ImagingFactory = (IWICImagingFactory)new WICImagingFactory3();
-                    }
-                }
+                ImagingFactory = (IWICImagingFactory)new WICImagingFactory();
             return ImagingFactory;
         }
 
@@ -203,7 +189,8 @@ namespace LumixGH4WIC
             {
                 pdwCapability = 0;
             }
-            finally {
+            finally
+            {
                 stream.Position = position;
 
             }
