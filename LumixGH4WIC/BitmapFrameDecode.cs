@@ -63,10 +63,7 @@ namespace LumixGH4WIC
         public void CopyPalette(IWICPalette pIPalette)
         {
             Log.Trace("CopyPalette called");
-            unchecked
-            {
-                throw new COMException("No Palette", (int)0x88982f45);
-            }
+            throw new COMException("No Palette", (int)WinCodecErrors.WINCODEC_ERR_PALETTEUNAVAILABLE);
         }
 
         void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)

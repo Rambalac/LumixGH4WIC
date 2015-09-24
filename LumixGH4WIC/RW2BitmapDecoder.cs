@@ -47,7 +47,7 @@ namespace LumixGH4WIC
         {
             Log.Error("CopyPalette called");
 
-            throw new NotImplementedException();
+            throw new COMException("No Palette", (int)WinCodecErrors.WINCODEC_ERR_PALETTEUNAVAILABLE);
         }
 
         public void GetColorContexts(uint cCount, ref IWICColorContext ppIColorContexts, out uint pcActualCount)
