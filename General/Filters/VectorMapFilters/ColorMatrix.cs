@@ -7,7 +7,7 @@ namespace com.azi.Filters.VectorMapFilters
     {
         Matrix4x4 _matrix = Matrix4x4.Identity;
 
-        public Matrix4x4 Matrix
+        virtual public Matrix4x4 Matrix
         {
             get { return _matrix; }
             set
@@ -18,7 +18,7 @@ namespace com.azi.Filters.VectorMapFilters
 
         public override void ProcessVector(ref Vector3 input, ref Vector3 output)
         {
-            output = Vector3.Transform(input, _matrix);
+            output = Vector3.Transform(input, Matrix);
         }
     }
 }
