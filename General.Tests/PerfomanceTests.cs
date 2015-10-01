@@ -9,6 +9,7 @@ using com.azi.Image;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using com.azi.Filters.Converters;
 using System.Threading.Tasks;
+using Azi.Helpers;
 
 namespace General.Tests
 {
@@ -162,7 +163,7 @@ namespace General.Tests
                 {
                     var arr = ArraysReuseManager.ReuseOrGetNew<byte>(arraySize);
                     //for (var j = 0; j < arraySize; j++) arr[j] = (byte)(j & 255);
-                    ArraysReuseManager.Release(arr);
+                    arr.Release();
                 }
             }
             stopwatch.Stop();
@@ -180,7 +181,7 @@ namespace General.Tests
                     var arr = ArraysReuseManager.ReuseOrGetNew<byte>(arraySize);
                     arr[0] = 1;
                     //for (var j = 0; j < arraySize; j++) arr[j] = (byte)(j & 255);
-                    ArraysReuseManager.Release(arr);
+                    arr.Release();
                 });
             }
             stopwatch.Stop();

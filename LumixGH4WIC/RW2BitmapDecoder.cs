@@ -1,9 +1,6 @@
 ﻿using com.azi.Decoder.Panasonic;
 using com.azi.Decoder.Panasonic.Rw2;
-using com.azi.tiff;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using WIC;

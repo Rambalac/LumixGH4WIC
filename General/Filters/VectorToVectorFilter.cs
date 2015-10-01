@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using com.azi.Image;
 using System.Numerics;
-using System;
 
 namespace com.azi.Filters
 {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using com.azi.Filters.Converters;
 using com.azi.Image;
 using System.Numerics;
+using Azi.Helpers;
 
 namespace com.azi.Filters
 {
@@ -53,7 +54,7 @@ namespace com.azi.Filters
             if (indColorFilter.Any())
             {
                 var newmap = ApplyIndependentColorFilters(currentMap, indColorFilter);
-                if (newmap!=currentMap&&currentMap != map) currentMap.Dispose();
+                if (newmap != currentMap && currentMap != map) currentMap.Dispose();
                 currentMap = newmap;
             }
             return currentMap;
@@ -65,26 +66,23 @@ namespace com.azi.Filters
             {
                 if (filter is IRawToColorMap16Filter<RawBGGRMap>)
                     return ((IRawToColorMap16Filter<RawBGGRMap>)filter).Process((RawBGGRMap)map);
-                else
-                    throw new NotSupportedException($"Not supported Filter: {filter.GetType()} for Map: {map.GetType()}");
+                throw new NotSupportedException($"Not supported Filter: {filter.GetType()} for Map: {map.GetType()}");
             }
-            else if (map is VectorMap)
+            if (map is VectorMap)
             {
                 if (filter is VectorToVectorFilter)
                 {
                     return ApplySingleFilter((VectorMap)map, (VectorToVectorFilter)filter);
                 }
-                else if (filter is VectorToColorFilter<byte>)
+
+                if (filter is VectorToColorFilter<byte>)
                 {
                     return ConvertToRGB((VectorMap)map, (VectorToColorFilter<byte>)filter);
                 }
-                else
-                    throw new NotSupportedException($"Not supported Filter: {filter.GetType()} for Map: {map.GetType()}");
+
+                throw new NotSupportedException($"Not supported Filter: {filter.GetType()} for Map: {map.GetType()}");
             }
-            else
-            {
-                throw new NotSupportedException($"Not supported Map: {map.GetType()}");
-            }
+            throw new NotSupportedException($"Not supported Map: {map.GetType()}");
         }
 
         static VectorMap ApplySingleFilter(VectorMap map, VectorToVectorFilter filter)
@@ -134,8 +132,7 @@ namespace com.azi.Filters
 
         static ushort[][] InitUshortArray(int maxIndex)
         {
-            var curve = new[] { ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1) }; ;
-
+            var curve = new[] { ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<ushort>(maxIndex + 1) };
             Parallel.For(0, maxIndex + 1, i =>
             {
                 curve[0][i] = curve[1][i] = curve[2][i] = (ushort)i;
@@ -145,8 +142,7 @@ namespace com.azi.Filters
 
         static byte[][] InitByteArray(int maxIndex)
         {
-            var curve = new[] { ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1) }; ;
-
+            var curve = new[] { ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1), ArraysReuseManager.ReuseOrGetNew<byte>(maxIndex + 1) };
             Parallel.For(0, maxIndex + 1, i =>
             {
                 curve[0][i] = curve[1][i] = curve[2][i] = (byte)(i * 255 / maxIndex);
@@ -173,7 +169,7 @@ namespace com.azi.Filters
                     {
                         var curveout = InitByteArray(maxIndex);
                         Parallel.For(0, maxIndex + 1, i => ((VectorToColorFilter<byte>)filter).ProcessColorInCurve(i, (Vector3[])curvein, curveout));
-                        ArraysReuseManager.Release((Vector3[])curvein);
+                        ((Vector3[])curvein).Release();
                         curvein = curveout;
                     }
                     else throw new NotSupportedException($"Filter is not supported: {filter.GetType()}");

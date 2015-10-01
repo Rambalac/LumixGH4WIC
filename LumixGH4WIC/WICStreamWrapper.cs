@@ -1,4 +1,4 @@
-﻿using com.azi.Image;
+﻿using Azi.Helpers;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -64,7 +64,7 @@ namespace LumixGH4WIC
                 if (offset != 0)
                 {
                     Array.Copy(buf, 0, buffer, offset, redint);
-                    ArraysReuseManager.Release(buf);
+                    buf.Release();
                 }
                 return redint;
             }

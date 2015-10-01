@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Azi.Helpers;
+using System;
 
 namespace com.azi.Image
 {
@@ -13,7 +14,7 @@ namespace com.azi.Image
     public class RawMap : IColorMap
     {
         public readonly int MaxBits;
-        public readonly ushort[] Raw;
+        public readonly ushort[][] Raw;
         readonly int _height;
         readonly int _width;
 
@@ -22,7 +23,7 @@ namespace com.azi.Image
             _width = w;
             _height = h;
             MaxBits = maxBits;
-            Raw = ArraysReuseManager.ReuseOrGetNew<ushort>(h * w);
+            Raw = Arrays.CreateRepeat(h, () => new ushort[w]);
         }
 
         public int MaxValue
@@ -40,11 +41,6 @@ namespace com.azi.Image
             get { return _height; }
         }
 
-        public RawPixel GetPixel()
-        {
-            return GetPixel(0, 0);
-        }
-
         public RawPixel GetPixel(int x, int y)
         {
             return new RawPixel(this, x, y);
@@ -52,12 +48,12 @@ namespace com.azi.Image
 
         public RawPixel GetRow(int y)
         {
-            return new RawPixel(this, 0, y, (y + 1) * Width);
+            return new RawPixel(this, 0, y, Width);
         }
 
         protected virtual void Dispose(Boolean notnative)
         {
-            ArraysReuseManager.Release(Raw);
+            Raw.Release();
         }
         public void Dispose()
         {

@@ -65,10 +65,9 @@
     <Compile Include="Filters\Converters\Demosaic\AverageBGGRDemosaic.cs" />
     <Compile Include="Filters\Converters\Demosaic\IDemosaic.cs" />
     <Compile Include="Filters\Converters\IRawToColorMap16Filter.cs" />
-    <Compile Include="Image\ArraysReuseManager.cs" />
+    <Compile Include="Image\ColorMap.cs" />
     <Compile Include="Image\ColorPixel.cs" />
     <Compile Include="Image\ImageProcessor.cs" />
-    <Compile Include="Image\Vector3Extensions.cs" />
     <Compile Include="Image\UshortColorMap.cs" />
     <Compile Include="Image\Histogram.cs" />
     <Compile Include="Image\IColorMap.cs" />
@@ -91,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="testKeyfile.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
+      <Project>{c0d409d4-5c46-44cd-b76d-ccab2c3791df}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

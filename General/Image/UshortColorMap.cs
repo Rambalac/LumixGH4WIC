@@ -1,3 +1,4 @@
+using Azi.Helpers;
 using System;
 using System.Threading.Tasks;
 
@@ -99,13 +100,13 @@ namespace com.azi.Image
         {
             var result = new Histogram(MaxValue);
 
-            ForEachPixel((comp, b) => result.AddValue(comp, b));
+            ForEachPixel((comp, b) => result.AddValue(b, comp));
             return result;
         }
 
         protected virtual void Dispose(Boolean notnative)
         {
-            ArraysReuseManager.Release(Rgb);
+            Rgb.Release();
         }
         public void Dispose()
         {

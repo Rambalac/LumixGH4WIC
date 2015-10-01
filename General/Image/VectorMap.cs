@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Azi.Helpers;
+using System;
 using System.Numerics;
 
 namespace com.azi.Image
@@ -16,7 +16,7 @@ namespace com.azi.Image
 
         protected virtual void Dispose(Boolean notnative)
         {
-            ArraysReuseManager.Release(Rgb);
+            Rgb.Release();
         }
         public void Dispose()
         {
@@ -102,9 +102,19 @@ namespace com.azi.Image
 
             ForEachPixel(b =>
             {
-                result.AddValue(0, (int)(maxIndex * b.Value.X));
-                result.AddValue(1, (int)(maxIndex * b.Value.Y));
-                result.AddValue(2, (int)(maxIndex * b.Value.Z));
+                result.AddValue((int)(maxIndex * b.Value.X), 0);
+                result.AddValue((int)(maxIndex * b.Value.Y), 1);
+                result.AddValue((int)(maxIndex * b.Value.Z), 2);
+            });
+            return result;
+        }
+        public Histogram GetCHistogram(int maxIndex)
+        {
+            var result = new Histogram(maxIndex, 1);
+
+            ForEachPixel(b =>
+            {
+                result.AddValue((int)(maxIndex * (b.Value.X + b.Value.Y + b.Value.Z) / 3), 0);
             });
             return result;
         }

@@ -6,6 +6,7 @@ namespace com.azi.Image
     {
         readonly int _limit;
         readonly RawMap _map;
+        readonly ushort[] line;
         int _index;
 
 
@@ -13,23 +14,25 @@ namespace com.azi.Image
         {
             _map = map;
             _limit = limit;
-            _index = y * map.Width + x;
+            line = map.Raw[y];
+
+            _index = x;
         }
 
         public RawPixel(RawMap map)
-            : this(map, 0, 0, map.Width * map.Height)
+            : this(map, 0, 0, map.Width)
         {
         }
 
         public RawPixel(RawMap map, int x, int y)
-            : this(map, x, y, map.Width * map.Height)
+            : this(map, x, y, map.Width)
         {
         }
 
         public ushort Value
         {
-            [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return _map.Raw[_index]; }
-            [MethodImpl(MethodImplOptions.AggressiveInlining)] set { _map.Raw[_index] = value; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return line[_index]; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)] set { line[_index] = value; }
         }
 
         public int MaxValue
@@ -38,28 +41,34 @@ namespace com.azi.Image
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ushort GetRel(int x, int y)
-        {
-            return _map.Raw[_index + x + y * _map.Width];
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public ushort SetRel(int x, int y, ushort val)
-        {
-            return _map.Raw[_index + x + y * _map.Width] = val;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void MoveNext()
         {
-            _index += 1;
+            _index ++;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void MoveNext(int step)
+        {
+            _index += step;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetAndMoveNext(ushort val)
         {
-            _map.Raw[_index] = val;
+            line[_index] = val;
             MoveNext();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ushort GetRel(int x)
+        {
+            return line[_index + x];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public ushort SetRel(int x, ushort val)
+        {
+            return line[_index + x] = val;
         }
     }
 }

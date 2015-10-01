@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using com.azi.Image;
 using System.Numerics;
 
@@ -8,7 +6,7 @@ namespace com.azi.Filters.VectorMapFilters
 {
     public class WhiteBalanceFilterAutoAdjuster : AFilterAutoAdjuster<VectorMap, WhiteBalanceFilter>
     {
-        public override void AutoAdjust(WhiteBalanceFilter f, VectorMap map)
+        public override void AutoAdjust(WhiteBalanceFilter filter, VectorMap map)
         {
             double maxbright = 0;
             Vector3 whiteColor = Vector3.One;
@@ -21,7 +19,7 @@ namespace com.azi.Filters.VectorMapFilters
                 whiteColor = color.Value;
             });
             var maxComp = whiteColor.MaxComponent();
-            f.WhiteColor = whiteColor / maxComp;
+            filter.WhiteColor = whiteColor / maxComp;
         }
 
     }

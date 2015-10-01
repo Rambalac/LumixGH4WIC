@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Azi.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -14,16 +15,20 @@ namespace com.azi.Image
         public readonly int[] MaxValues;
         public readonly int[] MinIndex;
         public readonly int[][] Values;
-        readonly int _maxIndex;
+        readonly int maxIndex;
+        readonly int comps;
         public int TotalPixels;
 
-        public Histogram(int maxIndex)
+
+
+        public Histogram(int maxIndex, int comps = 3)
         {
-            _maxIndex = maxIndex;
-            MaxValues = new int[3];
-            Values = new[] { new int[maxIndex + 1], new int[maxIndex + 1], new int[maxIndex + 1] };
-            MinIndex = new[] { maxIndex, maxIndex, maxIndex };
-            MaxIndex = new[] { 0, 0, 0 };
+            this.maxIndex = maxIndex;
+            this.comps = comps;
+            MaxValues = new int[comps];
+            Values = Arrays.CreateRepeat(comps, () => new int[maxIndex + 1]);
+            MinIndex = Arrays.CreateRepeat_(comps, maxIndex);
+            MaxIndex = Arrays.CreateRepeat_(comps, 0);
         }
 
         public RGB8Map MakeRGB8Map(int width, int height)
@@ -32,18 +37,21 @@ namespace com.azi.Image
             var max = MaxValues.Average();
             for (int x = 0; x < width; x++)
             {
-                var ind = x * width / (_maxIndex + 1);
-                var val = (Values[0][ind] + Values[1][ind] + Values[2][ind]) / 3;
+                var ind = x * width / (maxIndex + 1);
+                var val = 0;
+                for (int i = 0; i < comps; i++) val += Values[i][ind];
+                val /= comps;
                 for (int y = (int)(height - height * val / max); y < height; y++)
                     result.SetPixel(x, y, 255, 255, 255);
             }
             return result;
         }
 
-        public void AddValue(int comp, int index)
+        public void AddValue(int index, int comp = 0)
         {
             if (comp == 0) TotalPixels++;
-            if (index > _maxIndex) index = _maxIndex;
+            if (index > maxIndex) index = maxIndex;
+            if (index < 0) index = 0;
             MinIndex[comp] = Math.Min(MinIndex[comp], index);
             MaxIndex[comp] = Math.Max(MaxIndex[comp], index);
             var val = Values[comp][index]++;
@@ -56,6 +64,18 @@ namespace com.azi.Image
             return result.Cast<ushort>().ToArray();
         }
 
+        public float[] FindWeightCenter(float[] min, float[] max)
+        {
+            var result = FindWeightCenter(FromFloat(min), FromFloat(max));
+            return ToFloat(result);
+        }
+
+        public float FindWeightCenter(float min, float max)
+        {
+            var result = FindWeightCenter(FromFloat(new[] { min }), FromFloat(new[] { max }));
+            return ToFloat(result)[0];
+        }
+
         public Vector3 FindWeightCenter(Vector3? min = null, Vector3? max = null)
         {
             var result = FindWeightCenter(FromVector(min ?? new Vector3(0f, 0f, 0f)), FromVector(max ?? new Vector3(1f, 1f, 1f)));
@@ -64,36 +84,36 @@ namespace com.azi.Image
 
         int[] FromVector(Vector3 a)
         {
-            return new[] { (int)(a.X * _maxIndex), (int)(a.Y * _maxIndex), (int)(a.Z * _maxIndex) };
+            return new[] { (int)(a.X * maxIndex), (int)(a.Y * maxIndex), (int)(a.Z * maxIndex) };
         }
 
         Vector3 ToVector(int[] a)
         {
-            return new Vector3(a[0] / (float)_maxIndex, a[1] / (float)_maxIndex, a[2] / (float)_maxIndex);
+            return new Vector3(a[0] / (float)maxIndex, a[1] / (float)maxIndex, a[2] / (float)maxIndex);
         }
 
         int[] FromFloat(IEnumerable<float> a)
         {
-            return a.Select(v => (int)(v * _maxIndex)).ToArray();
+            return a.Select(v => (int)(v * maxIndex)).ToArray();
         }
 
         float[] ToFloat(IEnumerable<int> a)
         {
-            return a.Select(v => v / (float)_maxIndex).ToArray();
+            return a.Select(v => v / (float)maxIndex).ToArray();
         }
 
         public void Transform(HistogramTransformFunc func)
         {
-            var newval = new[] { new int[_maxIndex + 1], new int[_maxIndex + 1], new int[_maxIndex + 1] };
-            for (var c = 0; c < 3; c++)
-                for (var i = 0; i <= _maxIndex; i++)
+            var newval = Arrays.CreateRepeat(comps, () => new int[maxIndex + 1]);
+            for (var c = 0; c < comps; c++)
+                for (var i = 0; i <= maxIndex; i++)
                     newval[c][func(i, Values[c][i], c)] += Values[c][i];
         }
 
         public int[] FindWeightCenter(int[] min, int[] max)
         {
-            var result = new int[3];
-            for (var c = 0; c < 3; c++)
+            var result = new int[comps];
+            for (var c = 0; c < comps; c++)
             {
                 var vals = Values[c];
                 var minsum = 0;
@@ -128,6 +148,14 @@ namespace com.azi.Image
             maxout = ToFloat(max);
         }
 
+        public void FindMinMax(out float minout, out float maxout, float e1 = 0.005f, float e2 = 0.005f)
+        {
+            int[] min, max;
+            FindMinMax(out min, out max, e1, e2);
+            minout = ToFloat(min)[0];
+            maxout = ToFloat(max)[0];
+        }
+
         public void FindMinMax(out Vector3 minout, out Vector3 maxout, float e1 = 0.005f, float e2 = 0.005f)
         {
             int[] min, max;
@@ -138,20 +166,20 @@ namespace com.azi.Image
 
         public void FindMinMax(out int[] min, out int[] max, float e1 = 0.005f, float e2 = 0.005f)
         {
-            max = new[] { _maxIndex, _maxIndex, _maxIndex };
-            min = new[] { 0, 0, 0 };
+            max = Arrays.CreateRepeat_(comps, maxIndex);
+            min = Arrays.CreateRepeat_(comps, 0);
 
             var amount1 = (int)(e1 * TotalPixels);
             var amount2 = (int)(e2 * TotalPixels);
-            for (var c = 0; c < 3; c++)
+            for (var c = 0; c < comps; c++)
             {
                 var vals = Values[c];
                 var minsum = 0;
                 var maxsum = 0;
-                var start = Math.Min(1, Math.Min(MinIndex[c], _maxIndex - MaxIndex[c]));
+                var start = Math.Min(1, Math.Min(MinIndex[c], maxIndex - MaxIndex[c]));
 
                 bool cont = true;
-                for (var i = start; i < _maxIndex && cont; i++)
+                for (var i = start; i < maxIndex && cont; i++)
                 {
                     cont = false;
                     minsum += vals[i];
@@ -161,14 +189,35 @@ namespace com.azi.Image
                         cont = true;
                     }
 
-                    maxsum += vals[_maxIndex - i];
+                    maxsum += vals[maxIndex - i];
                     if (maxsum < amount2)
                     {
-                        max[c] = (ushort)(_maxIndex - i);
+                        max[c] = (ushort)(maxIndex - i);
                         cont = true;
                     }
                 }
             }
+        }
+
+        public float[] GetMean()
+        {
+            float[] ret = new float[comps];
+
+            for (int c = 0; c < comps; c++)
+            {
+                int[] channelHistogram = Values[c];
+                long avg = 0;
+                long sum = 0;
+
+                for (int j = 0; j < channelHistogram.Length; j++)
+                {
+                    avg += j * channelHistogram[j];
+                    sum += channelHistogram[j];
+                }
+                ret[c] = (sum != 0) ? (float)avg / (float)sum : 0;
+            }
+
+            return ret;
         }
     }
 }

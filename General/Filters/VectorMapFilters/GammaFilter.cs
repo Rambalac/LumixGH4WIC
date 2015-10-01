@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 using static com.azi.Image.Vector3Extensions;
 
 namespace com.azi.Filters.VectorMapFilters

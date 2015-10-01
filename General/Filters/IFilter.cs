@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace com.azi.Filters
+﻿namespace com.azi.Filters
 {
     public interface IFilter
     {

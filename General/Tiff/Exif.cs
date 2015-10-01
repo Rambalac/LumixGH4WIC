@@ -157,9 +157,8 @@ namespace com.azi.tiff
                 default:
                     if (block.length <= 4)
                         block.variant = block.GetUInt32();
-                    else if (block.type == IfdType.UInt32Fraction)
-                        block.variant = block.GetFraction().ToString();
-                    else block.variant = string.Join(", ", block.rawdata);
+                    else
+                        block.variant = (block.type == IfdType.UInt32Fraction) ? block.GetFraction().ToString() : string.Join(", ", block.rawdata);
                     break;
             }
         }
