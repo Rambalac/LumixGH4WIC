@@ -3,7 +3,7 @@ using static com.azi.Image.Vector3Extensions;
 
 namespace com.azi.Filters.VectorMapFilters
 {
-    public class GammaFilter : VectorToVectorFilter, IIndependentComponentFilter
+    public class GammaFilter : IndependentComponentPixelToPixelFilter<Vector3, Vector3>
     {
         Vector3 _gamma = new Vector3(2.2f, 2.2f, 2.2f);
         Vector3 _gamma1 = new Vector3(1 / 2.2f, 1 / 2.2f, 1 / 2.2f);
@@ -27,7 +27,7 @@ namespace com.azi.Filters.VectorMapFilters
             }
         }
 
-        public override void ProcessVector(ref Vector3 input, ref Vector3 output)
+        public override void ProcessPixel(ref Vector3 input, ref Vector3 output)
         {
             output = Pow(input, _gamma1);
         }

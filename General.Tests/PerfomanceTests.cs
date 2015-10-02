@@ -45,7 +45,7 @@ namespace General.Tests
                 var light = new LightFilter();
                 //light.AutoAdjust(color16Image);
 
-                var compressor = new VectorRGBCompressorFilter();
+                var compressor = new VectorBGRACompressorFilter();
                 var pipeline = new FiltersPipeline(new IFilter[]
                 {
                     debayer,
@@ -86,7 +86,7 @@ namespace General.Tests
                 var light = new LightFilter();
                 //light.AutoAdjust(color16Image);
 
-                var compressor = new VectorRGBCompressorFilter();
+                var compressor = new VectorBGRACompressorFilter();
                 var pipeline = new FiltersPipeline(new IFilter[]
                 {
                     debayer,
@@ -124,7 +124,7 @@ namespace General.Tests
                 var light = new LightFilter();
                 //light.AutoAdjust(color16Image);
 
-                var compressor = new VectorRGBCompressorFilter();
+                var compressor = new VectorBGRACompressorFilter();
                 var filters = new IFilter[]
                 {
                     debayer,

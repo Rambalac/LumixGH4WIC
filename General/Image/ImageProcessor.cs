@@ -48,10 +48,10 @@ namespace com.azi.Image
             public IIIFilterAutoAdjuster AutoAdjuster { get; set; }
         }
 
-        readonly RawMap raw;
+        readonly IColorMap raw;
         readonly List<Stage> stages;
 
-        public ImageProcessor(RawMap raw, IEnumerable<IFilter> filters)
+        public ImageProcessor(IColorMap raw, IEnumerable<IFilter> filters)
         {
             this.raw = raw;
             stages = filters.Select(f =>
@@ -88,7 +88,6 @@ namespace com.azi.Image
                         image = newimage;
                     }
                     IColorMap imagetoadjust = image;
-                    if (image is UshortColorMap && last.AutoAdjuster is IIFilterAutoAdjuster<VectorMap>) imagetoadjust = new UshortToVector().Process((UshortColorMap)image);
                     last.AutoAdjuster.AutoAdjust(last.Filter, imagetoadjust);
                     if (image != imagetoadjust) imagetoadjust.Dispose();
                     last.AutoAdjuster = null;

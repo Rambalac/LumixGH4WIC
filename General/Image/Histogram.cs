@@ -31,9 +31,9 @@ namespace com.azi.Image
             MaxIndex = Arrays.CreateRepeat_(comps, 0);
         }
 
-        public RGB8Map MakeRGB8Map(int width, int height)
+        public ColorMap<BGRA8> MakeRGB8Map(int width, int height)
         {
-            var result = new RGB8Map(width, height);
+            var result = new ColorMap<BGRA8>(width, height);
             var max = MaxValues.Average();
             for (int x = 0; x < width; x++)
             {
@@ -42,7 +42,7 @@ namespace com.azi.Image
                 for (int i = 0; i < comps; i++) val += Values[i][ind];
                 val /= comps;
                 for (int y = (int)(height - height * val / max); y < height; y++)
-                    result.SetPixel(x, y, 255, 255, 255);
+                    result.SetPixel(x, y, new BGRA8(255, 255, 255, 255));
             }
             return result;
         }
