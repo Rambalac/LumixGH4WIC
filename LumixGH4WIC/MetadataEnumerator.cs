@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using WIC;
 
 namespace LumixGH4WIC
@@ -74,7 +73,7 @@ namespace LumixGH4WIC
         {
             Log.Trace("MetadataHandlerInfo.GetDeviceModels called");
             SetString("Lumix GH4", size, buf, out actual);
-            Log.Trace("MetadataHandlerInfo.GetDeviceModels finished: "+buf);
+            Log.Trace("MetadataHandlerInfo.GetDeviceModels finished: " + buf);
         }
 
         public void GetFriendlyName([In] uint size, StringBuilder buf, out uint actual)
@@ -258,7 +257,7 @@ namespace LumixGH4WIC
             var id = ushort.Parse(match.Groups["id"].Value);
             var tag = exif.RawIfd.FirstOrDefault(i => i.rawtag == id);
             Marshal.GetNativeVariantForObject(tag?.variant, pvarValue);
-            Log.Trace("MetadataEnumerator.GetMetadataByName finished: " + tag?.variant);
+            Log.Trace($"MetadataEnumerator.GetMetadataByName finished tag :{tag != null} {tag?.tag} : {tag?.variant}");
         }
 
         public void GetEnumerator(out IEnumString ppIEnumString)
