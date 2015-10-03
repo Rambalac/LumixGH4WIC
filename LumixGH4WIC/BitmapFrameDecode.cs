@@ -7,11 +7,8 @@ using com.azi.Filters.VectorMapFilters;
 using com.azi.Image;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Numerics;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
 using WIC;
 
 namespace LumixGH4WIC
@@ -34,7 +31,7 @@ namespace LumixGH4WIC
 
         PanasonicExif exif;
         Stream stream;
-        RGB8Map rgbmap;
+        ColorMap<BGRA8> rgbmap;
 
         public BitmapFrameDecode(Stream _stream, PanasonicExif _exif)
         {
@@ -42,7 +39,7 @@ namespace LumixGH4WIC
             stream = _stream;
         }
 
-        RawMap ReadRaw()
+        ColorMap<ushort> ReadRaw()
         {
             var position = stream.Position;
             try
@@ -63,35 +60,24 @@ namespace LumixGH4WIC
         public void CopyPalette(IWICPalette pIPalette)
         {
             Log.Trace("CopyPalette called");
-            unchecked
-            {
-                throw new COMException("No Palette", (int)0x88982f45);
-            }
+            throw new COMException("No Palette", (int)WinCodecErrors.WINCODEC_ERR_PALETTEUNAVAILABLE);
         }
 
-        void CopyRGB(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
+        unsafe void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] pbBuffer)
         {
             BuildRGB();
 
-            for (int y = prc.Y; y < prc.Y + prc.Height; y++)
-                Array.Copy(rgbmap.Rgb, rgbmap.Stride * y + prc.X * 3, pbBuffer, cbStride * (y - prc.Y), prc.Width * 3);
-        }
-
-        void CopyBGRA(ref WICRect prc, uint cbStride, uint cbBufferSize, byte[] buff)
-        {
-            BuildRGB();
-            for (int y = prc.Y; y < prc.Y + prc.Height; y++)
+            fixed (byte* p = pbBuffer)
             {
-                var pix = rgbmap.GetPixel(prc.X, y);
-                int off = (int)cbStride * (y - prc.Y);
-                for (int x = 0; x < prc.Width; x++)
+                var dest = p;
+                for (int y = prc.Y; y < prc.Y + prc.Height; y++)
                 {
-                    buff[off + 0] = pix.B;
-                    buff[off + 1] = pix.G;
-                    buff[off + 2] = pix.R;
-                    buff[off + 3] = 255;
-                    off += 4;
-                    pix.MoveNext();
+                    fixed (BGRA8* line = rgbmap.Values[y])
+                    {
+                        var src = (byte*)(line + prc.X);
+                        int length = prc.Width * rgbmap.BytesPerPixel;
+                        for (; length > 0; length--, dest++, src++) *dest = *src;
+                    }
                 }
             }
         }
@@ -101,13 +87,12 @@ namespace LumixGH4WIC
             var debayer = new AverageBGGRDemosaic();
 
             var white = new WhiteBalanceFilter();
-            //white.WhiteColor = exif.WhiteColor.ToVector3();
-            //white.AutoAdjust(color16Image);
+            white.WhiteColor = exif.WhiteColor.ToVector3();
 
             var gamma = new GammaFilter();
-
             var light = new LightFilter();
 
+            var satur = new SaturationFilter(3f);
             var colorMatrix = new ColorMatrixFilter
             {
                 Matrix = new[,]
@@ -117,15 +102,18 @@ namespace LumixGH4WIC
                         {0.05f, -0.47f, 1.42f}
                     }.ToMatrix4x4()
             };
-            var compressor = new VectorRGBCompressorFilter();
+            var compressor = new VectorBGRACompressorFilter();
 
-            var filters = new List<IFilter>()
+            var filters = new List<IFilter>
             {
                     debayer,
-                    //white,
+                    white,
                     gamma,
+                    //new RGB2YUVFilter(),
                     light,
-                    colorMatrix,
+                    satur,
+                    //new YUV2RGBFilter(),
+                    //colorMatrix,
                     compressor
             };
             return filters;
@@ -143,7 +131,7 @@ namespace LumixGH4WIC
                     var filters = PrepareFilters();
 
                     var processor = new ImageProcessor(map, filters);
-                    rgbmap = (RGB8Map)processor.Invoke();
+                    rgbmap = (ColorMap<BGRA8>)processor.Invoke();
                     map.Dispose();
                 }
             }
@@ -166,8 +154,8 @@ namespace LumixGH4WIC
         public void GetPixelFormat(out Guid pPixelFormat)
         {
             Log.Trace("GetPixelFormat called");
-            //pPixelFormat = GuidToWICGuid(GUID_WICPixelFormat32bppBGRA);
-            pPixelFormat = GUID_WICPixelFormat24bppRGB;
+            pPixelFormat = GUID_WICPixelFormat32bppBGRA;
+            //pPixelFormat = GUID_WICPixelFormat24bppRGB;
             Log.Trace("GetPixelFormat finished");
         }
 
@@ -265,9 +253,7 @@ namespace LumixGH4WIC
             {
                 Log.Trace($"Trans CopyPixels called");
                 Log.Trace($"Trans CopyPixels called: {uiWidth}, {uiHeight} {dstFormat}");
-                if (dstFormat == GUID_WICPixelFormat24bppRGB)
-                    CopyRGB(ref prc, nStride, cbBufferSize, pbBuffer);
-                else if (dstFormat == GUID_WICPixelFormat32bppBGRA)
+                if (dstFormat == GUID_WICPixelFormat32bppBGRA)
                     CopyBGRA(ref prc, nStride, cbBufferSize, pbBuffer);
                 if (prc.Y + prc.Height == rgbmap.Height) rgbmap.Dispose();
                 Log.Trace("CopyPixels finished");
@@ -286,7 +272,7 @@ namespace LumixGH4WIC
             try
             {
                 //Log.Trace($"CopyPixels rgbmap {rgbmap.Width}, {rgbmap.Height}");
-                CopyRGB(ref prc, cbStride, cbBufferSize, pbBuffer);
+                CopyBGRA(ref prc, cbStride, cbBufferSize, pbBuffer);
                 if (prc.Y + prc.Height == rgbmap.Height) rgbmap.Dispose();
                 //Log.Trace("CopyPixels finished");
             }

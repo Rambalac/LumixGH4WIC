@@ -4,10 +4,10 @@ using com.azi.tiff;
 
 namespace com.azi.Decoder
 {
-    public interface IRawDecoder
+    public interface IRawDecoder<T>
     {
         bool IsSupported(Stream stream);
         Exif DecodeExif(Stream stream);
-        RawMap DecodeMap(Stream stream, Exif exif);
+        ColorMap<T> DecodeMap(Stream stream, Exif exif);
     }
 }

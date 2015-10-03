@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace com.azi.Image
+namespace Azi.Helpers
 {
     public static class ArraysReuseManager
     {
@@ -34,8 +30,8 @@ namespace com.azi.Image
                     }
                     return new T[size];
                 }
-                else
-                    return new T[size];
+
+                return new T[size];
             }
         }
 
@@ -44,7 +40,8 @@ namespace com.azi.Image
             if (size < MinSizeLimit) return new R[size];
             return _ArraysReuseManager<R>.ReuseOrGetNew(size);
         }
-        public static void Release<R>(R[] arr)
+
+        public static void Release<R>(this R[] arr)
         {
             if (arr.Length < MinSizeLimit) return;
             _ArraysReuseManager<R>.Release(arr);

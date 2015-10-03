@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace com.azi.Image
 {
@@ -22,7 +18,7 @@ namespace com.azi.Image
         public static Vector3 Log(Vector3 a, Vector3 b) => new Vector3((float)Math.Log(a.X, b.X),
                                                                        (float)Math.Log(a.Y, b.Y),
                                                                        (float)Math.Log(a.Z, b.Z));
-
+        public static Vector3 Intensity(this Vector3 a) => new Vector3(Vector3.Dot(a, new Vector3(0.299f, 0.587f, 0.114f)));
         public static Vector3 Average(this Vector3 a) => new Vector3((a.X + a.Y + a.Z) / 3);
 
         public static float MaxComponent(this Vector3 a) => Math.Max(a.X, Math.Max(a.Y, a.Z));

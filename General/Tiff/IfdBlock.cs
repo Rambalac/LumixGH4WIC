@@ -371,7 +371,7 @@ namespace com.azi.tiff
             {5, IfdType.UInt32Fraction},
             {6, new IfdType {BytesLength = 1}},
             {7, IfdType.Byte},
-            {10, IfdType.UInt32Fraction},
+            {10, IfdType.UInt32Fraction}
         };
 
         public uint length;

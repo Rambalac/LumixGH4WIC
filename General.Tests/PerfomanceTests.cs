@@ -9,6 +9,7 @@ using com.azi.Image;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using com.azi.Filters.Converters;
 using System.Threading.Tasks;
+using Azi.Helpers;
 
 namespace General.Tests
 {
@@ -44,7 +45,7 @@ namespace General.Tests
                 var light = new LightFilter();
                 //light.AutoAdjust(color16Image);
 
-                var compressor = new VectorRGBCompressorFilter();
+                var compressor = new VectorBGRACompressorFilter();
                 var pipeline = new FiltersPipeline(new IFilter[]
                 {
                     debayer,
@@ -85,7 +86,7 @@ namespace General.Tests
                 var light = new LightFilter();
                 //light.AutoAdjust(color16Image);
 
-                var compressor = new VectorRGBCompressorFilter();
+                var compressor = new VectorBGRACompressorFilter();
                 var pipeline = new FiltersPipeline(new IFilter[]
                 {
                     debayer,
@@ -123,7 +124,7 @@ namespace General.Tests
                 var light = new LightFilter();
                 //light.AutoAdjust(color16Image);
 
-                var compressor = new VectorRGBCompressorFilter();
+                var compressor = new VectorBGRACompressorFilter();
                 var filters = new IFilter[]
                 {
                     debayer,
@@ -162,7 +163,7 @@ namespace General.Tests
                 {
                     var arr = ArraysReuseManager.ReuseOrGetNew<byte>(arraySize);
                     //for (var j = 0; j < arraySize; j++) arr[j] = (byte)(j & 255);
-                    ArraysReuseManager.Release(arr);
+                    arr.Release();
                 }
             }
             stopwatch.Stop();
@@ -180,7 +181,7 @@ namespace General.Tests
                     var arr = ArraysReuseManager.ReuseOrGetNew<byte>(arraySize);
                     arr[0] = 1;
                     //for (var j = 0; j < arraySize; j++) arr[j] = (byte)(j & 255);
-                    ArraysReuseManager.Release(arr);
+                    arr.Release();
                 });
             }
             stopwatch.Stop();

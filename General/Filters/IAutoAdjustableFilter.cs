@@ -1,7 +1,6 @@
 ﻿using com.azi.Filters.VectorMapFilters;
 using com.azi.Image;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 

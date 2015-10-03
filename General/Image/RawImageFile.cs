@@ -5,13 +5,13 @@ using com.azi.tiff;
 
 namespace com.azi.Image
 {
-    public class RawImageFile : ImageFile
+    public class ImageFile<T> : ImageFile
     {
         Stream _stream;
-        IRawDecoder _decoder;
+        IRawDecoder<T> _decoder;
         Exif exif;
 
-        public RawMap Raw
+        public ColorMap<T> Raw
         {
             get
             {
@@ -34,7 +34,7 @@ namespace com.azi.Image
         //    Raw = raw;
         //}
 
-        public RawImageFile(Stream stream, IRawDecoder decoder)
+        public ImageFile(Stream stream, IRawDecoder<T> decoder)
         {
             if (!stream.CanSeek) throw new ArgumentException("Stream should be seekable");
             _stream = stream;

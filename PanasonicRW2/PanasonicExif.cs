@@ -38,10 +38,10 @@ namespace com.azi.Decoder.Panasonic
             {37, PanasoncIfdTag.CamMul},
             {38, PanasoncIfdTag.CamMul},
             {46, PanasoncIfdTag.Thumb},
-            {280, PanasoncIfdTag.RawOffset},
+            {280, PanasoncIfdTag.RawOffset}
         };
 
-        public ushort[] Black = new ushort[4];
+        public ushort[] Black = new ushort[3];
         public float[] CamMul;
         public int CropBottom;
 
@@ -115,13 +115,12 @@ namespace com.azi.Decoder.Panasonic
                     break;
                 case PanasoncIfdTag.Black:
                     Black[block.rawtag - 28] = block.GetUInt16();
-                    Black[3] = Black[1];
-                    block.variant = string.Join(", ", Black); ;
+                    block.variant = string.Join(", ", block.GetUInt16()); ;
                     break;
                 case PanasoncIfdTag.CamMul:
                     if (CamMul == null) CamMul = new float[3];
                     CamMul[block.rawtag - 36] = block.GetUInt16();
-                    block.variant = string.Join(", ", CamMul);
+                    block.variant = string.Join(", ", block.GetUInt16());
                     break;
                 case PanasoncIfdTag.Thumb:
                     Thumbnail = block.rawdata;

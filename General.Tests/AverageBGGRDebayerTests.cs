@@ -5,6 +5,7 @@ using com.azi.Decoder.Panasonic.Rw2;
 using com.azi.Filters.Converters.Demosaic;
 using com.azi.Image;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Numerics;
 
 namespace General.Tests
 {
@@ -24,11 +25,12 @@ namespace General.Tests
 
             var stopwatch = Stopwatch.StartNew();
             const int maxIter = 3;
+            var res = debayer.CreateResultMap(raw);
             for (var iter = 0; iter < maxIter; iter++)
-                debayer.Process((RawBGGRMap) raw);
+                debayer.ProcessMap(raw, res);
             stopwatch.Stop();
 
-            Console.WriteLine("AverageBGGRDebayer: " + stopwatch.ElapsedMilliseconds/3 + "ms");
+            Console.WriteLine("AverageBGGRDebayer: " + stopwatch.ElapsedMilliseconds / 3 + "ms");
         }
     }
 }

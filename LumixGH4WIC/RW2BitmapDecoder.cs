@@ -1,9 +1,6 @@
 ﻿using com.azi.Decoder.Panasonic;
 using com.azi.Decoder.Panasonic.Rw2;
-using com.azi.tiff;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using WIC;
@@ -21,21 +18,7 @@ namespace LumixGH4WIC
         internal static IWICImagingFactory GetImagingFactory()
         {
             if (ImagingFactory == null)
-                try
-                {
-                    ImagingFactory = (IWICImagingFactory)new WICImagingFactory1();
-                }
-                catch
-                {
-                    try
-                    {
-                        ImagingFactory = (IWICImagingFactory)new WICImagingFactory2();
-                    }
-                    catch
-                    {
-                        ImagingFactory = (IWICImagingFactory)new WICImagingFactory3();
-                    }
-                }
+                ImagingFactory = (IWICImagingFactory)new WICImagingFactory();
             return ImagingFactory;
         }
 
@@ -61,7 +44,7 @@ namespace LumixGH4WIC
         {
             Log.Error("CopyPalette called");
 
-            throw new NotImplementedException();
+            throw new COMException("No Palette", (int)WinCodecErrors.WINCODEC_ERR_PALETTEUNAVAILABLE);
         }
 
         public void GetColorContexts(uint cCount, ref IWICColorContext ppIColorContexts, out uint pcActualCount)
@@ -203,7 +186,8 @@ namespace LumixGH4WIC
             {
                 pdwCapability = 0;
             }
-            finally {
+            finally
+            {
                 stream.Position = position;
 
             }

@@ -9,14 +9,14 @@ namespace com.azi.Decoder.Panasonic.Rw2
     ///     Panasonic RW2 file decoder
     ///     Thanks to dcraw
     /// </summary>
-    public class PanasonicRW2Decoder : IRawDecoder
+    public class PanasonicRW2Decoder : IRawDecoder<ushort>
     {
         public Exif DecodeExif(Stream stream)
         {
             return PanasonicExif.Parse(stream);
         }
 
-        public RawMap DecodeMap(Stream stream, Exif _exif)
+        public ColorMap<ushort> DecodeMap(Stream stream, Exif _exif)
         {
             var exif = (PanasonicExif)_exif;
             stream.Seek(exif.RawOffset, SeekOrigin.Begin);
@@ -25,11 +25,12 @@ namespace com.azi.Decoder.Panasonic.Rw2
 
             var resultHeight = exif.ImageHeight;
             var resultWidth = exif.CropRight;
-            var map = new RawBGGRMap(resultWidth, resultHeight, 12);
-            var raw = map.GetPixel();
+            var map = new ColorMap<ushort>(resultWidth, resultHeight, 12);
             int value;
             var bits = new PanasonicBitStream(stream);
             for (row = 0; row < exif.ImageHeight; row++)
+            {
+                var line = map.GetRow(row);
                 for (col = 0; col < exif.ImageWidth; col++)
                     unchecked
                     {
@@ -62,8 +63,9 @@ namespace com.azi.Decoder.Panasonic.Rw2
                         if (value > 4098)
                             throw new Exception("Decoding error");
 
-                        raw.SetAndMoveNext((ushort)Math.Min(4095, value));
+                        line.SetAndMoveNext((ushort)Math.Min(4095, value));
                     }
+            }
             return map;
         }
 

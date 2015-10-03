@@ -8,16 +8,16 @@ using static com.azi.Image.Vector3Extensions;
 
 namespace com.azi.Filters.VectorMapFilters
 {
-    public class LightFilterAutoAdjuster : AFilterAutoAdjuster<VectorMap, LightFilter>
+    public class LightFilterAutoAdjuster : AFilterAutoAdjuster<ColorMap<Vector3>, LightFilter>
     {
-        public override void AutoAdjust(LightFilter f, VectorMap map)
+        public override void AutoAdjust(LightFilter filter, ColorMap<Vector3> map)
         {
             const int maxValue = 1023;
             var h = map.GetHistogram(maxValue);
 
             var wcenter = h.FindWeightCenter(Vector3.Zero, Vector3.One);
-            var wcenterf = (wcenter - f.MinIn) / (f.MaxIn - f.MinIn);
-            var contrast = Log(new Vector3(0.55f), wcenterf);
+            var wcenterf = (wcenter - filter.MinIn) / (filter.MaxIn - filter.MinIn);
+            var contrast = Log(new Vector3(0.5f), wcenterf) + new Vector3(0.5f);
 
             //f.Contrast = f.Contrast.Average();
 
@@ -30,10 +30,10 @@ namespace com.azi.Filters.VectorMapFilters
             //min = new Vector3(min.MinComponent());
             //max = new Vector3(max.MaxComponent());
 
-            f.Set(min, max, Vector3.Zero, Vector3.One, contrast);
+            filter.Set(min, max, Vector3.Zero, Vector3.One, contrast);
         }
     }
-    public class LightFilter : VectorToVectorFilter, IIndependentComponentFilter
+    public class LightFilter : IndependentComponentPixelToPixelFilter<Vector3, Vector3>
     {
         Vector3 _contrast = Vector3.One;
         Vector3 _inoutLen = Vector3.One;
@@ -102,10 +102,11 @@ namespace com.azi.Filters.VectorMapFilters
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override void ProcessVector(ref Vector3 input, ref Vector3 output)
+        public override void ProcessPixel(ref Vector3 input, ref Vector3 output)
         {
-            var f = Vector3.Max(Vector3.Zero, ((input - _minIn) * _inoutLen + _minOut));
-            output = Pow(f, _contrast);
+            var v = Vector3.Max(Vector3.Zero, (input - _minIn));
+
+            output = (_maxOut - _minOut) * Pow(v / (_maxIn - _minIn), Contrast) + _minOut;
         }
 
         internal void Set(Vector3 minIn, Vector3 maxIn, Vector3 minOut, Vector3 maxOut, Vector3 contrast)

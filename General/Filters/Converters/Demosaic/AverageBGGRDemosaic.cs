@@ -1,196 +1,222 @@
 using System;
 using System.Threading.Tasks;
 using com.azi.Image;
+using System.Numerics;
 
 namespace com.azi.Filters.Converters.Demosaic
 {
-    public class AverageBGGRDemosaic : IBGGRDemosaic
+    public class AverageBGGRDemosaic : Filter<ushort, Vector3>
     {
 
         // B G B G
         // G R G R
         // B G B G
         // G R G R
-        public UshortColorMap Process(RawBGGRMap file)
+        public override ColorMap<Vector3> CreateResultMap(IColorMap map)
         {
-            if (file.Width % 2 != 0 || file.Height % 2 != 0) throw new ArgumentException("Width and Height should be even");
-            var res = new UshortColorMap(file.Width, file.Height, file.MaxBits + 1);
-
-            ProcessTopLine(file, res);
-
-            ProcessMiddleRows(file, res);
-
-            ProcessBottomLine(file, res);
-
-            return res;
+            return new ColorMap<Vector3>(map.Width, map.Height, map.Bits + 1);
         }
 
-        static void ProcessMiddleRows(RawBGGRMap file, UshortColorMap res)
+        public override void ProcessMap(ColorMap<ushort> inmap, ColorMap<Vector3> outmap)
+        {
+            if (inmap.Width % 2 != 0 || inmap.Height % 2 != 0) throw new ArgumentException("Width and Height should be even");
+            float maxValue = (1 << (inmap.Bits + 1)) - 1;
+
+            ProcessTopLine(inmap, outmap, maxValue);
+
+            ProcessMiddleRows(inmap, outmap, maxValue);
+
+            ProcessBottomLine(inmap, outmap, maxValue);
+        }
+
+        static void ProcessMiddleRows(ColorMap<ushort> map, ColorMap<Vector3> res, float maxValue)
         {
             // Middle Rows
             Parallel.For(0, (res.Height - 2) / 2, yy =>
             {
                 var y = yy * 2 + 1;
-                ProcessMiddleOddRows(file.GetRow(y), res.Width, res.GetRow(y));
+                ProcessMiddleOddRows(map.GetRow(y), map.GetRow(y - 1), map.GetRow(y + 1), res.Width, res.GetRow(y), maxValue);
 
                 y++;
 
-                ProcessMiddleEvenRows(file.GetRow(y), res.Width, res.GetRow(y));
+                ProcessMiddleEvenRows(map.GetRow(y), map.GetRow(y - 1), map.GetRow(y + 1), res.Width, res.GetRow(y), maxValue);
             });
         }
 
-        static void ProcessMiddleEvenRows(RawPixel raw, int Width, ColorPixel<ushort> pix)
+        static void ProcessMiddleEvenRows(Pixel<ushort> raw0, Pixel<ushort> rawU, Pixel<ushort> rawD, int Width, Pixel<Vector3> pix, float maxValue)
         {
             // Second left pixel
             pix.SetAndMoveNext(
-                (ushort)((raw.GetRel(1, -1) + raw.GetRel(1, +1))),
-                (ushort)((raw.GetRel(0, -1) + raw.GetRel(0, +1) + (raw.GetRel(1, 0) << 1)) >> 1),
-                (ushort)(raw.Value << 1));
-            raw.MoveNext();
+                ((rawU.GetRel(1) + rawD.GetRel(1))),
+                ((rawU.GetRel(0) + rawD.GetRel(0) + (raw0.GetRel(1) << 1)) >> 1),
+                (raw0.Value << 1),
+                maxValue);
+            raw0.MoveNext();
+            rawU.MoveNext();
+            rawD.MoveNext();
 
             var lastX = Width - 1;
             for (var x = 1; x < lastX; x += 2)
             {
-                var xy = raw.Value;
-                var x1y = raw.GetRel(+1, 0);
-                var xy12 = raw.GetRel(0, -1) + raw.GetRel(0, +1);
+                var xy = raw0.Value;
+                var x1y = raw0.GetRel(+1);
+                var xy12 = rawU.GetRel(0) + rawD.GetRel(0);
 
                 pix.SetAndMoveNext(
-                    (ushort)(xy12),
-                    (ushort)(xy << 1),
-                    (ushort)((raw.GetRel(-1, 0) + x1y)));
+                    (xy12),
+                    (xy << 1),
+                    ((raw0.GetRel(-1) + x1y)),
+                maxValue);
 
                 pix.SetAndMoveNext(
-                    (ushort)((xy12 + raw.GetRel(+2, -1) + raw.GetRel(+2, +1)) >> 1),
-                    (ushort)
-                        ((xy + raw.GetRel(+2, 0) + raw.GetRel(+1, -1) + raw.GetRel(+1, +1)) >> 1),
-                    (ushort)(x1y << 1));
-                raw.MoveNext();
-                raw.MoveNext();
+                    ((xy12 + rawU.GetRel(+2) + rawD.GetRel(+2)) >> 1),
+
+                        ((xy + raw0.GetRel(+2) + rawU.GetRel(+1) + rawD.GetRel(+1)) >> 1),
+                    (x1y << 1),
+                maxValue);
+                raw0.MoveNext(2);
+                rawU.MoveNext(2);
+                rawD.MoveNext(2);
             }
 
             // Second right pixel
             pix.SetAndMoveNext(
-                (ushort)((raw.GetRel(0, -1) + raw.GetRel(0, +1))),
-                (ushort)(raw.Value << 1),
-                (ushort)(raw.GetRel(-1, 0) << 1));
-            raw.MoveNext();
+                ((rawU.GetRel(0) + rawD.GetRel(0))),
+                (raw0.Value << 1),
+                (raw0.GetRel(-1) << 1),
+                maxValue);
         }
 
-        static void ProcessMiddleOddRows(RawPixel raw, int Width, ColorPixel<ushort> pix)
+        static void ProcessMiddleOddRows(Pixel<ushort> raw0, Pixel<ushort> rawU, Pixel<ushort> rawD, int Width, Pixel<Vector3> pix, float maxValue)
         {
             // First left pixel
             pix.SetAndMoveNext(
-                (ushort)(raw.GetRel(1, 0) << 1),
-                (ushort)(raw.Value << 1),
-                (ushort)((raw.GetRel(0, -1) + raw.GetRel(0, +1))));
-            raw.MoveNext();
+                (raw0.GetRel(1) << 1),
+                (raw0.Value << 1),
+                ((rawU.GetRel(0) + rawD.GetRel(0))),
+                maxValue);
+            raw0.MoveNext();
+            rawU.MoveNext();
+            rawD.MoveNext();
 
             var lastX = Width - 1;
             for (var x = 1; x < lastX; x += 2)
             {
-                var xy = raw.Value;
-                var x1y = raw.GetRel(+1, 0);
-                var x11y12 = raw.GetRel(+1, -1) + raw.GetRel(+1, +1);
+                var xy = raw0.Value;
+                var x1y = raw0.GetRel(+1);
+                var x11y12 = rawU.GetRel(+1) + rawD.GetRel(+1);
 
                 pix.SetAndMoveNext(
-                    (ushort)(xy << 1),
-                    (ushort)((raw.GetRel(-1, 0) + x1y + raw.GetRel(0, -1) + raw.GetRel(0, +1)) >> 1),
-                    (ushort)((raw.GetRel(-1, -1) + x11y12 + raw.GetRel(-1, +1)) >> 1));
+                    (xy << 1),
+                    ((raw0.GetRel(-1) + x1y + rawU.GetRel(0) + rawD.GetRel(0)) >> 1),
+                    ((rawU.GetRel(-1) + x11y12 + rawD.GetRel(-1)) >> 1),
+                maxValue);
 
                 pix.SetAndMoveNext(
-                    (ushort)((xy + raw.GetRel(+2, 0))),
-                    (ushort)(x1y << 1),
-                    (ushort)(x11y12));
-                raw.MoveNext();
-                raw.MoveNext();
+                    ((xy + raw0.GetRel(+2))),
+                    (x1y << 1),
+                    (x11y12),
+                maxValue);
+                raw0.MoveNext(2);
+                rawU.MoveNext(2);
+                rawD.MoveNext(2);
             }
 
             // First right pixel
             pix.SetAndMoveNext(
-                (ushort)(raw.Value << 1),
-                (ushort)((raw.GetRel(0, -1) + raw.GetRel(0, +1) + (raw.GetRel(-1, 0) << 1)) >> 1),
-                (ushort)((raw.GetRel(-1, -1) + raw.GetRel(-1, +1))));
-            raw.MoveNext();
+                (raw0.Value << 1),
+                ((rawU.GetRel(0) + rawD.GetRel(0) + (raw0.GetRel(-1) << 1)) >> 1),
+                ((rawU.GetRel(-1) + rawD.GetRel(-1))),
+                maxValue);
         }
 
-        static void ProcessTopLine(RawBGGRMap map, UshortColorMap res)
+        static void ProcessTopLine(ColorMap<ushort> map, ColorMap<Vector3> res, float maxValue)
         {
-            var pix = res.GetPixel();
-            var raw = map.GetRow(0);
+            var pix = res.GetRow(0);
+            var raw0 = map.GetRow(0);
+            var rawD = map.GetRow(1);
             // Top Left pixel
 
             pix.SetAndMoveNext(
-                (ushort)(raw.GetRel(1, 1) << 1),
-                (ushort)((raw.GetRel(1, 0) + raw.GetRel(0, 1))),
-                (ushort)(raw.Value << 1));
-            raw.MoveNext();
+                (rawD.GetRel(1) << 1),
+                ((raw0.GetRel(1) + rawD.GetRel(0))),
+                (raw0.Value << 1),
+                maxValue);
+            raw0.MoveNext();
+            rawD.MoveNext();
 
             // Top row
             for (var x = 1; x < res.Width - 1; x += 2)
             {
                 pix.SetAndMoveNext(
-                    (ushort)(raw.GetRel(0, 1) << 1),
-                    (ushort)(raw.Value << 1),
-                    (ushort)((raw.GetRel(-1, 0) + raw.GetRel(+1, 0))));
+                    (rawD.GetRel(0) << 1),
+                    (raw0.Value << 1),
+                    ((raw0.GetRel(-1) + raw0.GetRel(+1))),
+                maxValue);
 
                 pix.SetAndMoveNext(
-                    (ushort)((raw.GetRel(0, 1) + raw.GetRel(+2, 1))),
-                    (ushort)((raw.Value + raw.GetRel(+2, 0) + (raw.GetRel(+1, 1) << 1)) >> 1),
-                    (ushort)(raw.GetRel(+1, 0) << 1));
-                raw.MoveNext();
-                raw.MoveNext();
+                    ((rawD.GetRel(0) + rawD.GetRel(+2))),
+                    ((raw0.Value + raw0.GetRel(+2) + (rawD.GetRel(+1) << 1)) >> 1),
+                    (raw0.GetRel(+1) << 1),
+                maxValue);
+                raw0.MoveNext(2);
+                rawD.MoveNext(2);
             }
 
             // Top right pixel
             pix.SetAndMoveNext(
-                (ushort)(raw.GetRel(res.Width - 1, 1) << 1),
-                (ushort)(raw.GetRel(res.Width - 1, 0) << 1),
-                (ushort)(raw.GetRel(res.Width - 2, 0) << 1));
-            raw.MoveNext();
+                (rawD.GetRel(-1) << 1),
+                (raw0.GetRel(-1) << 1),
+                (raw0.GetRel(-2) << 1),
+                maxValue);
         }
 
         // B G B G
         // G R G R
         // B G B G
         // G R G R
-        static void ProcessBottomLine(RawBGGRMap map, UshortColorMap res)
+        static void ProcessBottomLine(ColorMap<ushort> map, ColorMap<Vector3> res, float maxValue)
         {
-            var pix = res.GetPixel();
-            var raw = map.GetRow(res.Height - 1);
+            var pix = res.GetRow(res.Height - 1);
+            var raw0 = map.GetRow(res.Height - 1);
+            var rawU = map.GetRow(res.Height - 2);
 
             // Bottom Left pixel
             var lastY = res.Height - 1;
 
             pix.SetAndMoveNext(
-                (ushort)(raw.GetRel(1, 0) << 1),
-                (ushort)(raw.Value << 1),
-                (ushort)(raw.GetRel(0, -1) << 1));
-            raw.MoveNext();
+                (raw0.GetRel(1) << 1),
+                (raw0.Value << 1),
+                (rawU.GetRel(0) << 1),
+                maxValue);
+            raw0.MoveNext();
+            rawU.MoveNext();
 
             // Bottom row
             for (var x = 1; x < res.Width - 1; x += 2)
             {
                 pix.SetAndMoveNext(
-                    (ushort)(raw.Value << 1),
-                    (ushort)((raw.GetRel(-1, 0) + raw.GetRel(+1, 0) + raw.GetRel(0, -1) << 1) >> 1),
-                    (ushort)((raw.GetRel(-1, 0) + raw.GetRel(+1, 0))));
+                    (raw0.Value << 1),
+                    ((raw0.GetRel(-1) + raw0.GetRel(+1) + rawU.GetRel(0) << 1) >> 1),
+                    ((raw0.GetRel(-1) + raw0.GetRel(+1))),
+                maxValue);
 
                 pix.SetAndMoveNext(
-                    (ushort)((raw.Value + raw.GetRel(+2, 0))),
-                    (ushort)(raw.GetRel(+1, 0) << 1),
-                    (ushort)(raw.GetRel(+1, 0 - 1) << 1));
-
-                raw.MoveNext();
-                raw.MoveNext();
+                    ((raw0.Value + raw0.GetRel(+2))),
+                    (raw0.GetRel(+1) << 1),
+                    (rawU.GetRel(+1) << 1),
+                maxValue);
+                raw0.MoveNext(2);
+                rawU.MoveNext(2);
             }
 
             // Bottom right pixel
             pix.SetAndMoveNext(
-                (ushort)(raw.GetRel(-1, 0) << 1),
-                (ushort)((raw.GetRel(-1, -1) + raw.GetRel(-2, 0))),
-                (ushort)(raw.GetRel(-2, -1) << 1));
-            raw.MoveNext();
+                (raw0.GetRel(-1) << 1),
+                ((rawU.GetRel(-1) + raw0.GetRel(-2))),
+                (rawU.GetRel(-2) << 1),
+                maxValue);
         }
+
     }
 }
